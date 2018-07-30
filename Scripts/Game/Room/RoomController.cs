@@ -114,7 +114,6 @@ public class RoomController : MonoBehaviour
     {
         CreateRoomEnvironment(7, 11);
         PutBuildingInRoom();
-        monster.InRoom = transform.GetComponent<RoomController>();
     }
 
 

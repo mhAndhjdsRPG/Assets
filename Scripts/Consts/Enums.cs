@@ -54,6 +54,23 @@ public enum RangeCheckType
     Cycle,
     BoxCast,
     Sector,
+    NoCheker
+}
+
+
+public enum WeaponType
+{
+    axe,
+    arm,
+}
+
+public enum SlotPos
+{
+    leftHand,
+    rightHand,
+    leftFoot,
+    rightFoot,
+    back
 }
 
 public enum StrategyType
@@ -61,15 +78,3 @@ public enum StrategyType
     LockBuildingStrategy,
     LockPlayerStrategy,
 }
-
-public enum BuildingType
-{
-    UnDifine,
-    Pillar,
-    Chest,
-    Crate,
-    BonFire,
-    PoisonCauldron,
-
-}
-

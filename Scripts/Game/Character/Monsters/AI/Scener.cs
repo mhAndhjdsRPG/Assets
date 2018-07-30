@@ -30,7 +30,7 @@ public class Scener
         //只有当中间有障碍遮挡并且怪物未进入破拆模式的时候调用AStar
         if (aI.sceneRaycastHit.Length > aI.canTakeDownBuildingCount)
         {
-            aI.aStarDestinationStack = aStarPathFindingTool.SumPathFromChunk(aI.Owner.InRoom.MapChunk, aI.Owner.transform.position, aI.playerTarget.position, 3f);
+            aI.aStarDestinationStack = aStarPathFindingTool.SumPathFromChunk((ScenesManager.Instance.curScene as BattleScene).roomController.MapChunk, aI.Owner.transform.position, aI.playerTarget.position, 3f);
             aI.curDestination = AI.NullVector;
         }
         else

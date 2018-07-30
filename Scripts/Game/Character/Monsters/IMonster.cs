@@ -65,22 +65,5 @@ public abstract class IMonster : ICharacter
             return CharacterType.Monster;
         }
     }
-
-
-    protected override void InitInputManager()
-    {
-        if(inputManager != null)
-        {
-            inputManager = transform.GetComponent<InputManager>();
-            inputManager.readInput = false;
-        }
-    }
-
-
-
-    protected override void OnAwake()
-    {
-        InitInputManager();
-    }
-
+    
 }

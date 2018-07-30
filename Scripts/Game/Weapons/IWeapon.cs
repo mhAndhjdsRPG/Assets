@@ -10,6 +10,7 @@ public abstract class IWeapon : MonoBehaviour
     public ICharacter owner = null;
 
     #region 武器属性
+    [SerializeField]
     private int atk = 0;
     public int ATK
     {
@@ -45,10 +46,6 @@ public abstract class IWeapon : MonoBehaviour
     }
 
 
-
-
-
-
     #endregion
 
 
@@ -61,10 +58,23 @@ public abstract class IWeapon : MonoBehaviour
     /// </summary>
     public abstract void OnAttack();
 
+    public abstract WeaponType Type { get; }
 
     public void GetThisWeapon(ICharacter owner)
     {
         this.owner = owner;
+    }
+
+    public void BeginCheck()
+    {
+        Collider collider = GetComponent<Collider>();
+        collider.enabled = true; ;
+    }
+
+    public void StopCheck()
+    {
+        Collider collider = GetComponent<Collider>();
+        collider.enabled = false;
     }
 
 }
