@@ -22,4 +22,5 @@ public class WindowName
 {
     public const string MainMenuWindow = "MainMenuWindow";
     public const string SettingWindow = "SettingWindow";
+    public const string LoadingWindow = "LoadingWindow";
 }

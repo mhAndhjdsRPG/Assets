@@ -25,7 +25,7 @@ public class LockPlayerStrategy : IStrategy
         {
             if (aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].RangeChecker.Check(layerMask).Count != 0)
             {
-                aI.Owner.inputManager.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
+                aI.Owner.input.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
                 return;
             }
         }
@@ -85,8 +85,8 @@ public class LockPlayerStrategy : IStrategy
         Vector3 runForward = aI.curDestination - aI.Owner.transform.position;
         Vector3 inputVec = aI.Owner.transform.InverseTransformDirection(runForward);
         inputVec = (inputVec - Vector3.up * inputVec.y).normalized;
-        aI.Owner.inputManager.Horizontal = inputVec.x;
-        aI.Owner.inputManager.Vertical = inputVec.z;
+        aI.Owner.input.Horizontal = inputVec.x;
+        aI.Owner.input.Vertical = inputVec.z;
     }
 
     //private void RunStraightToPlayerTarget()

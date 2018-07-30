@@ -26,7 +26,7 @@ public class LockBuildingStrategy : IStrategy
             {
                 if (lookTrList[i].GetComponent<IBuilding>() == aI.curBuildingTarget)
                 {
-                    aI.Owner.inputManager.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
+                    aI.Owner.input.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
                 }
                 return;
             }
@@ -54,8 +54,8 @@ public class LockBuildingStrategy : IStrategy
             Vector3 runForward = aI.curBuildingTarget.transform.position - aI.Owner.transform.position;
             Vector3 inputVec = aI.Owner.transform.InverseTransformDirection(runForward);
             inputVec = (inputVec - Vector3.up * inputVec.y).normalized;
-            aI.Owner.inputManager.Horizontal = inputVec.x;
-            aI.Owner.inputManager.Vertical = inputVec.z;
+            aI.Owner.input.Horizontal = inputVec.x;
+            aI.Owner.input.Vertical = inputVec.z;
         }
         else
         {
