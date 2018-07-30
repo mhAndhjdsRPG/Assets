@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InputManager),typeof(WeaponManager))]
 public abstract class ICharacter : MonoBehaviour
 {
     /// <summary>
@@ -16,33 +17,17 @@ public abstract class ICharacter : MonoBehaviour
     /// </summary>
     public abstract CharacterType CharacterType { get; }
 
-    public InputManager inputManager;
-    public Animator animator;
-    public RoomController InRoom;
+    public InputManager input;
+    
+    public WeaponManager weaponManager;
 
+    public State state;
 
-    #region 角色状态模式的状态
-    /// <summary>
-    /// 角色状态对象
-    /// </summary>
-    private IState currentState;
-    /// <summary>
-    /// 角色状态对象访问器
-    /// </summary>
-    public IState CurrentState
-    {
-        get
-        {
-            return currentState;
-        }
-        set
-        {
-            currentState = value;
-        }
-    }
+    public AttackCalculator attackCalculator;
 
-    #endregion
-
+    [HideInInspector]
+    public Animator ani;
+    
 
     #region 角色属性
     public OnFloatChange OnMaxHPChange;
@@ -178,76 +163,25 @@ public abstract class ICharacter : MonoBehaviour
         get;
     }
 
-    protected virtual void InitAttribute()
-    {
-
-    }
-
-
+   
     #endregion
 
+    
+    public Dictionary<string, AttackInfo> skillInfoDic = new Dictionary<string, AttackInfo>();
 
-    #region 装备相关
-    /// <summary>
-    /// 拥有的武器
-    /// </summary>
-    private IWeapon ownWeapon = null;
-    /// <summary>
-    /// 拥有武器
-    /// </summary>
-    public IWeapon OwnWeapon
+
+
+    protected virtual void Awake()
     {
-        get
-        {
-            return ownWeapon;
-        }
-        protected set
-        {
-            ownWeapon = value;
-        }
+
+        ani = GetComponent<Animator>();
     }
-    #endregion
 
-
-    private void Awake()
+    protected virtual void Update()
     {
-        animator = transform.GetComponent<Animator>();
-        inputManager = transform.GetComponent<InputManager>();
-        OnAwake();
-    }
-    protected abstract void OnAwake();
-
-    private void Start()
-    {
-        OnStart();
-    }
-    protected abstract void OnStart();
-
-    private void Update()
-    {
-        OnUpdate();
-        if (CurrentState != null)
-        {
-            CurrentState.StateLoop();
-        }
+        
     }
 
 
-    protected abstract void OnUpdate();
-
-
-    public abstract void PlayRunSound();
-
-
-    protected abstract void InitAllState();
-
-
-    protected abstract void InitSkillDic();
-
-
-    protected abstract void InitInputManager();
-
-
-    public Dictionary<string, AttackInfo> allAttackInfoDic = new Dictionary<string, AttackInfo>();
-    public List<string> curCheckAtkInfoStrList = new List<string>();
+   
 }
