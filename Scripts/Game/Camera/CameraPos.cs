@@ -112,7 +112,7 @@ public class CameraPos : MonoBehaviour
 
         RotatePlayer();
 
-        //Vector3 playerHalfOrigin = playerHandler.position + playerHandler.GetComponent<CharacterController>().center;
+        Vector3 playerHalfOrigin = playerHandler.position + playerHandler.GetComponent<CharacterController>().center;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -193,7 +193,7 @@ public class CameraPos : MonoBehaviour
         //如果有遮挡前移
         Ray ray = new Ray(viewPoint.position, -transform.forward);
         RaycastHit raycast;
-        if (Physics.Raycast(ray, out raycast, Vector3.Distance(transform.position, viewPoint.position), LayerMask.GetMask("Building")))
+        if (Physics.Raycast(ray, out raycast, Vector3.Distance(transform.position, viewPoint.position), LayerMask.GetMask("Wall")))
         {
             transform.position = raycast.point + transform.forward * 0.1f;
         }

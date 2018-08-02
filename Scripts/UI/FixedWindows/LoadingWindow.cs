@@ -30,17 +30,6 @@ public class LoadingWindow : FixedWindow
     /// 将跳转过去的场景名称
     /// </summary>
     public static string nextSceneName;
-
-    /// <summary>
-    /// 加载完成时候调用的委托
-    /// </summary>
-    public delegate void LoadCompletion();
-    /// <summary>
-    /// 加载完成时候调用的委托实例
-    /// </summary>
-    public static LoadCompletion OnLoadCompletion;
-
-
     /// <summary>
     /// 进度条进度属性
     /// </summary>
@@ -110,11 +99,6 @@ public class LoadingWindow : FixedWindow
         //异步读取场景，并将此操作赋值给异步对象。
         async = SceneManager.LoadSceneAsync(sceneName);
         //读取完毕后返回， 系统会自动进入C场景
-        if (OnLoadCompletion != null)
-        {
-            OnLoadCompletion();
-            Debug.Log("On Load Completion");
-        }
         yield return null;
     }
 }
