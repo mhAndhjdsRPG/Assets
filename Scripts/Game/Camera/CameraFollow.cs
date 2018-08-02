@@ -20,10 +20,7 @@ public class CameraFollow : MonoBehaviour
 
     void FollowPlayer()
     {
-        if (Vector3.Distance(transform.position, cameraPos.transform.position) > 0.1f)
-        {
-            transform.position = Vector3.Lerp(transform.position, cameraPos.transform.position, cameraPos.followSpeed);
-            transform.rotation = cameraPos.transform.rotation;
-        }
+        transform.position = Vector3.Lerp(transform.position, cameraPos.transform.position, cameraPos.followSpeed);
+        transform.rotation = cameraPos.transform.rotation;
     }
 }
