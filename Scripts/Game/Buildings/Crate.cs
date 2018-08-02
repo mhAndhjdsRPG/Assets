@@ -16,7 +16,7 @@ public class Crate : IBuilding
     {
         get
         {
-            throw new System.NotImplementedException();
+            return CannotWalkThrough;
         }
     }
 

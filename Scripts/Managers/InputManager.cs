@@ -7,15 +7,14 @@ public class InputManager : MonoBehaviour
     public bool onlyHasInput = false;
     public bool readInput = false;
 
-    public bool fire1, fire2, fire3, fire4, _switch, roll;
+    public bool fire1, fire2, fire3, fire4, _switch;
     public Dictionary<string, bool> inputBoolDic = new Dictionary<string, bool>();
 
 
+   
 
-    [SerializeField]
-    private float horizontal;
-    [SerializeField]
-    private float vertical;
+    public float horizontal;
+    public float vertical;
     public float Horizontal
     {
         get
@@ -46,38 +45,54 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        inputBoolDic.Add("fire1", fire1);
-        inputBoolDic.Add("fire2", fire2);
-        inputBoolDic.Add("fire3", fire3);
-        inputBoolDic.Add("fire4", fire4);
-        inputBoolDic.Add("roll", roll);
-        inputBoolDic.Add("switch", _switch);
-
+        inputBoolDic.Add("Fire1", fire1);
+        inputBoolDic.Add("Fire2", fire2);
+        inputBoolDic.Add("Fire3", fire3);
+        inputBoolDic.Add("Fire4", fire4);
+        inputBoolDic.Add("Switch", _switch);
     }
 
     private void LateUpdate()
     {
-        List<string> strList = new List<string>(inputBoolDic.Keys);
-        foreach (string keyName in strList)
-        {
-            inputBoolDic[keyName] = false;
-        }
+        inputBoolDic["Fire1"] = false;
+        inputBoolDic["Fire2"] = false;
+        inputBoolDic["Fire3"] = false;
+        inputBoolDic["Fire4"] = false;
+        inputBoolDic["Switch"] = false;
     }
 
     private void Update()
     {
         if (readInput)
         {
-            List<string> strList = new List<string>(inputBoolDic.Keys);
-            foreach (string buttonName in strList)
+            if (Input.GetButtonDown("Fire1"))
             {
-                if (Input.GetButtonDown(buttonName))
-                {
-                    inputBoolDic[buttonName] = true;
-                }
+                inputBoolDic["Fire1"] = true;
+                fire1 = true;
             }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                inputBoolDic["Fire2"] = true;
+                fire2 = true;
 
+            }
+            if (Input.GetButtonDown("Fire3"))
+            {
+                inputBoolDic["Fire3"] = true;
+                fire3 = true;
 
+            }
+            if (Input.GetButtonDown("Fire4"))
+            {
+                inputBoolDic["Fire4"] = true;
+                fire4 = true;
+
+            }
+            if (Input.GetButtonDown("Switch"))
+            {
+                inputBoolDic["Switch"] = true;
+                _switch = true;
+            }
             if (onlyHasInput)
             {
                 if (Input.GetAxis("Horizontal") != 0)
@@ -97,7 +112,4 @@ public class InputManager : MonoBehaviour
         }
 
     }
-
-
-
 }
