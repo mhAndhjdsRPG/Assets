@@ -5,12 +5,6 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     /// <summary>
-    /// 已加载的窗体字典
-    /// </summary>
-    private Dictionary<string, GameObject[]> LoadedWindowDic = new Dictionary<string, GameObject[]>();
-
-
-    /// <summary>
     /// 当前操作窗体
     /// </summary>
     public WindowBase currentWindow;
@@ -32,6 +26,10 @@ public class UIManager : Singleton<UIManager>
                     canvas = GameObject.Instantiate(cAERes).transform.Find("Canvas");
                     GameObject.DontDestroyOnLoad(cAERes);
                 }
+            }
+            else
+            {
+                canvas = canvasAndEventSystem.transform.Find("Canvas");
             }
             return canvas;
         }

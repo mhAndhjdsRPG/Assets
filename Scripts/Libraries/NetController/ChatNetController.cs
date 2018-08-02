@@ -47,6 +47,7 @@ public class ChatNetController : Singleton<ChatNetController>
         }
         catch (Exception e)
         {
+            Debug.Log(e);
             socket.Close();
         }
     }
