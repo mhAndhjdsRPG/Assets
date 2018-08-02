@@ -4,23 +4,29 @@ using System.Collections.Generic;
 
 public class CycleChecker : RangeChecker
 {
+    public float radius;
 
-    public CycleChecker(float radius, int checkLayerMask, Transform startTrans) : base(checkLayerMask, startTrans)
+    public CycleChecker(float radius)
     {
         checkType = RangeCheckType.Cycle;
-
         this.radius = radius;
-
     }
 
-    private float radius;
-
-
-    public override List<Transform> Check(int layerMask = DefualtLayer)
+    public CycleChecker(float radius, int checkLayerMask):this(radius)
     {
-        int mask = layerMask == DefualtLayer ? this.checkLayerMask : layerMask;
+        this.checkLayerMask = checkLayerMask;
+    }
 
-        Collider[] colliders = Physics.OverlapSphere(startTr.position, radius,mask);
+    public CycleChecker(float radius, int checkLayerMask, Transform startTrans) : this(radius, checkLayerMask)
+    {
+        startTr = startTrans;
+    }
+    
+
+    protected override List<Transform> Check()
+    {
+        
+        Collider[] colliders = Physics.OverlapSphere(currentStartTr.position, radius,currentCheckLayerMask);
 
         List<Transform> beHitedTrans = new List<Transform>();
 
@@ -43,7 +49,7 @@ public class CycleChecker : RangeChecker
         Gizmos.color = Color.red;
 
 
-        Gizmos.DrawWireSphere(startTr.position, radius);
+        Gizmos.DrawWireSphere(currentStartTr.position, radius);
 
     }
 }

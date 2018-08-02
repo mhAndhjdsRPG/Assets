@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AttackState : State
+public class PlayerAttackState : PlayerState, IAttackState
 {
-
-    public Action<AttackState> attackStateExitEvent;
-
-    public string[] canUseAttackInfoNames;
 
     [Range(0, 1)]
     public float moveSpeed;
@@ -20,6 +16,12 @@ public class AttackState : State
     string needTriggerNameAfterCanJump;
 
     bool isStoreTrigger;
+
+
+
+    public Action<IAttackState> AttackStateExitEvent { get; set; }
+    public ICharacter Owner => owner;
+    public AttackInfo AttackInfo => attackInfo;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -55,7 +57,7 @@ public class AttackState : State
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
         owner.weaponManager.StopWeaponCheck();
-        attackStateExitEvent?.Invoke(this);
+        AttackStateExitEvent?.Invoke(this);
     }
 
 

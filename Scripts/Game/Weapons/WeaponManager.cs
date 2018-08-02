@@ -104,7 +104,7 @@ public class WeaponManager : MonoBehaviour
         }
         beginCheckWeaponSlots =new List<WeaponSlot>();
 
-        (owner.state as AttackState)?.SetAnimCanJumpToOthers();
+        (owner.state as PlayerAttackState)?.SetAnimCanJumpToOthers();
     }
 
 

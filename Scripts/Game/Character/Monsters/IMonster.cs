@@ -65,5 +65,13 @@ public abstract class IMonster : ICharacter
             return CharacterType.Monster;
         }
     }
-    
+
+    protected override void InitAttackInfoDic()
+    {
+        foreach (var state in ani.GetBehaviours<EnemyAttackState>())
+        {
+            attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
+        }
+    }
+
 }

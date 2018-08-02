@@ -11,7 +11,7 @@ public class PlayerRollState : PlayerState
         base.OnStateEnter(animator, animatorStateInfo, layerIndex);
 
         rollDir = (input.Horizontal * owner.transform.right + input.Vertical * owner.transform.forward).normalized;
-        blendParam = new Vector2(Mathf.Sign(input.Horizontal), Mathf.Sign(input.Vertical));
+        blendParam = BuildBlendParam(rollDir);
 
         owner.attackCalculator.canGetHurt = false;
     }
@@ -41,5 +41,21 @@ public class PlayerRollState : PlayerState
         ani.SetFloat("vertical", blendParam.y);
     }
 
+    Vector2 BuildBlendParam(Vector3 rollDir)
+    {
+        if (rollDir == Vector3.zero)
+        {
+            return Vector2.zero;
+        }
+
+        if (Mathf.Abs(rollDir.x) > Mathf.Abs(rollDir.z))
+        {
+            return new Vector2(Mathf.Sign(rollDir.x), rollDir.z/ rollDir.x);
+        }
+        else
+        {
+            return new Vector2(rollDir.x / rollDir.z, Mathf.Sign(rollDir.z));
+        }
+    }
     
 }

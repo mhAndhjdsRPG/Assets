@@ -6,20 +6,28 @@ public class BoxCastChecker : RangeChecker
 {
     public float width, distance;
 
-    public BoxCastChecker(float width, float distance, int checkLayerMask, Transform startTrans) : base(checkLayerMask, startTrans)
+
+    public BoxCastChecker(float width, float distance)
     {
         checkType = RangeCheckType.BoxCast;
         this.width = width;
         this.distance = distance;
     }
 
-    public override List<Transform> Check(int layerMask = DefualtLayer)
+    public BoxCastChecker(float width, float distance, int checkLayerMask):this(width,distance)
     {
-        int mask = layerMask == DefualtLayer ? this.checkLayerMask : layerMask;
+        this.checkLayerMask = checkLayerMask;
+    }
 
-        
-        Quaternion rotation = startTr.rotation;
-        Collider[] colliders = Physics.OverlapBox(startTr.position + startTr.forward * (distance / 2), new Vector3(width / 2, width / 2, distance / 2), rotation, mask);
+    public BoxCastChecker(float width, float distance, int checkLayerMask, Transform startTrans) : this(width,distance,checkLayerMask)
+    {
+        this.startTr = startTrans;
+    }
+    
+    protected override List<Transform> Check()
+    {
+        Quaternion rotation = currentStartTr.rotation;
+        Collider[] colliders = Physics.OverlapBox(currentStartTr.position + currentStartTr.forward * (distance / 2), new Vector3(width / 2, width / 2, distance / 2), rotation,currentCheckLayerMask);
         List<Transform> beHitedTrans = new List<Transform>();
         foreach (Collider col in colliders)
         {
@@ -32,19 +40,20 @@ public class BoxCastChecker : RangeChecker
         return beHitedTrans;
     }
 
+
     public override void DrawCheckArea()
     {
         Gizmos.color = Color.red;
 
-        Vector3 rightHightPoint = startTr.position + startTr.right * width / 2 + startTr.up * width / 2;
-        Vector3 rightLowPoint = startTr.position + startTr.right * width / 2 - startTr.up * width / 2;
-        Vector3 leftHightPoint = startTr.position - startTr.right * width / 2 + startTr.up * width / 2;
-        Vector3 leftLowPoint = startTr.position - startTr.right * width / 2 - startTr.up * width / 2;
+        Vector3 rightHightPoint = currentStartTr.position + currentStartTr.right * width / 2 + currentStartTr.up * width / 2;
+        Vector3 rightLowPoint = currentStartTr.position + currentStartTr.right * width / 2 - currentStartTr.up * width / 2;
+        Vector3 leftHightPoint = currentStartTr.position - currentStartTr.right * width / 2 + currentStartTr.up * width / 2;
+        Vector3 leftLowPoint = currentStartTr.position - currentStartTr.right * width / 2 - currentStartTr.up * width / 2;
 
-        Vector3 farRightHightPoint = startTr.position + startTr.right * width / 2 + startTr.up * width / 2 + startTr.forward * distance;
-        Vector3 farRightLowPoint = startTr.position + startTr.right * width / 2 - startTr.up * width / 2 + startTr.forward * distance;
-        Vector3 farLeftHightPoint = startTr.position - startTr.right * width / 2 + startTr.up * width / 2 + startTr.forward * distance;
-        Vector3 farLeftLowPoint = startTr.position - startTr.right * width / 2 - startTr.up * width / 2 + startTr.forward * distance;
+        Vector3 farRightHightPoint = currentStartTr.position + currentStartTr.right * width / 2 + currentStartTr.up * width / 2 + currentStartTr.forward * distance;
+        Vector3 farRightLowPoint = currentStartTr.position + currentStartTr.right * width / 2 - currentStartTr.up * width / 2 + currentStartTr.forward * distance;
+        Vector3 farLeftHightPoint = currentStartTr.position - currentStartTr.right * width / 2 + currentStartTr.up * width / 2 + currentStartTr.forward * distance;
+        Vector3 farLeftLowPoint = currentStartTr.position - currentStartTr.right * width / 2 - currentStartTr.up * width / 2 + currentStartTr.forward * distance;
 
         Gizmos.DrawLine(rightHightPoint, leftHightPoint);
         Gizmos.DrawLine(leftHightPoint, leftLowPoint);

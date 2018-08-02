@@ -47,7 +47,7 @@ public class AttackCalculator : MonoBehaviour
     {
         IWeapon weapon = weaponCol.GetComponent<IWeapon>();
 
-        AttackState state = weapon.owner.state as AttackState;
+        IAttackState state = weapon.owner.state as IAttackState;
         
         if (attackersInThisRound.Contains(weapon.owner))
         {
@@ -55,11 +55,11 @@ public class AttackCalculator : MonoBehaviour
         }
         else
         {
-            state.attackStateExitEvent += ReceiveAttackAfterAttackStateExit;
-            attackersInThisRound.Add(state.owner);
+            state.AttackStateExitEvent += ReceiveAttackAfterAttackStateExit;
+            attackersInThisRound.Add(state.Owner);
         }
 
-        CalculateNearAttack(weapon.owner, weapon,state.attackInfo);
+        CalculateNearAttack(weapon.owner, weapon,state.AttackInfo);
         SetGetHitAniParm();
     }
 
@@ -116,10 +116,12 @@ public class AttackCalculator : MonoBehaviour
     }
 
 
-    void ReceiveAttackAfterAttackStateExit(AttackState state)
+    void ReceiveAttackAfterAttackStateExit(IAttackState state)
     {
-        attackersInThisRound.Remove(state.owner);
-        state.attackStateExitEvent -= ReceiveAttackAfterAttackStateExit;
+        attackersInThisRound.Remove(state.Owner);
+        state.AttackStateExitEvent -= ReceiveAttackAfterAttackStateExit;
     }
+
+
 
 }
