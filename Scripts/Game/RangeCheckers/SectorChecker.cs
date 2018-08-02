@@ -4,29 +4,37 @@ using System.Collections.Generic;
 
 public class SectorChecker : RangeChecker
 {
-    float angle, radius;
+    public float angle, radius;
 
-    public SectorChecker(float radius, float angle, int checkLayerMask, Transform startTrans) : base(checkLayerMask, startTrans)
+    public SectorChecker(float radius, float angle)
     {
         checkType = RangeCheckType.Sector;
-
         this.radius = radius;
         this.angle = angle;
     }
 
-
-    public override List<Transform> Check(int layerMask = DefualtLayer)
+    public SectorChecker(float radius, float angle, int checkLayerMask):this(radius,angle)
     {
-        int mask = layerMask == DefualtLayer ? this.checkLayerMask : layerMask;
+        this.checkLayerMask = checkLayerMask;
+    }
 
-        Collider[] colliders = Physics.OverlapSphere(startTr.position, radius,mask);
+    public SectorChecker(float radius, float angle, int checkLayerMask, Transform startTrans) : this(radius, angle, checkLayerMask) 
+    {
+        startTr = startTrans;
+    }
+
+
+    protected override List<Transform> Check()
+    {
+       
+        Collider[] colliders = Physics.OverlapSphere(currentStartTr.position, radius, currentCheckLayerMask);
 
         List<Transform> beHitedTrans = new List<Transform>();
 
         foreach (Collider col in colliders)
         {
 
-            float angleBetween = Vector3.Angle(startTr.forward, col.transform.position - startTr.position);
+            float angleBetween = Vector3.Angle(currentStartTr.forward, col.transform.position - currentStartTr.position);
 
             if (angleBetween < angle / 2)
             {
@@ -47,15 +55,15 @@ public class SectorChecker : RangeChecker
     {
         Gizmos.color = Color.red;
 
-        Vector3 dirLeft = Quaternion.AngleAxis(-angle / 2, startTr.up) * startTr.forward;
-        Vector3 dirRight = Quaternion.AngleAxis(angle / 2, startTr.up) * startTr.forward;
-        Vector3 dirTop = Quaternion.AngleAxis(angle / 2, startTr.right) * startTr.forward;
-        Vector3 dirBottom = Quaternion.AngleAxis(-angle / 2, startTr.right) * startTr.forward;
+        Vector3 dirLeft = Quaternion.AngleAxis(-angle / 2, currentStartTr.up) * currentStartTr.forward;
+        Vector3 dirRight = Quaternion.AngleAxis(angle / 2, currentStartTr.up) * currentStartTr.forward;
+        Vector3 dirTop = Quaternion.AngleAxis(angle / 2, currentStartTr.right) * currentStartTr.forward;
+        Vector3 dirBottom = Quaternion.AngleAxis(-angle / 2, currentStartTr.right) * currentStartTr.forward;
 
-        Gizmos.DrawLine(startTr.position, startTr.position + dirLeft * radius);
-        Gizmos.DrawLine(startTr.position, startTr.position + dirRight * radius);
-        Gizmos.DrawLine(startTr.position, startTr.position + dirTop * radius);
-        Gizmos.DrawLine(startTr.position, startTr.position + dirBottom * radius);
-        Gizmos.DrawWireSphere(startTr.position, radius);
+        Gizmos.DrawLine(currentStartTr.position, currentStartTr.position + dirLeft * radius);
+        Gizmos.DrawLine(currentStartTr.position, currentStartTr.position + dirRight * radius);
+        Gizmos.DrawLine(currentStartTr.position, currentStartTr.position + dirTop * radius);
+        Gizmos.DrawLine(currentStartTr.position, currentStartTr.position + dirBottom * radius);
+        Gizmos.DrawWireSphere(currentStartTr.position, radius);
     }
 }

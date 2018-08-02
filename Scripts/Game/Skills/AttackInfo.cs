@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
+[Serializable]
 public class AttackInfo
 {
     public AttackInfo(string name, ICharacter owner, RangeChecker rangeChecker, float coolDown, string inputStr)
@@ -12,13 +13,19 @@ public class AttackInfo
         InputStr = inputStr;
     }
 
-
+    [SerializeField]
     private string name;
+    [SerializeField]
     private ICharacter owner;
+    [SerializeField]
     private RangeChecker rangeChecker;
+    [SerializeField]
     private bool canUse = true;
+    [SerializeField]
     private float coolDown = 0f;
+    [SerializeField]
     private string inputStr = "";
+    [SerializeField]
     private float damageRate=1f;
 
     public float CoolDown

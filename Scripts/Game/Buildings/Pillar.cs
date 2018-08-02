@@ -10,11 +10,6 @@ public class Pillar : IBuilding
             return "Pillar";
         }
     }
-    [Header("===== Setting =====")]
-    public int MinHP = 30;
-    public int MaxHP = 60;
-
-
 
     public override float Weight
     {
@@ -26,7 +21,7 @@ public class Pillar : IBuilding
 
     protected override void InitAttributes()
     {
-        HP = Random.Range(MinHP, MaxHP);
+        HP = Random.Range(30, 60);
     }
 
     protected override void OnAwake() { }

@@ -173,19 +173,9 @@ public abstract class ICharacter : MonoBehaviour
 
     protected virtual void Awake()
     {
+
         ani = GetComponent<Animator>();
     }
-
-    protected virtual void Start()
-    {
-        //需要在start中调用GetBehavior保证动画对象正确初始化
-        foreach (AttackState state in ani.GetBehaviours<AttackState>())
-        {
-            skillInfoDic.Add(state.attackInfo.Name, state.attackInfo);
-            print(skillInfoDic[state.attackInfo.Name].Name);
-        }
-    }
-
 
     protected virtual void Update()
     {
