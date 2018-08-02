@@ -19,30 +19,30 @@ public class LockBuildingStrategy : IStrategy
     public override void StrategyLoop()
     {
         //检测执行攻击指令
-        //for (int i = 0; i < aI.Owner.curCheckAtkInfoStrList.Count; i++)
-        //{
-        //    List<Transform> lookTrList = aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].RangeChecker.Check(layerMask);
-        //    if (lookTrList.Count != 0)
-        //    {
-        //        if (lookTrList[i].GetComponent<IBuilding>() == aI.curBuildingTarget)
-        //        {
-        //            aI.Owner.input.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
-        //        }
-        //        return;
-        //    }
-        //}
-        ////判断看到玩家则将目标锁定为玩家
-        //if (IsLookAtPlayer())
-        //{
-        //    aI.Strategy.ChangeStrategy(aI.LockPlayerStrategy);
-        //    return;
-        //}
-        ////向建筑目标移动
-        //else
-        //{
-        //    RunToBuildingTarget();
-        //    return;
-        //}
+        for (int i = 0; i < aI.Owner.curCheckAtkInfoStrList.Count; i++)
+        {
+            List<Transform> lookTrList = aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].RangeChecker.Check(layerMask);
+            if (lookTrList.Count != 0)
+            {
+                if (lookTrList[i].GetComponent<IBuilding>() == aI.curBuildingTarget)
+                {
+                    aI.Owner.input.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
+                }
+                return;
+            }
+        }
+        //判断看到玩家则将目标锁定为玩家
+        if (IsLookAtPlayer())
+        {
+            aI.Strategy.ChangeStrategy(aI.LockPlayerStrategy);
+            return;
+        }
+        //向建筑目标移动
+        else
+        {
+            RunToBuildingTarget();
+            return;
+        }
     }
 
 

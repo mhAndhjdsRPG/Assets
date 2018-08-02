@@ -21,14 +21,14 @@ public class LockPlayerStrategy : IStrategy
     public override void StrategyLoop()
     {
         //检测执行攻击指令
-        //for (int i = 0; i < aI.Owner.curCheckAtkInfoStrList.Count; i++)
-        //{
-        //    if (aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].RangeChecker.Check(layerMask).Count != 0)
-        //    {
-        //        aI.Owner.input.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
-        //        return;
-        //    }
-        //}
+        for (int i = 0; i < aI.Owner.curCheckAtkInfoStrList.Count; i++)
+        {
+            if (aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].RangeChecker.Check(layerMask).Count != 0)
+            {
+                aI.Owner.input.inputBoolDic[aI.Owner.allAttackInfoDic[aI.Owner.curCheckAtkInfoStrList[i]].InputStr] = true;
+                return;
+            }
+        }
         //愤怒破拆条件达成或无寻路信息时转为破拆状态
         if (IsObscuredByBuildingAndRage())
         {
