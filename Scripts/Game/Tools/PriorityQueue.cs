@@ -1,46 +1,50 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-
-public class PriorityQueue<T> where T : class, IComparable
+public class PriorityQueue : IDisposable
 {
-
-    private List<T> list = new List<T>();
+    private List<MapVecAndPriority> list = new List<MapVecAndPriority>();
 
     public int Count
     {
         get { return list.Count; }
     }
 
-    public T Dequeue()
+    public MapVecAndPriority Dequeue()
     {
-        T retT = list[0];
+        MapVecAndPriority retT = list[0];
         list.RemoveAt(0);
         return retT;
     }
 
-    public void Enqueue(T item)
+    public void Enqueue(MapVecAndPriority item)
     {
         list.Add(item);
         list.Sort();
     }
-
     public void Clear()
     {
         list.Clear();
     }
 
-    public T Peek()
+    public MapVecAndPriority GetMapVecAndPriority(int x, int y)
     {
-        if (list[0] != null)
+        for (int i = 0; i < list.Count; i++)
         {
-            return list[0];
+            if (list[i].MapChunk.MapVector.X == x && list[i].MapChunk.MapVector.Y == y)
+            {
+                return list[i];
+            }
         }
-        else
-        {
-            return null;
-        }
+        return null;
+    }
+
+    public void Dispose()
+    {
+        list.Clear();
+        list = null;
     }
 }
 

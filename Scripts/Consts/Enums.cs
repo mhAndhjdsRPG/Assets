@@ -72,3 +72,9 @@ public enum SlotPos
     rightFoot,
     back
 }
+
+public enum StrategyType
+{
+    LockBuildingStrategy,
+    LockPlayerStrategy,
+}
