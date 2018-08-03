@@ -17,48 +17,48 @@ public abstract class IModifierState
     /// 频率
     /// </summary>
     public float interval = NotUpdate;
-
-
-
     /// <summary>
     /// 结束时间
     /// </summary>
     private float endTime;
 
+    private float beginTime;
 
+    private float nextExecuteTime;
 
-    public void Create()
+    public  void Start()
     {
+        beginTime = Time.time;
         endTime = Time.time + duration;
-        OnCreate();
+        nextExecuteTime = beginTime + interval;
+        OnStart();
     }
 
-    protected abstract void OnCreate();
-
-
-    private float lastWaitTime = 0;
-    private bool isDistroyed = false;
+    protected abstract void OnStart();
+    
     public void Update()
     {
         if (Time.time <= endTime)
         {
-            lastWaitTime -= Time.deltaTime;
-            if (lastWaitTime <= 0)
-            {
-                Execute();
-                lastWaitTime = interval;
-            }
+            ExecuteIfNeed();
         }
-        else if (isDistroyed == false)
+        else 
         {
-            OnDestroy();
-            isDistroyed = true;
+            
         }
     }
 
+    void ExecuteIfNeed()
+    {
+        if (Time.time > nextExecuteTime)
+        {
+            Execute();
+            nextExecuteTime = Time.time + interval;
+        }
+    }
+
+
     protected abstract void Execute();
-
-
 
 
     public void Destroy()
