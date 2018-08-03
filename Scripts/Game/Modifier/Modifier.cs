@@ -19,7 +19,7 @@ public class Modifier
     {
         for (int i = 0; i < modifierStateList.Count; i++)
         {
-            modifierStateList[i].OnCreate();
+            modifierStateList[i].Create();
         }
     }
 
@@ -32,7 +32,7 @@ public class Modifier
     {
         for (int i = 0; i < modifierStateList.Count; i++)
         {
-            modifierStateList[i].OnUpdate();
+            modifierStateList[i].Update();
         }
     }
 
@@ -42,6 +42,9 @@ public class Modifier
         modifierStateList.Add(modifierState);
     }
 }
+
+
+
 
 
 

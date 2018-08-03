@@ -12,17 +12,17 @@ public class InvulnerableModifierState : IModifierState
         }
     }
 
-    public override void OnCreate()
+    protected override void OnCreate()
     {
         
     }
 
-    public override void OnDestroy()
+    protected override void OnDestroy()
     {
         
     }
 
-    public override void OnUpdate()
+    protected override void OnUpdate()
     {
         
     }
