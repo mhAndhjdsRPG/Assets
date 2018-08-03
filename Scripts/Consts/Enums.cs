@@ -78,3 +78,34 @@ public enum StrategyType
     LockBuildingStrategy,
     LockPlayerStrategy,
 }
+
+
+public enum EffectAttachType
+{
+    Follow_Origin,
+    Follow_Overhead,
+    Follow_Chest,
+    Follow_Head,
+    Start_at_Customorigin,
+    World_Origin
+}
+
+public enum ModifierType
+{
+    /// <summary>
+    /// 默认
+    /// </summary>
+    Default,
+    /// <summary>
+    /// 冰-火
+    /// </summary>
+    Ice_Fire,
+    /// <summary>
+    /// 生命-死亡
+    /// </summary>
+    Life_Death,
+    /// <summary>
+    /// 暗-光
+    /// </summary>
+    Dark_Optical,
+}
