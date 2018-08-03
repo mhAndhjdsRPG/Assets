@@ -22,7 +22,7 @@ public class InvulnerableModifierState : IModifierState
         
     }
 
-    protected override void OnUpdate()
+    protected override void Execute()
     {
         
     }
