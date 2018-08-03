@@ -45,7 +45,7 @@ public abstract class IModifierState
             lastWaitTime -= Time.deltaTime;
             if (lastWaitTime <= 0)
             {
-                OnUpdate();
+                Execute();
                 lastWaitTime = interval;
             }
         }
@@ -56,7 +56,7 @@ public abstract class IModifierState
         }
     }
 
-    protected abstract void OnUpdate();
+    protected abstract void Execute();
 
 
 
