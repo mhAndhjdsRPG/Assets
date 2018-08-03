@@ -36,6 +36,7 @@ public abstract class IModifierState
     protected abstract void OnCreate();
 
 
+
     private float lastWaitTime = 0;
     private bool isDistroyed = false;
     public void Update()
