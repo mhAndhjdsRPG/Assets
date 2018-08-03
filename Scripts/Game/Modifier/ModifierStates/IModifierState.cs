@@ -10,6 +10,10 @@ public abstract class IModifierState
     /// </summary>
     public Modifier modifier;
     /// <summary>
+    /// 被影响者
+    /// </summary>
+    public ICharacter owner;
+    /// <summary>
     /// 持续时间
     /// </summary>
     public float duration;
@@ -21,20 +25,15 @@ public abstract class IModifierState
     /// 结束时间
     /// </summary>
     private float endTime;
-
-    private float beginTime;
-
-    private float nextExecuteTime;
+    private float lastWaitTime=0;
 
     public  void Start()
     {
-        beginTime = Time.time;
         endTime = Time.time + duration;
-        nextExecuteTime = beginTime + interval;
         OnStart();
     }
 
-    protected abstract void OnStart();
+    
     
     public void Update()
     {
@@ -44,27 +43,27 @@ public abstract class IModifierState
         }
         else 
         {
-            
+            Destroy();
         }
     }
 
     void ExecuteIfNeed()
     {
-        if (Time.time > nextExecuteTime)
+        lastWaitTime -= Time.time;
+        if (lastWaitTime<=0)
         {
-            Execute();
-            nextExecuteTime = Time.time + interval;
+            OnExecute();
+            lastWaitTime = interval;
         }
     }
-
-
-    protected abstract void Execute();
-
+    
 
     public void Destroy()
     {
         OnDestroy();
     }
 
-    protected abstract void OnDestroy();
+    protected virtual void OnStart() { }
+    protected virtual void OnExecute() { }
+    protected virtual void OnDestroy() { }
 }

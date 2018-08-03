@@ -12,18 +12,15 @@ public class InvulnerableModifierState : IModifierState
         }
     }
 
-    protected override void OnCreate()
+    protected override void OnStart()
     {
         
     }
 
     protected override void OnDestroy()
     {
-        
+        throw new System.NotImplementedException();
     }
 
-    protected override void Execute()
-    {
-        
-    }
+
 }
