@@ -26,6 +26,6 @@ public class MainMenuScrollView : MonoBehaviour {
 
     public void OnContentPosChange(Vector2 vector2)
     {
-
+        
     }
 }
