@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class InvulnerableModifierState : IModifierState
@@ -8,18 +9,23 @@ public class InvulnerableModifierState : IModifierState
     {
         get
         {
-            return "InvulnerableModifierState";
+            return typeof(InvulnerableModifierState).ToString();
         }
     }
 
     protected override void OnStart()
     {
-        
+        owner.NotGetHurt = true;
     }
 
     protected override void OnDestroy()
     {
-        throw new System.NotImplementedException();
+        owner.NotGetHurt = false;
+    }
+
+    public override void Init(XElement element)
+    {
+        
     }
 
 

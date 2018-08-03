@@ -52,16 +52,16 @@ public class ICharacterEditor : Editor{
             character.HP = hp;
         }
 
-        atk = EditorGUILayout.FloatField("Atk", character.ATK);
-        if (atk != character.ATK)
+        atk = EditorGUILayout.FloatField("Atk", character.BaseATK);
+        if (atk != character.BaseATK)
         {
-            character.ATK = atk;
+            character.BaseATK = atk;
         }
 
-        agl = EditorGUILayout.FloatField("Agl", character.AGL);
-        if (agl != character.AGL)
+        agl = EditorGUILayout.FloatField("Agl", character.TotalAGL);
+        if (agl != character.TotalAGL)
         {
-            character.AGL = agl;
+            character.TotalAGL = agl;
         }
 
         hard = EditorGUILayout.FloatField("Hard", character.Hard);

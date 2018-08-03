@@ -36,7 +36,7 @@ public class PlayerRollState : PlayerState
 
     void Roll()
     {
-        characterController.SimpleMove(rollDir * owner.AGL);
+        characterController.SimpleMove(rollDir * owner.TotalAGL);
         ani.SetFloat("horizontal", blendParam.x);
         ani.SetFloat("vertical", blendParam.y);
     }

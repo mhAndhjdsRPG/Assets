@@ -78,7 +78,7 @@ public class AttackCalculator : MonoBehaviour
     {
         if (canGetHurt)
         {
-            owner.HP -= (info.Owner.ATK + weapon.ATK) * info.DamageRate;
+            owner.HP -= (info.Owner.BaseATK + weapon.ATK) * info.DamageRate;
         }
     }
 
@@ -87,7 +87,7 @@ public class AttackCalculator : MonoBehaviour
     {
         if (canGetHurt)
         {
-            owner.HP -= skillInfo.Owner.ATK * skillInfo.DamageRate;
+            owner.HP -= skillInfo.Owner.BaseATK * skillInfo.DamageRate;
         }
 
     }
@@ -98,14 +98,14 @@ public class AttackCalculator : MonoBehaviour
     {
         print("Weapon" + weapon.ATK);
         print("info" + skillInfo.DamageRate);
-        print("owner" + attacker.ATK);
+        print("owner" + attacker.BaseATK);
 
-        owner.HP -= (attacker.ATK + weapon.ATK) * skillInfo.DamageRate;
+        owner.HP -= (attacker.BaseATK + weapon.ATK) * skillInfo.DamageRate;
     }
 
     private void CalculateMagicAttack(IMagic magic, ICharacter attacker, AttackInfo skillInfo, IWeapon weapon)
     {
-        owner.HP -= (attacker.ATK + magic.atk + (weapon == null ? 0 : weapon.ATK)) * skillInfo.DamageRate;
+        owner.HP -= (attacker.BaseATK + magic.atk + (weapon == null ? 0 : weapon.ATK)) * skillInfo.DamageRate;
     }
 
 

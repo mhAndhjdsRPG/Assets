@@ -58,7 +58,7 @@ public class State : StateMachineBehaviour
     {
         Vector3 moveDir = (input.Horizontal * owner.transform.right + input.Vertical * owner.transform.forward).normalized;
         moveDir *= SquareToCycleLenth(input.Horizontal, input.Vertical);
-        characterController.SimpleMove(moveDir * owner.AGL*modifySpeedRate);
+        characterController.SimpleMove(moveDir * owner.TotalAGL*modifySpeedRate);
     }
 
 

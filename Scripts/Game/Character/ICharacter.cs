@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(InputManager),typeof(WeaponManager))]
+[RequireComponent(typeof(InputManager), typeof(WeaponManager))]
 public abstract class ICharacter : MonoBehaviour
 {
     /// <summary>
@@ -18,7 +18,7 @@ public abstract class ICharacter : MonoBehaviour
     public abstract CharacterType CharacterType { get; }
 
     public InputManager input;
-    
+
     public WeaponManager weaponManager;
 
     public State state;
@@ -27,9 +27,12 @@ public abstract class ICharacter : MonoBehaviour
 
     [HideInInspector]
     public Animator ani;
-    
+
 
     #region 角色属性
+
+    public bool NotGetHurt;
+
     public OnFloatChange OnMaxHPChange;
     [SerializeField, HideInInspector]
     private float maxHP;
@@ -58,44 +61,140 @@ public abstract class ICharacter : MonoBehaviour
         }
         set
         {
-            hp = value;
-            OnHPChange?.Invoke(hp, MaxHP);
+            if (NotGetHurt)
+            {
+                if (value < hp)
+                    return;
+            }
+            else
+            {
+                hp = value;
+                OnHPChange?.Invoke(hp, MaxHP);
+            }
+        }
+    }
+
+    #region Atk
+
+    [SerializeField, HideInInspector]
+    private float baseAtk;
+    public float BaseATK
+    {
+        get { return baseAtk; }
+
+        set
+        {
+            baseAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+        }
+    }
+
+
+    [SerializeField, HideInInspector]
+    private float addAtkValue;
+    public float AddAtkValue
+    {
+        get { return addAtkValue; }
+
+        set
+        {
+            addAtkValue = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+        }
+    }
+
+    [SerializeField, HideInInspector]
+    private float multipleAtkValue;
+    public float MultipleAtkValue
+    {
+        get { return multipleAtkValue; }
+
+        set
+        {
+            multipleAtkValue = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
         }
     }
 
 
     public OnFloatChange OnATKChange;
     [SerializeField, HideInInspector]
-    private float atk;
-    public float ATK
+    private float totalAtk;
+    public float TotalAtk
     {
-        get
+        get { return totalAtk; }
+
+        private set
         {
-            return atk;
+            OnAGLChange(totalAtk, value);
+            totalAtk = value;
         }
+    }
+
+
+    #endregion
+
+
+    #region Agl
+
+    [SerializeField, HideInInspector]
+    private float baseAgl;
+    public float BaseAgl
+    {
+        get { return baseAgl; }
+        set
+        {
+            baseAgl = value;
+            TotalAGL = CalculateTotalValue(BaseAgl, AddAgl, MultipleAgl);
+        }
+    }
+
+
+    [SerializeField, HideInInspector]
+    private float addAgl;
+    public float AddAgl
+    {
+        get { return addAgl; }
 
         set
         {
-            OnATKChange?.Invoke(atk, value);
-            atk = value;
+            addAgl = value;
+            TotalAGL = CalculateTotalValue(BaseAgl, AddAgl, MultipleAgl);
         }
     }
+
+
+    [SerializeField, HideInInspector]
+    private float multipleAgl;
+    public float MultipleAgl
+    {
+        get { return multipleAgl; }
+        set
+        {
+            multipleAgl = value;
+            TotalAGL = CalculateTotalValue(BaseAgl, AddAgl, MultipleAgl);
+        }
+    }
+
+
 
     public OnFloatChange OnAGLChange;
     [SerializeField, HideInInspector]
-    private float agl;
-    public float AGL
+    private float totalAgl;
+    public float TotalAGL
     {
         get
         {
-            return agl;
+            return totalAgl;
         }
         set
         {
-            OnAGLChange?.Invoke(agl, value);
-            agl = value;
+            OnAGLChange?.Invoke(totalAgl, value);
+            totalAgl = value;
         }
     }
+
+    #endregion
 
     public OnFloatChange OnHardChange;
     [SerializeField, HideInInspector]
@@ -113,6 +212,9 @@ public abstract class ICharacter : MonoBehaviour
             hard = value;
         }
     }
+
+
+
 
     /// <summary>
     /// 闪避冷却
@@ -163,10 +265,16 @@ public abstract class ICharacter : MonoBehaviour
         get;
     }
 
-   
+    static float CalculateTotalValue(float baseValue, float addValue, float multipleValue)
+    {
+        return (baseValue + addValue) * multipleValue;
+    }
+
+
+
     #endregion
 
-    
+
     public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
 
@@ -180,15 +288,16 @@ public abstract class ICharacter : MonoBehaviour
     {
         //需要在start中调用GetBehavior保证动画对象正确初始化
         InitAttackInfoDic();
+        
     }
 
 
     protected virtual void Update()
     {
-        
+
     }
 
     protected abstract void InitAttackInfoDic();
-  
+
 
 }

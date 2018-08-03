@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Xml.Linq;
 
 public abstract class IModifierState
 {
+
     private const float NotUpdate = -1f;
     public abstract string Name { get; }
     /// <summary>
@@ -61,9 +63,13 @@ public abstract class IModifierState
     public void Destroy()
     {
         OnDestroy();
+        modifier.EndThisState(this);
     }
 
     protected virtual void OnStart() { }
     protected virtual void OnExecute() { }
     protected virtual void OnDestroy() { }
+
+    //在该方法中解析
+    public abstract void Init(XElement element);
 }

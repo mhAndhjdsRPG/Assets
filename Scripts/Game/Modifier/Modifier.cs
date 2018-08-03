@@ -42,7 +42,10 @@ public class Modifier
         modifierStateList.Add(modifierState);
     }
 
-
+    public void EndThisState(IModifierState state)
+    {
+        modifierStateList.RemoveIfContains(state);
+    }
     
 }
 
