@@ -15,18 +15,8 @@ public class SettingWindow : FreeWindow
     protected override void OnAwake()
     {
         base.OnAwake();
-        for (int i = 0; i < buttonsList.Count; i++)
-        {
-            switch (buttonsList[i].name)
-            {
-                case "Btn_Back":
-                    buttonsList[i].onClick.AddListener(Btn_BackClick);
-                    break;
-                case "Btn_Save":
-                    buttonsList[i].onClick.AddListener(Btn_SaveClick);
-                    break;
-            }
-        }
+        buttonsDic["Btn_Back"].onClick.AddListener(Btn_BackClick);
+        buttonsDic["Btn_Save"].onClick.AddListener(Btn_SaveClick);
     }
 
     private void Btn_SaveClick()
