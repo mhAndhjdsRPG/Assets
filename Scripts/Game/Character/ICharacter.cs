@@ -300,4 +300,6 @@ public abstract class ICharacter : MonoBehaviour
     protected abstract void InitAttackInfoDic();
 
 
+    
+
 }
