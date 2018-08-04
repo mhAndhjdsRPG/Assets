@@ -171,7 +171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateName: 
   owner: {fileID: 0}
-  canUseAttackInfoNames: []
   moveSpeed: 0
   attackInfo:
     name: 
@@ -204,7 +203,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateName: AxeAttack1
   owner: {fileID: 0}
-  canUseAttackInfoNames: []
   moveSpeed: 0
   attackInfo:
     name: AxeAttack1
