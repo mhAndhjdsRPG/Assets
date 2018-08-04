@@ -20,35 +20,10 @@ public class CombatWindow : FixedWindow
         base.OnAwake();
         hero.OnHPChange += ShowHp;
         monster.OnHPChange += ShowMonsterHp;
-        for (int i = 0; i < buttonsList.Count; i++)
-        {
-            switch (buttonsList[i].name)
-            {
-                case "Btn_0":
-                    buttonsList[i].onClick.AddListener(Btn_0Click);
-                    break;
-                case "Btn_1":
-                    buttonsList[i].onClick.AddListener(Btn_1Click);
-                    break;
-                case "Btn_2":
-                    buttonsList[i].onClick.AddListener(Btn_2Click);
-                    break;
-            }
-        }
+        
     }
 
-    private void Btn_0Click()
-    {
-
-    }
-    private void Btn_1Click()
-    {
-
-    }
-    private void Btn_2Click()
-    {
-
-    }
+   
     private void ShowHp(float curhp, float maxhp)
     {
         imageDic["Image_HpBar"].fillAmount = curhp / maxhp;

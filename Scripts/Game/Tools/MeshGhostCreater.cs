@@ -140,6 +140,8 @@ public class GhostObjectInfo
         public Material material;
         public Matrix4x4 matrix4X4;
     }
+
+
     /// <summary>
     /// 产生一个拖影请求
     /// </summary>
@@ -162,11 +164,12 @@ public class GhostObjectInfo
         createShadowTimes = 0;
         isClear = false;
 
-        subAlphaPerSencend = endAlpha - beginAlpha / stayTime;
+        subAlphaPerSencend = endAlpha - beginAlpha / this.stayTime;
 
         AddMeshNow();
         RefreshShadow();
     }
+
 
     public void ManageShadowsInUpdate()
     {
@@ -175,6 +178,7 @@ public class GhostObjectInfo
         AddMeshAfterDurationTime();
         RefreshShadow();
     }
+
 
     public void DrawShadowInBegining()
     {
@@ -193,6 +197,7 @@ public class GhostObjectInfo
 
         }
     }
+
 
     public void AddMeshNow()
     {

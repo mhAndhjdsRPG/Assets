@@ -27,8 +27,8 @@ public abstract class RangeChecker {
 
     public List<Transform> Check(Transform transform = DefualtTrans, int layerMask = DefualtLayer)
     {
-        int currentCheckLayerMask = layerMask == DefualtLayer ? this.checkLayerMask : layerMask;
-        Transform currentStartTr = transform == DefualtTrans ? this.startTr : transform;
+        //int currentCheckLayerMask = layerMask == DefualtLayer ? this.checkLayerMask : layerMask;
+        //Transform currentStartTr = transform == DefualtTrans ? this.startTr : transform;
 
         return Check();
     }

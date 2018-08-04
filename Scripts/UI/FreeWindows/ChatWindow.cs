@@ -19,16 +19,8 @@ public class ChatWindow : FreeWindow {
     protected override void OnAwake()
     {
         base.OnAwake();
-        for (int i = 0; i < buttonsList.Count; i++)
-        {
-            switch (buttonsList[i].name)
-            {
-              
-                case "Btn_Send":
-                    buttonsList[i].onClick.AddListener(SendBtnClick);
-                    break;
-            }
-        }
+        buttonsDic["Btn_Send"].onClick.AddListener(SendBtnClick);
+
     }
 
   

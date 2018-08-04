@@ -21,7 +21,7 @@ public abstract class WindowBase : MonoBehaviour
     /// <summary>
     /// 按钮组建的列表
     /// </summary>
-    public List<Button> buttonsList = new List<Button>();
+    public Dictionary<string, Button> buttonsDic = new Dictionary<string, Button>();
     /// <summary>
     /// 输入框字典
     /// </summary>
@@ -78,9 +78,9 @@ public abstract class WindowBase : MonoBehaviour
         Button[] buttons = transform.GetComponentsInChildren<Button>();
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (buttons[i] != null && !buttonsList.Contains(buttons[i]))
+            if (buttons[i] != null && !buttonsDic.ContainsKey(buttons[i].name))
             {
-                buttonsList.Add(buttons[i]);
+                buttonsDic.Add(buttons[i].name, buttons[i]);
             }
         }
         InputField[] inputFields = transform.GetComponentsInChildren<InputField>();

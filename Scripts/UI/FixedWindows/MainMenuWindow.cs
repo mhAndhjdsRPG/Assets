@@ -15,25 +15,9 @@ public class MainMenuWindow : FixedWindow
     protected override void OnAwake()
     {
         base.OnAwake();
-
-        for (int i = 0; i < buttonsList.Count; i++)
-        {
-            switch (buttonsList[i].name)
-            {
-                case "Btn_StartGame":
-                    buttonsList[i].onClick.AddListener(Btn_StartGameClick);
-                    break;
-                case "Btn_Shop":
-                    buttonsList[i].onClick.AddListener(Btn_ShopClick);
-                    break;
-                case "Btn_Quit":
-                    buttonsList[i].onClick.AddListener(Btn_QuitClick);
-                    break;
-                case "Btn_Setting":
-                    buttonsList[i].onClick.AddListener(Btn_SettingClick);
-                    break;
-            }
-        }
+        buttonsDic["Btn_StartGame"].onClick.AddListener(Btn_StartGameClick);
+        buttonsDic["Btn_Quit"].onClick.AddListener(Btn_QuitClick);
+        buttonsDic["Btn_Setting"].onClick.AddListener(Btn_SettingClick);
     }
 
 

@@ -35,8 +35,17 @@ public abstract class IModifierState
         OnStart();
     }
 
+<<<<<<< HEAD
     
     
+=======
+    protected abstract void OnCreate();
+
+
+
+    private float lastWaitTime = 0;
+    private bool isDistroyed = false;
+>>>>>>> Master
     public void Update()
     {
         if (Time.time <= endTime)

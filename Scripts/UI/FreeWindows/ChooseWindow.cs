@@ -24,22 +24,11 @@ public class ChooseWindow : FixedWindow
     protected override void OnAwake()
     {
         base.OnAwake();
-        for (int i = 0; i < buttonsList.Count; i++)
-        {
-            switch (buttonsList[i].name)
-            {
-                case "Btn_Previous":
-                    buttonsList[i].onClick.AddListener(PreviousBtnClick);
-                    break;
-                case "Btn_Next":
-                    buttonsList[i].onClick.AddListener(NextBtnClick);
-                    break;
-                case "Btn_Enter":
-                    buttonsList[i].onClick.AddListener(EnterBtnClick);
-                    break;
-                    
-            }
-        }
+
+        buttonsDic["Btn_Previous"].onClick.AddListener(PreviousBtnClick);
+        buttonsDic["Btn_Next"].onClick.AddListener(NextBtnClick);
+        buttonsDic["Btn_Enter"].onClick.AddListener(EnterBtnClick);
+
         characters = GameObject.Find("Characters");
         if (characters == null)
         {
