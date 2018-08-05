@@ -18,6 +18,7 @@ public class MainMenuWindow : FixedWindow
         buttonsDic["Btn_StartGame"].onClick.AddListener(Btn_StartGameClick);
         buttonsDic["Btn_Quit"].onClick.AddListener(Btn_QuitClick);
         buttonsDic["Btn_Setting"].onClick.AddListener(Btn_SettingClick);
+        imageDic["Image_Shade"].raycastTarget = false;
     }
 
 

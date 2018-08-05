@@ -21,7 +21,10 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
         }
         set
         {
-            StartCoroutine(LerpToCameraDestination(goalBtnInfo, value));
+            if (goalBtnInfo.cameraPos != value.cameraPos)
+            {
+                StartCoroutine(LerpToCameraDestination(goalBtnInfo, value));
+            }
             goalBtnInfo = value;
         }
     }
@@ -35,11 +38,13 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
     // Use this for initialization
     void Start()
     {
-        startBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_StartGame"], -50f, new Vector3(11, -2, 9), Vector3.zero);
-        achievementBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_Achievement"], 0, new Vector3(3.25f, -3.5f, -7), new Vector3(35, -105, 0));
-        quitBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_Quit"], 50f, new Vector3(5, -2, -15), new Vector3(20, 6, 0));
-
+        startBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_StartGame"], -50f, new Vector3(11, -2, 9), Vector3.zero, new Color(0.75f, 0, 0, 0.4f));
+        achievementBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_Achievement"], 0, new Vector3(3.25f, -3.5f, -7), new Vector3(35, -105, 0), new Color(0.75f, 0.5f, 0, 0.4f));
+        quitBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_Quit"], 50f, new Vector3(5, -2, -15), new Vector3(20, 6, 0), new Color(0, 0.25f, 0.5f, 0.4f));
         goalBtnInfo = startBtnInfo;
+        Color tittleColor = GoalBtnInfo.barColor;
+        tittleColor.a = 1;
+        MainMenuWindow.textDic["Text_Tittle"].color = tittleColor;
     }
 
     // Update is called once per frame
@@ -71,13 +76,12 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
     /// <param name="eventData"></param>
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log(scrollRect.content.anchoredPosition.y);
         //设置按钮吸附目标点以及目标Info
         SetContentDestination(scrollRect.content.anchoredPosition.y);
         //启动吸附动画携程
         StartCoroutine(LerpToContentDestination(scrollRect.content.anchoredPosition.y));
     }
-    
+
     /// <summary>
     /// 设置按钮吸附目标点以及
     /// </summary>
@@ -119,8 +123,9 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         float l = 0;
         //锁组建作调颜色,动画播放过程中不能点击和拖动
-        scrollRect.enabled = false;
-
+        MainMenuWindow.imageDic["Image_Shade"].raycastTarget = true;
+        scrollRect.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0.2f);
+        MainMenuWindow.textDic["Text_Tittle"].color = Color.gray;
         startBtnInfo.button.enabled = false;
         startBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
         achievementBtnInfo.button.enabled = false;
@@ -141,7 +146,12 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
                 //解锁操作，使选定的按钮可以被使用
                 scrollRect.enabled = true;
                 GoalBtnInfo.button.enabled = true;
-                GoalBtnInfo.button.GetComponentInChildren<Text>().color = Color.black;
+                GoalBtnInfo.button.GetComponentInChildren<Text>().color = Color.white;
+                MainMenuWindow.imageDic["Image_Shade"].raycastTarget = false;
+                scrollRect.GetComponent<UnityEngine.UI.Image>().color = GoalBtnInfo.barColor;
+                Color tittleColor = GoalBtnInfo.barColor;
+                tittleColor.a = 1;
+                MainMenuWindow.textDic["Text_Tittle"].color = tittleColor;
                 break;
             }
         }
@@ -175,15 +185,17 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
 /// </summary>
 public struct MainMenuBtnInfo
 {
-    public MainMenuBtnInfo(UnityEngine.UI.Button button, float btnYPos, Vector3 cameraPos, Vector3 cameraRot)
+    public MainMenuBtnInfo(UnityEngine.UI.Button button, float btnYPos, Vector3 cameraPos, Vector3 cameraRot, Color barColor)
     {
         this.button = button;
         this.btnYPos = btnYPos;
         this.cameraPos = cameraPos;
         this.cameraRot = cameraRot;
+        this.barColor = barColor;
     }
     public UnityEngine.UI.Button button;
     public float btnYPos;
     public Vector3 cameraPos;
     public Vector3 cameraRot;
+    public Color barColor;
 }
