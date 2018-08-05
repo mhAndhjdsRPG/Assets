@@ -28,6 +28,8 @@ public abstract class ICharacter : MonoBehaviour
     [HideInInspector]
     public Animator ani;
 
+    protected List<Modifier> modifierList = new List<Modifier>();
+
 
     #region 角色属性
 

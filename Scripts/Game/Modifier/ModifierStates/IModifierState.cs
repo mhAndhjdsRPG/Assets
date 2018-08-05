@@ -74,7 +74,8 @@ public abstract class IModifierState
     
     public virtual void Init(XElement element)
     {
-
+        duration = element.Attribute("duration").Value.ParseToFloat();
+        interval = element.Attribute("duration").Value.ParseToFloat();
     }
     
 }
