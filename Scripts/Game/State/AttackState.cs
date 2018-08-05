@@ -2,27 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Xml.Linq;
 
-public class PlayerAttackState : PlayerState, IAttackState
+public class AttackState : State
 {
 
     [Range(0, 1)]
     public float moveSpeed;
 
+    [SerializeField]
+    private bool haveModifier;
+    public bool HaveModifier => haveModifier;
+
     [HideInInspector, SerializeField]
     public AttackInfo attackInfo;
 
+    #region 跳转相关参数
 
     string needTriggerNameAfterCanJump;
 
     bool isStoreTrigger;
 
+    #endregion
 
 
-    public Action<IAttackState> AttackStateExitEvent { get; set; }
+    public Action<AttackState> AttackStateExitEvent { get; set; }
     public ICharacter Owner => owner;
     public AttackInfo AttackInfo => attackInfo;
-
+   
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
@@ -76,7 +83,14 @@ public class PlayerAttackState : PlayerState, IAttackState
 
     }
 
-
+    protected override void Init(Animator animator)
+    {
+        base.Init(animator);
+        if (haveModifier)
+        {
+            
+        }
+    }
 
 
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRollState : PlayerState
+public class RollState : State
 {
     Vector3 rollDir;
     Vector2 blendParam;
@@ -37,8 +37,8 @@ public class PlayerRollState : PlayerState
     void Roll()
     {
         characterController.SimpleMove(rollDir * owner.TotalAGL);
-        ani.SetFloat("horizontal", blendParam.x);
-        ani.SetFloat("vertical", blendParam.y);
+        ani.SetFloat("Horizontal", blendParam.x);
+        ani.SetFloat("Vertical", blendParam.y);
     }
 
     Vector2 BuildBlendParam(Vector3 rollDir)

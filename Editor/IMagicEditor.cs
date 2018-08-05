@@ -12,11 +12,15 @@ public class IMagicEditor :Editor
 
     bool showTimeLine;
 
+    private void OnEnable()
+    {
+        magic = target as IMagic;
+    }
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        magic = target as IMagic;
-
+        
         showTimeLine=EditorGUILayout.Foldout(showTimeLine,"ShowTimeLine");
         if (showTimeLine)
         {

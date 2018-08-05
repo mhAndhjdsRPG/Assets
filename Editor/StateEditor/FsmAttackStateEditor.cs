@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(EnemyAttackState))]
+
+[CustomEditor(typeof(AttackState))]
 [ExecuteInEditMode]
-public class FsmEnemyAttackStateEditor : Editor
+public class FsmAttackStateEditor : Editor
 {
 
-    EnemyAttackState state;
+    AttackState state;
 
-
+    private void OnEnable()
+    {
+        state = target as AttackState;
+    }
 
     public override void OnInspectorGUI()
     {
-        state = target as EnemyAttackState;
-
-        if (IsInitComplete)
-        {
-            DrawDefaultInspector();
-        }
-
+        DrawDefaultInspector();
+        
         DrawAttackInfo();
 
         serializedObject.ApplyModifiedProperties();
@@ -34,38 +33,32 @@ public class FsmEnemyAttackStateEditor : Editor
 
         var info = state.attackInfo;
 
-
-        if (!IsInitComplete)
+        var name=EditorGUILayout.TextField("name", info.Name);
+        if (name != info.Name)
         {
-            EditorGUILayout.LabelField("请先初始化一个RangeChecker以供ai使用");
+            info.Name = name;
         }
-        else
+
+        var inputStr = EditorGUILayout.TextField("inputStr", info.InputStr);
+        if (inputStr != info.InputStr)
         {
-            var name = EditorGUILayout.TextField("name", info.Name);
-            if (name != info.Name)
-            {
-                info.Name = name;
-            }
-
-            var inputStr = EditorGUILayout.TextField("inputStr", info.InputStr);
-            if (inputStr != info.InputStr)
-            {
-                info.InputStr = inputStr;
-            }
-
-            var coolDown = EditorGUILayout.FloatField("coolDown", info.CoolDown);
-            if (coolDown != info.CoolDown)
-            {
-                info.CoolDown = coolDown;
-            }
-
-            var damageRate = EditorGUILayout.FloatField("damageRate", info.DamageRate);
-            if (damageRate != info.DamageRate)
-            {
-                info.DamageRate = damageRate;
-            }
-
+            info.InputStr = inputStr;
         }
+
+        var coolDown = EditorGUILayout.FloatField("coolDown", info.CoolDown);
+        if (coolDown != info.CoolDown)
+        {
+            info.CoolDown = coolDown;
+        }
+
+        var damageRate = EditorGUILayout.FloatField("damageRate", info.DamageRate);
+        if (damageRate != info.DamageRate)
+        {
+            info.DamageRate = damageRate;
+        }
+
+
+
         DrawRangeChecker();
     }
 
@@ -153,9 +146,9 @@ public class FsmEnemyAttackStateEditor : Editor
     void CreateBoxCheker()
     {
 
-        if (state.attackInfo.RangeChecker is BoxCastChecker)
+        if(state.attackInfo.RangeChecker is BoxCastChecker)
         {
-            width = (state.attackInfo.RangeChecker as BoxCastChecker).width;
+           width = (state.attackInfo.RangeChecker as BoxCastChecker).width;
             distance = (state.attackInfo.RangeChecker as BoxCastChecker).distance;
         }
         else
@@ -177,7 +170,7 @@ public class FsmEnemyAttackStateEditor : Editor
             state.attackInfo.RangeChecker = checker;
         }
 
-
+       
     }
 
     float sectorAngle, sectorRadius;
@@ -185,19 +178,19 @@ public class FsmEnemyAttackStateEditor : Editor
     {
         if (state.attackInfo.RangeChecker is SectorChecker)
         {
-            sectorAngle = (state.attackInfo.RangeChecker as SectorChecker).angle;
-            sectorRadius = (state.attackInfo.RangeChecker as SectorChecker).radius;
+           sectorAngle = (state.attackInfo.RangeChecker as SectorChecker).angle;
+           sectorRadius = (state.attackInfo.RangeChecker as SectorChecker).radius;
         }
         else
         {
             sectorAngle = 0;
             sectorRadius = 0;
         }
-
+        
         EditorGUI.BeginChangeCheck();
 
         layer = EditorGUILayout.LayerField("Layer", layer);
-        sectorAngle = EditorGUILayout.FloatField("angle", sectorAngle);
+        sectorAngle = EditorGUILayout.FloatField("angle",sectorAngle);
         sectorRadius = EditorGUILayout.FloatField("radius", sectorRadius);
 
         isValueChanged = EditorGUI.EndChangeCheck();
@@ -206,7 +199,7 @@ public class FsmEnemyAttackStateEditor : Editor
             SectorChecker checker = new SectorChecker(sectorRadius, sectorRadius, layer);
             state.attackInfo.RangeChecker = checker;
         }
-
+        
     }
 
     bool NeedCreateCheker
@@ -214,9 +207,7 @@ public class FsmEnemyAttackStateEditor : Editor
         get { return state.attackInfo.RangeChecker == null || isSwitchChanged || isValueChanged; }
     }
 
-    bool IsInitComplete => state.attackInfo.RangeChecker != null;
-    
-
+  
 }
 
 

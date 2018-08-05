@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Linq;
 public class InputManager : MonoBehaviour
 {
     public bool onlyHasInput = false;
@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
     public Dictionary<string, bool> inputBoolDic = new Dictionary<string, bool>();
 
 
-   
+
 
     public float horizontal;
     public float vertical;
@@ -112,4 +112,14 @@ public class InputManager : MonoBehaviour
         }
 
     }
+
+    public List<string> GetPressingButtonNames()
+    {
+        var queryResult = from paire in inputBoolDic
+                          where paire.Value == true
+                          select paire.Key;
+
+        return queryResult.ToList<string>();
+    }
+
 }

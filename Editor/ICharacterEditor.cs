@@ -21,6 +21,10 @@ public class ICharacterEditor : Editor{
 
     bool showInfo=true;
 
+    private void OnEnable()
+    {
+        character = target as ICharacter;
+    }
 
     public override void OnInspectorGUI()
     {
@@ -35,9 +39,7 @@ public class ICharacterEditor : Editor{
 
     protected void DrawInfo()
     {
-
-        character = target as ICharacter;
-
+        
         EditorGUILayout.LabelField("Name",character.Name);
 
         maxHp = EditorGUILayout.FloatField("maxHp", character.MaxHP);

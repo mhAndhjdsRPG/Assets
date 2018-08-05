@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class State : StateMachineBehaviour
 {
+    [Tooltip("如果不是敌人则不用添加")]
+    public string[] canUseAttackInfoNames;
 
     public string stateName;
 
-    public ICharacter owner;
+    public CharacterType characterType;
 
     protected InputManager input;
 
@@ -15,9 +17,11 @@ public class State : StateMachineBehaviour
 
     protected CharacterController characterController;
 
+    protected ICharacter owner;
+
     bool isInit = false;
 
-    
+
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -42,32 +46,36 @@ public class State : StateMachineBehaviour
     {
         ani = animator;
         owner = ani.GetComponent<ICharacter>();
+        if (owner.CharacterType != characterType)
+        {
+            throw new System.Exception(stateName + "初始化失败，请检查挂载对象的characterType是否匹配");
+        }
         input = owner.input;
         characterController = owner.GetComponent<CharacterController>();
     }
 
-    protected  void MoveAndSetAnimParam()
+    protected void MoveAndSetAnimParam()
     {
-        ani.SetFloat("horizontal", input.Horizontal);
-        ani.SetFloat("vertical", input.Vertical);
+        ani.SetFloat("Horizontal", input.Horizontal);
+        ani.SetFloat("Vertical", input.Vertical);
         Move();
     }
 
 
-    protected virtual void Move(float modifySpeedRate=1)
+    protected virtual void Move(float modifySpeedRate = 1)
     {
         Vector3 moveDir = (input.Horizontal * owner.transform.right + input.Vertical * owner.transform.forward).normalized;
         moveDir *= SquareToCycleLenth(input.Horizontal, input.Vertical);
-        characterController.SimpleMove(moveDir * owner.TotalAGL*modifySpeedRate);
+        characterController.SimpleMove(moveDir * owner.TotalAGL * modifySpeedRate);
     }
 
 
-    
+
 
     protected virtual void Freeze()
     {
-        ani.SetFloat("horizontal", 0);
-        ani.SetFloat("vertical", 0);
+        ani.SetFloat("Horizontal", 0);
+        ani.SetFloat("Vertical", 0);
         characterController.SimpleMove(Vector3.zero);
     }
 
@@ -84,55 +92,42 @@ public class State : StateMachineBehaviour
         return Mathf.Sqrt(powerLenth);
     }
 
-    protected void SetAnimTriggerParam()
-    {
-        var names = GetTriggeringNames();
-        foreach (string name in names)
-        {
-            ani.SetTrigger(name);
-        }
-    }
-
     protected List<string> GetTriggeringNames()
     {
-        List<string> names = new List<string>();
+        List<string> triggerNames=new List<string>();
 
-        if (input.inputBoolDic["fire1"])
+        var names = input.GetPressingButtonNames();
+
+        foreach (var name in names)
         {
-            names.Add("fire1");
+            if (IsTrigger(name))
+            {
+                triggerNames.Add(name);
+            }
         }
 
-        if (input.inputBoolDic["fire2"])
-        {
-            names.Add("fire2");
-        }
-
-        if (input.inputBoolDic["fire3"])
-        {
-            names.Add("fire3");
-        }
-
-        if (input.inputBoolDic["fire4"])
-        {
-            names.Add("fire4");
-        }
-
-        if (input.inputBoolDic["roll"])
-        {
-            names.Add("roll");
-        }
-
-        if (input.inputBoolDic["switch"])
-        {
-            names.Add("switch");
-        }
-
-        return names;
-
+        return triggerNames;
     }
 
 
+    protected void SetAnimTriggerParam()
+    {
+        foreach (var triggerName in GetTriggeringNames())
+        {
+            ani.SetTrigger(triggerName);
+        } 
+    }
 
+    bool IsTrigger(string name)
+    {
+        foreach (var param in ani.parameters)
+        {
+            if (param.name == name && param.type == AnimatorControllerParameterType.Trigger)
+            {
+                return true;
+            }
+        }
 
-
+        return false;
+    }
 }

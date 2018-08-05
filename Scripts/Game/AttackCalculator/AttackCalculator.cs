@@ -47,7 +47,7 @@ public class AttackCalculator : MonoBehaviour
     {
         IWeapon weapon = weaponCol.GetComponent<IWeapon>();
 
-        IAttackState state = weapon.owner.state as IAttackState;
+        AttackState state = weapon.owner.state as AttackState;
         
         if (attackersInThisRound.Contains(weapon.owner))
         {
@@ -112,11 +112,11 @@ public class AttackCalculator : MonoBehaviour
 
     void SetGetHitAniParm()
     {
-        owner.ani.SetTrigger("injured");
+        owner.ani.SetTrigger("Injured");
     }
 
 
-    void ReceiveAttackAfterAttackStateExit(IAttackState state)
+    void ReceiveAttackAfterAttackStateExit(AttackState state)
     {
         attackersInThisRound.Remove(state.Owner);
         state.AttackStateExitEvent -= ReceiveAttackAfterAttackStateExit;

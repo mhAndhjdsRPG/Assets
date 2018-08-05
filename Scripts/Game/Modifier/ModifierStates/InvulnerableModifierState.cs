@@ -23,10 +23,5 @@ public class InvulnerableModifierState : IModifierState
         owner.NotGetHurt = false;
     }
 
-    public override void Init(XElement element)
-    {
-        
-    }
-
-
+    
 }

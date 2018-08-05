@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState :PlayerState {
+public class MoveState :State {
 
     public bool canMove;
 
@@ -21,11 +21,7 @@ public class PlayerMoveState :PlayerState {
 
         SetAnimTriggerParam();
        
-
     }
 
     
-
-   
-
 }

@@ -31,6 +31,8 @@ public abstract class ICharacter : MonoBehaviour
 
     #region 角色属性
 
+    #region Hp
+
     public bool NotGetHurt;
 
     public OnFloatChange OnMaxHPChange;
@@ -49,6 +51,8 @@ public abstract class ICharacter : MonoBehaviour
             OnMaxHPChange?.Invoke(HP, maxHP);
         }
     }
+
+    
 
     public OnFloatChange OnHPChange;
     [SerializeField, HideInInspector]
@@ -73,6 +77,9 @@ public abstract class ICharacter : MonoBehaviour
             }
         }
     }
+
+    #endregion
+
 
     #region Atk
 
@@ -196,6 +203,9 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
+
+    #region Dodge
+
     public OnFloatChange OnHardChange;
     [SerializeField, HideInInspector]
     private float hard;
@@ -256,6 +266,7 @@ public abstract class ICharacter : MonoBehaviour
         CanDodge = true;
     }
 
+    #endregion
 
     /// <summary>
     /// 名字访问器
@@ -288,7 +299,7 @@ public abstract class ICharacter : MonoBehaviour
     {
         //需要在start中调用GetBehavior保证动画对象正确初始化
         InitAttackInfoDic();
-        
+
     }
 
 
@@ -297,9 +308,16 @@ public abstract class ICharacter : MonoBehaviour
 
     }
 
-    protected abstract void InitAttackInfoDic();
-
-
-    
-
+    private void InitAttackInfoDic()
+    {
+        foreach (var state in ani.GetBehaviours<AttackState>())
+        {
+            attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
+        }
+    }
 }
+
+
+
+
+

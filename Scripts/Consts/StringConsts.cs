@@ -11,6 +11,7 @@
     public const string Magic = "GameResources/Magics/";
     public const string Chests = "GameResources/Environments/Chests/";
     public const string Pillars = "GameResources/Environments/Pillars/";
+    public const string Modifiers = @"Assets\Resources\Xmls\Modifier\Modifier.xml";
 }
 
 public class SocketConnection

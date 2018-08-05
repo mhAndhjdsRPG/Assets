@@ -146,7 +146,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: Roll
-  owner: {fileID: 0}
+  characterType: 0
+  canUseAttackInfoNames: []
 --- !u!114 &114359449358553062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,8 +171,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: 
-  owner: {fileID: 0}
+  characterType: 0
+  canUseAttackInfoNames: []
   moveSpeed: 0
+  haveModifier: 0
   attackInfo:
     name: 
     owner: {fileID: 0}
@@ -202,8 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: AxeAttack1
-  owner: {fileID: 0}
+  characterType: 0
+  canUseAttackInfoNames: []
   moveSpeed: 0
+  haveModifier: 0
   attackInfo:
     name: AxeAttack1
     owner: {fileID: 0}
@@ -223,7 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: Move
-  owner: {fileID: 0}
+  characterType: 1
+  canUseAttackInfoNames: []
   canMove: 1
 --- !u!114 &114972550468096170
 MonoBehaviour:

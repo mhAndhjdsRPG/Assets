@@ -22,11 +22,5 @@ public class Hero : ICharacter
         }
     }
 
-    protected override void InitAttackInfoDic()
-    {
-        foreach (var state in ani.GetBehaviours<PlayerAttackState>())
-        {
-            attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
-        }
-    }
+   
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Xml.Linq;
+using System;
 
 public abstract class IModifierState
 {
@@ -70,6 +71,10 @@ public abstract class IModifierState
     protected virtual void OnExecute() { }
     protected virtual void OnDestroy() { }
 
-    //在该方法中解析
-    public abstract void Init(XElement element);
+    
+    public virtual void Init(XElement element)
+    {
+
+    }
+    
 }
