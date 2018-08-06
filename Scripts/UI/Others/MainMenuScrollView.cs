@@ -7,12 +7,19 @@ using UnityEngine.UI;
 
 public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [Range(0.01f, 5)]
+    public float lerpSpeed = 1;
+
+
     private MainMenuBtnInfo startBtnInfo, achievementBtnInfo, quitBtnInfo;
     private MainMenuBtnInfo goalBtnInfo;
 
     private MainMenuWindow MainMenuWindow;
     private ScrollRect scrollRect;
     private bool isLockInput = false;
+
+
+
     private MainMenuBtnInfo GoalBtnInfo
     {
         get
@@ -54,7 +61,11 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         if (!isLockInput)
         {
-            if (Input.GetAxis("Vertical") > 0)
+            if (Input.GetButtonDown("Submit"))
+            {
+                GoalBtnInfo.button.onClick.Invoke();
+            }
+            else if (Input.GetAxis("Vertical") > 0)
             {
                 if (GoalBtnInfo == startBtnInfo)
                 {
@@ -77,7 +88,6 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
                 }
             }
         }
-
     }
 
     public void OnBeginDrag(PointerEventData eventData) { }
@@ -93,7 +103,7 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
     {
         //设置按钮吸附目标点以及目标Info
         SetContentDestination(scrollRect.content.anchoredPosition.y);
-        
+
     }
 
     /// <summary>
@@ -149,7 +159,7 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
         while (true)
         {
             yield return null;
-            l += Time.deltaTime;
+            l += Time.deltaTime * lerpSpeed;
             Camera.main.transform.position = Vector3.Lerp(startInfo.cameraPos, goalInfo.cameraPos, l);
             Camera.main.transform.rotation = Quaternion.Euler(Vector3.Lerp(startInfo.cameraRot, goalInfo.cameraRot, l));
             //播放动画完毕
