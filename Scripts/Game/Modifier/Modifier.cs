@@ -4,49 +4,50 @@ using UnityEngine;
 
 public class Modifier
 {
+    #region 非初始化字段
     public ICharacter owner;
-    public string name;
-    public EffectAttachType effectAttachType;
-    public string effectName;
-    public string textureName;
-    public bool isPurgable;
     public float duration;
+    #endregion
+
+    #region 初始化字段
+    public string name;
+    public bool isPurgable;
     public ModifierTypeAndValue modifierTypeAndValue;
-
     private List<IModifierState> modifierStateList = new List<IModifierState>();
+    #endregion
 
-    public void OnCreate()
-    {
-        for (int i = 0; i < modifierStateList.Count; i++)
-        {
-            modifierStateList[i].Start();
-        }
-    }
 
-    public void OnDestroy()
-    {
+    #region 事件
+    public delegate void NoParamEvent();
+    public NoParamEvent OnCreated;
+    public NoParamEvent OnUpdate;
+    public NoParamEvent OnDestroy;
+    public NoParamEvent OnAttacked;
+    public NoParamEvent OnAttack;
+    #endregion
 
-    }
 
-    public void Update()
-    {
-        for (int i = 0; i < modifierStateList.Count; i++)
-        {
-            modifierStateList[i].Update();
-        }
-    }
 
+    #region Tools
+    /// <summary>
+    /// 给工厂用的组装方法
+    /// </summary>
+    /// <param name="modifierState"></param>
     public void AddModifierState(IModifierState modifierState)
     {
+        //更新总体duration
         duration = modifierState.duration > duration ? modifierState.duration : duration;
         modifierStateList.Add(modifierState);
     }
-
-    public void EndThisState(IModifierState state)
+    /// <summary>
+    /// State通知Modifier自己被移除
+    /// </summary>
+    /// <param name="state"></param>
+    public void RemoveThisState(IModifierState state)
     {
         modifierStateList.RemoveIfContains(state);
     }
-    
+    #endregion
 }
 
 

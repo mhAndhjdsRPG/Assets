@@ -5,8 +5,8 @@ using System;
 
 public abstract class IModifierState
 {
-
     private const float NotUpdate = -1f;
+
     public abstract string Name { get; }
     /// <summary>
     /// 绑定到的Modifier
@@ -24,9 +24,10 @@ public abstract class IModifierState
     /// 频率
     /// </summary>
     public float interval = NotUpdate;
-    /// <summary>
-    /// 结束时间
-    /// </summary>
+
+
+
+
     private float endTime;
     private float lastWaitTime=0;
 
@@ -35,8 +36,6 @@ public abstract class IModifierState
         endTime = Time.time + duration;
         OnStart();
     }
-
-    
     
     public void Update()
     {
@@ -64,7 +63,7 @@ public abstract class IModifierState
     public void Destroy()
     {
         OnDestroy();
-        modifier.EndThisState(this);
+        modifier.RemoveThisState(this);
     }
 
     protected virtual void OnStart() { }

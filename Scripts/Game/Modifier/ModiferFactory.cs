@@ -8,11 +8,8 @@ using System.Xml.Linq;
 public class ModiferFactory : MonoBehaviour
 {
     const string XmlStateHeader = "State_";
-
     public static ModiferFactory Instance;
-
     private Dictionary<string, Type> modifierStateTypeDic=new Dictionary<string, Type>();
-
     private XDocument modiferXml;
 
     private void Awake()
@@ -88,7 +85,6 @@ public class ModiferFactory : MonoBehaviour
                 IModifierState state= CreateModifierState(stateName);
                 state.Init(element);
                 modifier.AddModifierState(state);
-                
             }
         }
         

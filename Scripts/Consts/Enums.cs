@@ -86,7 +86,7 @@ public enum EffectAttachType
     Follow_Overhead,
     Follow_Chest,
     Follow_Head,
-    Start_at_Customorigin,
+    Start_At_CustomOrigin,
     World_Origin
 }
 

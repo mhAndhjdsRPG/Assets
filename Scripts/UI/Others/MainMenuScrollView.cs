@@ -126,11 +126,8 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
         MainMenuWindow.imageDic["Image_Shade"].raycastTarget = true;
         scrollRect.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0.2f);
         MainMenuWindow.textDic["Text_Tittle"].color = Color.gray;
-        startBtnInfo.button.enabled = false;
         startBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
-        achievementBtnInfo.button.enabled = false;
         achievementBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
-        quitBtnInfo.button.enabled = false;
         quitBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
 
         //播放动画
@@ -144,8 +141,6 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
             if (l >= 1)
             {
                 //解锁操作，使选定的按钮可以被使用
-                scrollRect.enabled = true;
-                GoalBtnInfo.button.enabled = true;
                 GoalBtnInfo.button.GetComponentInChildren<Text>().color = Color.white;
                 MainMenuWindow.imageDic["Image_Shade"].raycastTarget = false;
                 scrollRect.GetComponent<UnityEngine.UI.Image>().color = GoalBtnInfo.barColor;

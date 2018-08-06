@@ -22,6 +22,4 @@ public sealed class InvulnerableModifierState : IModifierState
     {
         owner.NotGetHurt = false;
     }
-
-    
 }

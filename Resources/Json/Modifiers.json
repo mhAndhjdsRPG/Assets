@@ -1,0 +1,21 @@
+{
+
+  "Burning": {
+    "textureName": "Textures/ModifierTextures/Burning",
+    "effectAttachType": "Follow_Origin",
+    "isPurgable": "true",
+    "modifierTypeAndValue": "Ice_Fire_20",
+
+    "States": {
+      "ContinuouslyLoseHpState": {
+        "Properties": {
+          "duration": "5",
+          "interval": "1",
+          "loseHpPerTime": "2"
+        }
+      }
+    }
+  }
+
+
+}
