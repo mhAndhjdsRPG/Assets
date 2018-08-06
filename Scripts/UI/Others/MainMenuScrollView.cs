@@ -23,11 +23,11 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
         {
             if (goalBtnInfo.cameraPos != value.cameraPos)
             {
-                //启动吸附动画携程
-                StartCoroutine(LerpToContentDestination(scrollRect.content.anchoredPosition.y));
                 //启动相机动画携程
                 StartCoroutine(LerpToCameraDestination(goalBtnInfo, value));
             }
+            //启动吸附动画携程
+            StartCoroutine(LerpToContentDestination(scrollRect.content.anchoredPosition.y));
             goalBtnInfo = value;
         }
     }
@@ -35,15 +35,12 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
     // Use this for initialization
     void Start()
     {
-        MainMenuWindow = transform.parent.GetComponent<MainMenuWindow>();
+        MainMenuWindow = transform.parent.GetComponentInParent<MainMenuWindow>();
         scrollRect = transform.GetComponent<ScrollRect>();
         startBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_StartGame"], -50f, new Vector3(11, -2, 9), Vector3.zero, new Color(0.75f, 0, 0, 0.4f));
         achievementBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_Achievement"], 0, new Vector3(3.25f, -3.5f, -7), new Vector3(35, -105, 0), new Color(0.75f, 0.5f, 0, 0.4f));
         quitBtnInfo = new MainMenuBtnInfo(MainMenuWindow.buttonsDic["Btn_Quit"], 50f, new Vector3(5, -2, -15), new Vector3(20, 6, 0), new Color(0, 0.25f, 0.5f, 0.4f));
         goalBtnInfo = startBtnInfo;
-        Color tittleColor = GoalBtnInfo.barColor;
-        tittleColor.a = 1;
-        MainMenuWindow.textDic["Text_Tittle"].color = tittleColor;
 
         ChangeBtnFunc(achievementBtnInfo, false);
         ChangeBtnFunc(quitBtnInfo, false);
@@ -143,7 +140,6 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
         isLockInput = true;
         MainMenuWindow.imageDic["Image_Shade"].raycastTarget = true;
         scrollRect.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 0.2f);
-        MainMenuWindow.textDic["Text_Tittle"].color = Color.gray;
         startBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
         achievementBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
         quitBtnInfo.button.GetComponentInChildren<Text>().color = Color.gray;
@@ -164,10 +160,6 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
                 MainMenuWindow.imageDic["Image_Shade"].raycastTarget = false;
                 isLockInput = false;
                 scrollRect.GetComponent<UnityEngine.UI.Image>().color = GoalBtnInfo.barColor;
-                Color tittleColor = GoalBtnInfo.barColor;
-                tittleColor.a = 1;
-                MainMenuWindow.textDic["Text_Tittle"].color = tittleColor;
-                
                 break;
             }
         }

@@ -18,7 +18,7 @@ public class MainMenuWindow : FixedWindow
         base.OnAwake();
         buttonsDic["Btn_StartGame"].onClick.AddListener(Btn_StartGameClick);
         buttonsDic["Btn_Quit"].onClick.AddListener(Btn_QuitClick);
-        buttonsDic["Btn_Setting"].onClick.AddListener(Btn_SettingClick);
+        //buttonsDic["Btn_Setting"].onClick.AddListener(Btn_SettingClick);
         buttonsDic["Btn_Achievement"].onClick.AddListener(Btn_AchievementClick);
         imageDic["Image_Shade"].raycastTarget = false;
     }
