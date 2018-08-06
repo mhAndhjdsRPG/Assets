@@ -65,7 +65,7 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
             {
                 GoalBtnInfo.button.onClick.Invoke();
             }
-            else if (Input.GetAxis("Vertical") > 0)
+            else if (Input.GetAxis("Vertical") > 0|| Input.GetAxis("Mouse ScrollWheel") > 0)
             {
                 if (GoalBtnInfo == startBtnInfo)
                 {
@@ -76,7 +76,7 @@ public class MainMenuScrollView : MonoBehaviour, IBeginDragHandler, IDragHandler
                     GoalBtnInfo = quitBtnInfo;
                 }
             }
-            else if (Input.GetAxis("Vertical") < 0)
+            else if (Input.GetAxis("Vertical") < 0|| Input.GetAxis("Mouse ScrollWheel") < 0)
             {
                 if (GoalBtnInfo == achievementBtnInfo)
                 {
