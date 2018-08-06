@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MainMenuWindow : FixedWindow
 {
+
     public override string Name
     {
         get
@@ -18,10 +19,9 @@ public class MainMenuWindow : FixedWindow
         buttonsDic["Btn_StartGame"].onClick.AddListener(Btn_StartGameClick);
         buttonsDic["Btn_Quit"].onClick.AddListener(Btn_QuitClick);
         buttonsDic["Btn_Setting"].onClick.AddListener(Btn_SettingClick);
+        buttonsDic["Btn_Achievement"].onClick.AddListener(Btn_AchievementClick);
         imageDic["Image_Shade"].raycastTarget = false;
     }
-
-
 
     private enum DivideType
     {
@@ -35,19 +35,20 @@ public class MainMenuWindow : FixedWindow
         UIManager.Instance.CreateOrShowWindow(WindowName.SettingWindow, UIManager.Instance.Canvas);
     }
 
-    private void Btn_ShopClick()
-    {
 
+    public void Btn_AchievementClick()
+    {
+        Debug.Log("Btn_ShopClick");
     }
 
-    private void Btn_StartGameClick()
+    public void Btn_StartGameClick()
     {
-
+        Debug.Log("Btn_StartGameClick");
     }
 
-    private void Btn_QuitClick()
+    public void Btn_QuitClick()
     {
-        Application.Quit();
+        Debug.Log("Btn_QuitClick");
     }
 
 }
