@@ -2625,7 +2625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHandler: {fileID: 422474}
   viewPoint: {fileID: 4141812759958086}
-  input: {fileID: 0}
+  input: {fileID: 114900512245941802}
   modle: {fileID: 444994}
   xSensitive: 1
   ySensitive: 1
@@ -2817,7 +2817,6 @@ MonoBehaviour:
   fire3: 0
   fire4: 0
   _switch: 0
-  roll: 0
   horizontal: 0
   vertical: 0
 --- !u!114 &114914890497016200
@@ -2836,10 +2835,17 @@ MonoBehaviour:
   state: {fileID: 0}
   attackCalculator: {fileID: 114407252459065358}
   ani: {fileID: 9547916}
-  maxHP: 0
-  hp: 0
-  atk: 5
-  agl: 7
+  NotGetHurt: 0
+  maxHP: 100
+  hp: 100
+  baseAtk: 0
+  addAtkValue: 0
+  multipleAtkValue: 0
+  totalAtk: 0
+  baseAgl: 0
+  addAgl: 0
+  multipleAgl: 0
+  totalAgl: 4
   hard: 0
   dodgeCoolDown: 0
 --- !u!114 &114979534823793012

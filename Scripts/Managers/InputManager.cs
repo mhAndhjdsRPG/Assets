@@ -68,30 +68,25 @@ public class InputManager : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 inputBoolDic["Fire1"] = true;
-                fire1 = true;
             }
             if (Input.GetButtonDown("Fire2"))
             {
                 inputBoolDic["Fire2"] = true;
-                fire2 = true;
 
             }
             if (Input.GetButtonDown("Fire3"))
             {
                 inputBoolDic["Fire3"] = true;
-                fire3 = true;
 
             }
             if (Input.GetButtonDown("Fire4"))
             {
                 inputBoolDic["Fire4"] = true;
-                fire4 = true;
 
             }
             if (Input.GetButtonDown("Switch"))
             {
                 inputBoolDic["Switch"] = true;
-                _switch = true;
             }
             if (onlyHasInput)
             {

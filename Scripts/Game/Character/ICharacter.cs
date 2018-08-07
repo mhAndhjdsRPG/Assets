@@ -30,6 +30,7 @@ public abstract class ICharacter : MonoBehaviour
 
     protected List<Modifier> modifierList = new List<Modifier>();
 
+    public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
     #region 角色属性
 
@@ -288,10 +289,6 @@ public abstract class ICharacter : MonoBehaviour
     #endregion
 
 
-    public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
-
-
-
     protected virtual void Awake()
     {
         ani = GetComponent<Animator>();
@@ -299,23 +296,56 @@ public abstract class ICharacter : MonoBehaviour
 
     protected virtual void Start()
     {
-        //需要在start中调用GetBehavior保证动画对象正确初始化
         InitAttackInfoDic();
-
     }
 
 
     protected virtual void Update()
     {
-
+        foreach (var modifier in modifierList)
+        {
+            modifier.Update();
+        }
     }
 
+    /// <summary>
+    /// init the AttackInfoDic,remember that calling this in Start not Awake
+    /// cause the animator's GetBehaviours need init in Awake
+    /// </summary>
     private void InitAttackInfoDic()
     {
         foreach (var state in ani.GetBehaviours<AttackState>())
         {
             attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
         }
+    }
+
+
+    public void RemoveThisModifier(Modifier modifier)
+    {
+        modifierList.RemoveIfContains(modifier);
+    }
+
+
+    public void ReceiveModifier(string modifierNameInXml,float waitSecondStart=0)
+    {
+        Modifier modifier=ModifierManager.Instance.GetModifier(modifierNameInXml);
+        StartCoroutine(WaitForStartModifier(modifier, waitSecondStart));
+            
+    }
+
+
+    public void ReceiveModifier(Modifier modifier, float waitSecondStart = 0)
+    {
+        StartCoroutine(WaitForStartModifier(modifier, waitSecondStart));
+    }
+
+
+    IEnumerator WaitForStartModifier(Modifier modifier, float waitSecond)
+    {
+        yield return new WaitForSeconds(waitSecond);
+        modifier.Start();
+        modifierList.Add(modifier);
     }
 }
 

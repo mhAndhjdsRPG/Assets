@@ -1,7 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!--所有state都有duration(持续时间)和interval(调用频率，-1为不调用)-->
+
+
 <Midifiers>
-  <Test>
-    <State_InvulnerableModifierState duration="5" intercal="-1"/>
-  </Test>
+  
+  <无敌>
+    <State>
+    <InvulnerableModifierState duration="5" interval="-1"/>
+    </State>
+  </无敌>
+
+  <眩晕>
+    <ModifierParam>
+      <IsPurgable value="true"/>
+      ......
+      ......
+      ......
+    </ModifierParam>
+    
+    <States>
+      <CanNotMove duration="5" intercal="-1"/>
+      <CanNotAttack duration="5" intercal="-1"/>
+      <SetAniBool duration="5" intercal="-1" paramName="眩晕"/>
+      <DrawPicturOnHead duration="5" intercal="-1" path="......."/>
+    </States>
+  </眩晕>
   
 </Midifiers>

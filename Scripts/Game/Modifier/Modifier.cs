@@ -17,16 +17,6 @@ public class Modifier
     #endregion
 
 
-    #region 事件
-    public delegate void NoParamEvent();
-    public NoParamEvent OnCreated;
-    public NoParamEvent OnUpdate;
-    public NoParamEvent OnDestroy;
-    public NoParamEvent OnAttacked;
-    public NoParamEvent OnAttack;
-    #endregion
-
-
 
     #region Tools
     /// <summary>
@@ -43,11 +33,35 @@ public class Modifier
     /// State通知Modifier自己被移除
     /// </summary>
     /// <param name="state"></param>
-    public void RemoveThisState(IModifierState state)
+    public void RemoveAndStoreState(IModifierState state)
     {
         modifierStateList.RemoveIfContains(state);
+        ModifierManager.Instance.StoreModifierState(state);
+
+        if (modifierStateList.Count == 0)
+        {
+            owner.RemoveThisModifier(this);
+        }
     }
     #endregion
+
+
+    public void Start()
+    {
+        foreach (var state in modifierStateList)
+        {
+            state.Start();
+        }
+    }
+
+    public void Update()
+    {
+        foreach (var state in modifierStateList)
+        {
+            state.Update();
+        }
+    }
+    
 }
 
 

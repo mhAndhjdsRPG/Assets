@@ -8,84 +8,84 @@ AnimatorController:
   m_Name: HjdCharacterAnimator
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: run
+  - m_Name: Run
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: vertical
+    m_Controller: {fileID: 0}
+  - m_Name: Vertical
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: horizontal
+    m_Controller: {fileID: 0}
+  - m_Name: Horizontal
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: fire1
+    m_Controller: {fileID: 0}
+  - m_Name: Fire1
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: fire2
+    m_Controller: {fileID: 0}
+  - m_Name: Fire2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: fire3
+    m_Controller: {fileID: 0}
+  - m_Name: Fire3
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: fire4
+    m_Controller: {fileID: 0}
+  - m_Name: Fire4
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: roll
+    m_Controller: {fileID: 0}
+  - m_Name: Roll
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: injured
+    m_Controller: {fileID: 0}
+  - m_Name: Injured
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: switch
+    m_Controller: {fileID: 0}
+  - m_Name: Switch
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: die
+    m_Controller: {fileID: 0}
+  - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: arm
+    m_Controller: {fileID: 0}
+  - m_Name: Arm
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: axe
+    m_Controller: {fileID: 0}
+  - m_Name: Axe
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -145,9 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c55da9716fadc24c8ad5e1fa1265fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canUseAttackInfoNames: []
   stateName: Roll
   characterType: 0
-  canUseAttackInfoNames: []
 --- !u!114 &114359449358553062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,13 +170,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e2812fbd0be244e972d47146dbf4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateName: 
-  characterType: 0
   canUseAttackInfoNames: []
+  stateName: Attack1
+  characterType: 0
   moveSpeed: 0
   haveModifier: 0
   attackInfo:
-    name: 
+    name: Attack1
     owner: {fileID: 0}
     canUse: 0
     coolDown: 0
@@ -204,9 +204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2e2812fbd0be244e972d47146dbf4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canUseAttackInfoNames: []
   stateName: AxeAttack1
   characterType: 0
-  canUseAttackInfoNames: []
   moveSpeed: 0
   haveModifier: 0
   attackInfo:
@@ -216,6 +216,29 @@ MonoBehaviour:
     coolDown: 0
     inputStr: 
     damageRate: 10
+--- !u!114 &114573960003756102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2e2812fbd0be244e972d47146dbf4ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUseAttackInfoNames: []
+  stateName: AxeAttack2
+  characterType: 0
+  moveSpeed: 0
+  haveModifier: 0
+  attackInfo:
+    name: AxeAttack2
+    owner: {fileID: 0}
+    canUse: 0
+    coolDown: 0
+    inputStr: 
+    damageRate: 0
 --- !u!114 &114933484342830298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,9 +250,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c09372d5feee4f4aaa8979008960700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateName: Move
-  characterType: 1
   canUseAttackInfoNames: []
+  stateName: Move
+  characterType: 0
   canMove: 1
 --- !u!114 &114972550468096170
 MonoBehaviour:
@@ -303,8 +326,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
-  m_BlendParameter: horizontal
-  m_BlendParameterY: vertical
+  m_BlendParameter: Horizontal
+  m_BlendParameterY: Vertical
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -357,8 +380,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
-  m_BlendParameter: horizontal
-  m_BlendParameterY: vertical
+  m_BlendParameter: Horizontal
+  m_BlendParameterY: Vertical
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -411,8 +434,8 @@ BlendTree:
     m_CycleOffset: 0.5
     m_DirectBlendParameter: horizontal
     m_Mirror: 1
-  m_BlendParameter: horizontal
-  m_BlendParameterY: vertical
+  m_BlendParameter: Horizontal
+  m_BlendParameterY: Vertical
   m_MinThreshold: 0
   m_MaxThreshold: 0.75
   m_UseAutomaticThresholds: 1
@@ -465,8 +488,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: vertical
     m_Mirror: 0
-  m_BlendParameter: horizontal
-  m_BlendParameterY: vertical
+  m_BlendParameter: Horizontal
+  m_BlendParameterY: Vertical
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -543,7 +566,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: roll
+    m_ConditionEvent: Roll
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102556576845124650}
@@ -567,7 +590,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: switch
+    m_ConditionEvent: Switch
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102588510593124648}
@@ -612,7 +635,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: fire1
+    m_ConditionEvent: Fire1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102948751129146636}
@@ -636,7 +659,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: fire1
+    m_ConditionEvent: Fire1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102130790470115070}
@@ -702,7 +725,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: roll
+    m_ConditionEvent: Roll
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102650769656058310}
@@ -726,7 +749,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: switch
+    m_ConditionEvent: Switch
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102588510593124648}
@@ -771,7 +794,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: fire1
+    m_ConditionEvent: Fire1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102478296212141956}
@@ -795,7 +818,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: arm
+    m_ConditionEvent: Arm
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102948094784984028}
@@ -840,7 +863,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: roll
+    m_ConditionEvent: Roll
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102650769656058310}
@@ -864,10 +887,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: injured
+    m_ConditionEvent: Injured
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: arm
+    m_ConditionEvent: Arm
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102794797461490182}
@@ -912,7 +935,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: roll
+    m_ConditionEvent: Roll
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102650769656058310}
@@ -936,10 +959,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: injured
+    m_ConditionEvent: Injured
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: axe
+    m_ConditionEvent: Axe
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102415116174120912}
@@ -963,7 +986,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: axe
+    m_ConditionEvent: Axe
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102563730284223290}
@@ -986,7 +1009,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: AxeAttack1
-  m_Speed: 0.2
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101411981815171262}
@@ -1228,13 +1251,14 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: 2Hand-Axe-Attack2
+  m_Name: AxeAttack2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101157730624986488}
   - {fileID: 1101388443929450538}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114573960003756102}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -1287,7 +1311,7 @@ AnimatorStateMachine:
     m_Position: {x: 396, y: 96, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102948751129146636}
-    m_Position: {x: 396, y: 240, z: 0}
+    m_Position: {x: 384, y: 240, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

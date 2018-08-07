@@ -1,28 +1,20 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using System;
 using System.Reflection;
 using System.Linq;
-using System.Xml.Linq;
 
-public class ModiferFactory : MonoBehaviour
+
+public class ModifierStateFactory
 {
-    const string XmlStateHeader = "State_";
-    public static ModiferFactory Instance;
+    
     private Dictionary<string, Type> modifierStateTypeDic=new Dictionary<string, Type>();
-    private XDocument modiferXml;
 
-    private void Awake()
+    public ModifierStateFactory()
     {
-        Instance = this;
         InitModifierStateDic();
-        modiferXml = XDocument.Load(FolderPaths.Modifiers);
     }
 
-    private void Start()
-    {
-        GetModifier("Test");
-    }
+    
 
     #region 初始化 modifierStateTypeDic
 
@@ -64,38 +56,7 @@ public class ModiferFactory : MonoBehaviour
 
     #endregion
 
-
-    public Modifier GetModifier(string modifierName)
-    {
-        Modifier modifier = new Modifier();
-
-        XElement modifierElement= modiferXml.Root.Element(modifierName);
-        if (modifierElement == null)
-        {
-            throw new SystemException($"xml没有找到{modifierName}");
-        }
-        var childElements= modifierElement.Elements();
-
-        foreach (XElement element in childElements)
-        {
-            string elementName = element.Name.ToString();
-            if (elementName.Contains(XmlStateHeader))
-            {
-                string stateName = elementName.Remove(0, XmlStateHeader.Count());
-                IModifierState state= CreateModifierState(stateName);
-                state.Init(element);
-                modifier.AddModifierState(state);
-            }
-        }
-        
-        return null;
-    }
-
-
     
-
-
-
     public IModifierState CreateModifierState(string modifierClassName)
     {
         if (modifierStateTypeDic.Keys.Contains(modifierClassName))

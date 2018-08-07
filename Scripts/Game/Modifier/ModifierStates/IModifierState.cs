@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Xml.Linq;
-using System;
+
 
 public abstract class IModifierState
 {
@@ -39,6 +38,7 @@ public abstract class IModifierState
     
     public void Update()
     {
+        
         if (Time.time <= endTime)
         {
             ExecuteIfNeed();
@@ -63,7 +63,7 @@ public abstract class IModifierState
     public void Destroy()
     {
         OnDestroy();
-        modifier.RemoveThisState(this);
+        modifier.RemoveAndStoreState(this);
     }
 
     protected virtual void OnStart() { }
@@ -74,7 +74,8 @@ public abstract class IModifierState
     public virtual void Init(XElement element)
     {
         duration = element.Attribute("duration").Value.ParseToFloat();
-        interval = element.Attribute("duration").Value.ParseToFloat();
+        interval = element.Attribute("interval").Value.ParseToFloat();
+       
     }
     
 }
