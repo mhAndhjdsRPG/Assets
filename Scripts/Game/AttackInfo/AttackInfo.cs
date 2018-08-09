@@ -27,6 +27,8 @@ public class AttackInfo
     private string inputStr = "";
     [SerializeField]
     private float damageRate = 1f;
+    [SerializeField]
+    private float decreaseHard = 0;
 
     public float CoolDown
     {
@@ -116,6 +118,19 @@ public class AttackInfo
         set
         {
             damageRate = value;
+        }
+    }
+
+    public float DecreaseHard
+    {
+        get
+        {
+            return decreaseHard;
+        }
+
+        set
+        {
+            decreaseHard = value;
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DefaultWeapon : IWeapon
 {
-    public override WeaponType Type => WeaponType.arm;
+    public override WeaponType Type => WeaponType.Arm;
 
     public override void OnAttack()
     {

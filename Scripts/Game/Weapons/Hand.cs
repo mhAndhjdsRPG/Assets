@@ -8,7 +8,7 @@ public class Hand : IWeapon
     {
         get
         {
-            return WeaponType.arm;
+            return WeaponType.Arm;
         }
     }
 

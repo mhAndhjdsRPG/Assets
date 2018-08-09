@@ -21,6 +21,7 @@ public class CameraFollow : MonoBehaviour
     void FollowPlayer()
     {
         transform.position = Vector3.Lerp(transform.position, cameraPos.transform.position, cameraPos.followSpeed);
+        
         transform.rotation = cameraPos.transform.rotation;
     }
 }

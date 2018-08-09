@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
     public bool onlyHasInput = false;
     public bool readInput = false;
 
-    public bool fire1, fire2, fire3, fire4, _switch;
+    public bool fire1, fire2, fire3, fire4, _switch,roll;
     public Dictionary<string, bool> inputBoolDic = new Dictionary<string, bool>();
 
 
@@ -50,6 +50,7 @@ public class InputManager : MonoBehaviour
         inputBoolDic.Add("Fire3", fire3);
         inputBoolDic.Add("Fire4", fire4);
         inputBoolDic.Add("Switch", _switch);
+        inputBoolDic.Add("Roll", roll);
     }
 
     private void LateUpdate()
@@ -59,6 +60,7 @@ public class InputManager : MonoBehaviour
         inputBoolDic["Fire3"] = false;
         inputBoolDic["Fire4"] = false;
         inputBoolDic["Switch"] = false;
+        inputBoolDic["Roll"] = false;
     }
 
     private void Update()
@@ -87,6 +89,10 @@ public class InputManager : MonoBehaviour
             if (Input.GetButtonDown("Switch"))
             {
                 _switch=inputBoolDic["Switch"] = true;
+            }
+            if (Input.GetButtonDown("Roll"))
+            {
+                roll = inputBoolDic["Roll"] = true;
             }
             if (onlyHasInput)
             {

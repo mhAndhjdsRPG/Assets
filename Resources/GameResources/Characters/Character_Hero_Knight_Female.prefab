@@ -2629,7 +2629,7 @@ MonoBehaviour:
   modle: {fileID: 444994}
   xSensitive: 1
   ySensitive: 1
-  followSpeed: 0.2
+  followSpeed: 0.4
   maxAngle: 80
   minAngle: -10
   currentLocalAngle: 0
@@ -2820,6 +2820,7 @@ MonoBehaviour:
   fire3: 0
   fire4: 0
   _switch: 0
+  roll: 0
   horizontal: 0
   vertical: 0
 --- !u!114 &114914890497016200
@@ -2839,6 +2840,7 @@ MonoBehaviour:
   attackCalculator: {fileID: 114407252459065358}
   head: {fileID: 465894}
   origin: {fileID: 439852}
+  chest: {fileID: 463992}
   ani: {fileID: 9547916}
   CreateGo: 0
   NotGetHurt: 0

@@ -28,6 +28,7 @@ public abstract class ICharacter : MonoBehaviour
     [Header("===== 部位 =====")]
     public Transform head;
     public Transform origin;
+    public Transform chest;
 
 
     [HideInInspector]
@@ -209,8 +210,14 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
-
-    #region Dodge
+    #region Hard
+    [SerializeField, HideInInspector]
+    private float maxHard;
+    public float MaxHard
+    {
+        get { return maxHard; }
+        set { maxHard = value;  }
+    }
 
     public OnFloatChange OnHardChange;
     [SerializeField, HideInInspector]
@@ -228,6 +235,10 @@ public abstract class ICharacter : MonoBehaviour
             hard = value;
         }
     }
+    #endregion
+
+
+    #region Dodge
 
 
 

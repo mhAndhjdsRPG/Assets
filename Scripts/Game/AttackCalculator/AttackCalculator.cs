@@ -33,7 +33,6 @@ public class AttackCalculator : MonoBehaviour
         if (layerName.Contains("Weapon"))
         {
             AttackedByNearAttack(col);
-
         }
         else if(layerName.Contains("Magic"))
         {
@@ -96,10 +95,6 @@ public class AttackCalculator : MonoBehaviour
 
     private void CalculateNearAttack(ICharacter attacker, IWeapon weapon, AttackInfo skillInfo)
     {
-        print("Weapon" + weapon.ATK);
-        print("info" + skillInfo.DamageRate);
-        print("owner" + attacker.BaseATK);
-
         owner.HP -= (attacker.BaseATK + weapon.ATK) * skillInfo.DamageRate;
     }
 

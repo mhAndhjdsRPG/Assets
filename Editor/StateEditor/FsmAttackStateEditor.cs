@@ -57,6 +57,11 @@ public class FsmAttackStateEditor : Editor
             info.DamageRate = damageRate;
         }
 
+        var decreaseHard = EditorGUILayout.FloatField("decreaseHard", info.DecreaseHard);
+        if (decreaseHard != info.DecreaseHard)
+        {
+            info.DecreaseHard = decreaseHard;
+        }
 
 
         DrawRangeChecker();

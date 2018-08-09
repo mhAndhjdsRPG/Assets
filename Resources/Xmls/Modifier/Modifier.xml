@@ -44,7 +44,7 @@
 
   <生成物测试>
     <State>
-      <CreatePrefabStateNow duration="10" attachType="Follow_Overhead" preFabPath="ModifierStateTest"/>
+      <CreatePrefabStateNow duration="10" attachType="Follow_Chest" preFabPath="ModifierStateTest"/>
     </State>
   </生成物测试>
   
