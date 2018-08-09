@@ -10,6 +10,14 @@
     ContinuouslyChangeHpState             duration持续时间                          持续性修改血量
                                           interval频率(n秒一次)
                                           changeHpPerTime每次改变血量(正加负减)
+    
+    ChangeAglState                        duration持续时间
+                                          addAgl(修改的agl)                       修改人物的agl
+                                          
+                                          
+    CreatePrefabStateNow                  duration持续时间                        在指定位置生成物体
+                                          preFabPath生成的路径(需要在resources下)
+                                          attachType生成位置，具体参见该枚举    
 -->
 
 
@@ -27,5 +35,17 @@
     </State>
     
   </流血>
+
+  <加速>
+    <State>
+      <ChangeAglState duration="5" addAgl="10"/>
+    </State>
+  </加速>
+
+  <生成物测试>
+    <State>
+      <CreatePrefabStateNow duration="10" attachType="Follow_Overhead" preFabPath="ModifierStateTest"/>
+    </State>
+  </生成物测试>
   
 </Midifiers>

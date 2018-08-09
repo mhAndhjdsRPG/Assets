@@ -25,11 +25,16 @@ public abstract class ICharacter : MonoBehaviour
 
     public AttackCalculator attackCalculator;
 
+    [Header("===== 部位 =====")]
+    public Transform head;
+    public Transform origin;
+
+
     [HideInInspector]
     public Animator ani;
 
 
-    public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
+    public bool CreateGo;
 
     #region 角色属性
 
@@ -93,34 +98,34 @@ public abstract class ICharacter : MonoBehaviour
         set
         {
             baseAtk = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
 
     [SerializeField, HideInInspector]
-    private float addAtkValue;
-    public float AddAtkValue
+    private float addAtk;
+    public float AddAtk
     {
-        get { return addAtkValue; }
+        get { return addAtk; }
 
         set
         {
-            addAtkValue = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            addAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
     [SerializeField, HideInInspector]
-    private float multipleAtkValue;
-    public float MultipleAtkValue
+    private float multipleAtk;
+    public float MultipleAtk
     {
-        get { return multipleAtkValue; }
+        get { return multipleAtk; }
 
         set
         {
-            multipleAtkValue = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            multipleAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
@@ -134,7 +139,7 @@ public abstract class ICharacter : MonoBehaviour
 
         private set
         {
-            OnAGLChange(totalAtk, value);
+            OnAGLChange?.Invoke(totalAtk, value);
             totalAtk = value;
         }
     }
@@ -195,7 +200,7 @@ public abstract class ICharacter : MonoBehaviour
         {
             return totalAgl;
         }
-        set
+        private set
         {
             OnAGLChange?.Invoke(totalAgl, value);
             totalAgl = value;
@@ -292,9 +297,7 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
-    public bool AddInvulner;
-    public bool AddLoseHp;
-
+    public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
     protected virtual void Awake()
     {
@@ -309,18 +312,12 @@ public abstract class ICharacter : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (AddInvulner)
-        {
-            AddInvulner = false;
-            print("添加无敌");
-            ReceiveModifier("无敌");
-        }
 
-        if (AddLoseHp)
+        if (CreateGo)
         {
-            AddLoseHp = false;
-            print("添加流血");
-            ReceiveModifier("流血");
+            CreateGo = false;
+            ReceiveModifier("生成物测试");
+            print("生成");
         }
 
         UpdateModifier?.Invoke();

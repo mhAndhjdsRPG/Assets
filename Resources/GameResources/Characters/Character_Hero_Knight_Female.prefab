@@ -2837,22 +2837,23 @@ MonoBehaviour:
   weaponManager: {fileID: 114417400591109672}
   state: {fileID: 0}
   attackCalculator: {fileID: 114407252459065358}
+  head: {fileID: 465894}
+  origin: {fileID: 439852}
   ani: {fileID: 9547916}
+  CreateGo: 0
   NotGetHurt: 0
   maxHP: 100
   hp: 100
-  baseAtk: 0
-  addAtkValue: 0
-  multipleAtkValue: 0
-  totalAtk: 0
-  baseAgl: 0
+  baseAtk: 1
+  addAtk: 0
+  multipleAtk: 1
+  totalAtk: 1
+  baseAgl: 5
   addAgl: 0
-  multipleAgl: 0
-  totalAgl: 4
+  multipleAgl: 1
+  totalAgl: 5
   hard: 0
   dodgeCoolDown: 0
-  AddInvulner: 0
-  AddLoseHp: 0
 --- !u!114 &114979534823793012
 MonoBehaviour:
   m_ObjectHideFlags: 1
