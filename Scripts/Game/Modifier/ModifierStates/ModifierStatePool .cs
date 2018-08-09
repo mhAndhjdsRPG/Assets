@@ -28,12 +28,22 @@ public class ModifierStatePool
 
     public T GetModifierState<T>()where T:IModifierState
     {
-        return (T)modifierStatesDic[typeof(T).ToString()][0];
+
+        T result = (T)modifierStatesDic[typeof(T).ToString()][0];
+
+        modifierStatesDic[typeof(T).ToString()].RemoveAt(0);
+
+
+        return result;
     }
 
     public IModifierState GetModifierState(string modifierStateName)
     {
-        return modifierStatesDic[modifierStateName][0];
+        IModifierState result= modifierStatesDic[modifierStateName][0];
+
+        modifierStatesDic[modifierStateName].RemoveAt(0);
+
+        return result;
     }
 
 

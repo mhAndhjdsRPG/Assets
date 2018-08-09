@@ -28,7 +28,6 @@ public abstract class ICharacter : MonoBehaviour
     [HideInInspector]
     public Animator ani;
 
-    protected List<Modifier> modifierList = new List<Modifier>();
 
     public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
@@ -55,7 +54,7 @@ public abstract class ICharacter : MonoBehaviour
         }
     }
 
-    
+
 
     public OnFloatChange OnHPChange;
     [SerializeField, HideInInspector]
@@ -68,10 +67,9 @@ public abstract class ICharacter : MonoBehaviour
         }
         set
         {
-            if (NotGetHurt)
+            if (NotGetHurt && value < hp)
             {
-                if (value < hp)
-                    return;
+                return;
             }
             else
             {
@@ -288,6 +286,15 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
+    #region Modifier事件
+
+    public Action UpdateModifier;
+
+    #endregion
+
+    public bool AddInvulner;
+    public bool AddLoseHp;
+
 
     protected virtual void Awake()
     {
@@ -302,10 +309,22 @@ public abstract class ICharacter : MonoBehaviour
 
     protected virtual void Update()
     {
-        foreach (var modifier in modifierList)
+        if (AddInvulner)
         {
-            modifier.Update();
+            AddInvulner = false;
+            print("添加无敌");
+            ReceiveModifier("无敌");
         }
+
+        if (AddLoseHp)
+        {
+            AddLoseHp = false;
+            print("添加流血");
+            ReceiveModifier("流血");
+        }
+
+        UpdateModifier?.Invoke();
+
     }
 
     /// <summary>
@@ -321,17 +340,11 @@ public abstract class ICharacter : MonoBehaviour
     }
 
 
-    public void RemoveThisModifier(Modifier modifier)
+    public void ReceiveModifier(string modifierNameInXml, float waitSecondStart = 0)
     {
-        modifierList.RemoveIfContains(modifier);
-    }
-
-
-    public void ReceiveModifier(string modifierNameInXml,float waitSecondStart=0)
-    {
-        Modifier modifier=ModifierManager.Instance.GetModifier(modifierNameInXml);
+        Modifier modifier = ModifierManager.Instance.GetModifier(modifierNameInXml, this);
         StartCoroutine(WaitForStartModifier(modifier, waitSecondStart));
-            
+
     }
 
 
@@ -345,7 +358,7 @@ public abstract class ICharacter : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSecond);
         modifier.Start();
-        modifierList.Add(modifier);
+
     }
 }
 

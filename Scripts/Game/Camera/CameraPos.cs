@@ -33,6 +33,7 @@ public class CameraPos : MonoBehaviour
     public float midleDistance;
     [Range(0, 10)]
     public float maxDistance;
+    public LayerMask cullingMask;
     [Header("===== LockInfo =====")]
     [Range(0, 10)]
     public float lockedCameraDistance;
@@ -48,7 +49,7 @@ public class CameraPos : MonoBehaviour
     public bool isLocked;
 
     [Space(20)]
-    //可以删除的字段，测试用
+    
     [Header("Show")]
     public bool showCursor;
     public bool shownLockCanDistance;
@@ -193,7 +194,7 @@ public class CameraPos : MonoBehaviour
         //如果有遮挡前移
         Ray ray = new Ray(viewPoint.position, -transform.forward);
         RaycastHit raycast;
-        if (Physics.Raycast(ray, out raycast, Vector3.Distance(transform.position, viewPoint.position), LayerMask.GetMask("Building")))
+        if (Physics.Raycast(ray, out raycast, Vector3.Distance(transform.position, viewPoint.position), cullingMask))
         {
             transform.position = raycast.point + transform.forward * 0.1f;
         }
@@ -269,7 +270,7 @@ public class CameraPos : MonoBehaviour
         {
             Vector3 colScreenPos = Camera.main.WorldToViewportPoint(col.transform.position);
 
-            if (isInScreen(colScreenPos, screenXLimits, screenYLimits))
+            if (IsInScreen(colScreenPos, screenXLimits, screenYLimits))
             {
 
                 float newDistance = Vector2.Distance(colScreenPos, camerCenter);
@@ -287,7 +288,7 @@ public class CameraPos : MonoBehaviour
     }
 
 
-    public bool isInScreen(Vector2 viewportPointPos, float screenXLimits, float screenYLimits)
+    public bool IsInScreen(Vector2 viewportPointPos, float screenXLimits, float screenYLimits)
     {
         float center = 0.5f;
         float halfXLimits = screenXLimits / 2;

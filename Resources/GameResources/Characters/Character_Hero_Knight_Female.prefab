@@ -2636,6 +2636,9 @@ MonoBehaviour:
   minDistance: 5
   midleDistance: 5
   maxDistance: 5
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 256
   lockedCameraDistance: 5
   lockedCameraHeight: 1
   maxLoseLockDistance: 1000
@@ -2848,6 +2851,8 @@ MonoBehaviour:
   totalAgl: 4
   hard: 0
   dodgeCoolDown: 0
+  AddInvulner: 0
+  AddLoseHp: 0
 --- !u!114 &114979534823793012
 MonoBehaviour:
   m_ObjectHideFlags: 1

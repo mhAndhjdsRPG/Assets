@@ -5,7 +5,6 @@ using System.Collections;
 public class Hero : ICharacter
 {
     
-   
     public override CharacterType CharacterType
     {
         get

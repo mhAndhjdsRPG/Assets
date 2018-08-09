@@ -26,9 +26,9 @@ public class ModifierManager : MonoBehaviour {
     }
 
 
-    public Modifier GetModifier(string modifierName)
+    public Modifier GetModifier(string modifierName,ICharacter affectedCharacter)
     {
-        Modifier modifier = new Modifier();
+        Modifier modifier = new Modifier(affectedCharacter);
 
         XElement modifierElement = modiferXml.Root.Element(modifierName);
 
@@ -43,14 +43,14 @@ public class ModifierManager : MonoBehaviour {
 
         foreach (XElement element in childElements)
         {
-            modifier.AddModifierState(GetModiferState(element));
+            modifier.AddModifierState(GetModiferState(element, affectedCharacter));
         }
 
         return modifier;
     }
 
 
-    IModifierState GetModiferState(XElement element)
+    IModifierState GetModiferState(XElement element,ICharacter affectedCharacter)
     {
         string stateName = element.Name.ToString();
 
@@ -67,7 +67,7 @@ public class ModifierManager : MonoBehaviour {
             print("get from factory");
         }
 
-        state.Init(element);
+        state.InitDataWithXml(element);
 
         return state;
     }
