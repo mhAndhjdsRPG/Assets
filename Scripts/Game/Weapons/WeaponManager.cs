@@ -150,6 +150,7 @@ public class WeaponManager : MonoBehaviour
     void SetCurrentWeaponAniParam()
     {
         FalseAllAniWeaponBool();
+        
         ani.SetBool(rightHandWeaponSlot.CurrentWeapon.Type.ToString(), true);
     }
 

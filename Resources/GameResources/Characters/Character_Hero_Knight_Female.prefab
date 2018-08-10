@@ -2625,17 +2625,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHandler: {fileID: 422474}
   viewPoint: {fileID: 4141812759958086}
-  input: {fileID: 0}
+  input: {fileID: 114900512245941802}
   modle: {fileID: 444994}
   xSensitive: 1
   ySensitive: 1
-  followSpeed: 0.2
+  followSpeed: 0.4
   maxAngle: 80
   minAngle: -10
   currentLocalAngle: 0
   minDistance: 5
   midleDistance: 5
   maxDistance: 5
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 256
   lockedCameraDistance: 5
   lockedCameraHeight: 1
   maxLoseLockDistance: 1000
@@ -2835,11 +2838,22 @@ MonoBehaviour:
   weaponManager: {fileID: 114417400591109672}
   state: {fileID: 0}
   attackCalculator: {fileID: 114407252459065358}
+  head: {fileID: 465894}
+  origin: {fileID: 439852}
+  chest: {fileID: 463992}
   ani: {fileID: 9547916}
-  maxHP: 0
-  hp: 0
-  atk: 5
-  agl: 7
+  CreateGo: 0
+  NotGetHurt: 0
+  maxHP: 100
+  hp: 100
+  baseAtk: 1
+  addAtk: 0
+  multipleAtk: 1
+  totalAtk: 1
+  baseAgl: 5
+  addAgl: 0
+  multipleAgl: 1
+  totalAgl: 5
   hard: 0
   dodgeCoolDown: 0
 --- !u!114 &114979534823793012

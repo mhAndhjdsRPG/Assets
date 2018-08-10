@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
     public bool onlyHasInput = false;
     public bool readInput = false;
 
-    public bool fire1, fire2, fire3, fire4, _switch;
+    public bool fire1, fire2, fire3, fire4, _switch,roll;
     public Dictionary<string, bool> inputBoolDic = new Dictionary<string, bool>();
 
 
@@ -50,6 +50,7 @@ public class InputManager : MonoBehaviour
         inputBoolDic.Add("Fire3", fire3);
         inputBoolDic.Add("Fire4", fire4);
         inputBoolDic.Add("Switch", _switch);
+        inputBoolDic.Add("Roll", roll);
     }
 
     private void LateUpdate()
@@ -59,6 +60,7 @@ public class InputManager : MonoBehaviour
         inputBoolDic["Fire3"] = false;
         inputBoolDic["Fire4"] = false;
         inputBoolDic["Switch"] = false;
+        inputBoolDic["Roll"] = false;
     }
 
     private void Update()
@@ -67,31 +69,30 @@ public class InputManager : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                inputBoolDic["Fire1"] = true;
-                fire1 = true;
+                fire1=inputBoolDic["Fire1"] = true;
             }
             if (Input.GetButtonDown("Fire2"))
             {
-                inputBoolDic["Fire2"] = true;
-                fire2 = true;
+                fire2=inputBoolDic["Fire2"] = true;
 
             }
             if (Input.GetButtonDown("Fire3"))
             {
-                inputBoolDic["Fire3"] = true;
-                fire3 = true;
+                fire3=inputBoolDic["Fire3"] = true;
 
             }
             if (Input.GetButtonDown("Fire4"))
             {
-                inputBoolDic["Fire4"] = true;
-                fire4 = true;
+                fire4=inputBoolDic["Fire4"] = true;
 
             }
             if (Input.GetButtonDown("Switch"))
             {
-                inputBoolDic["Switch"] = true;
-                _switch = true;
+                _switch=inputBoolDic["Switch"] = true;
+            }
+            if (Input.GetButtonDown("Roll"))
+            {
+                roll = inputBoolDic["Roll"] = true;
             }
             if (onlyHasInput)
             {

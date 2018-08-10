@@ -13,8 +13,6 @@ public class ICharacterEditor : Editor{
 
     float maxHp;
     float hp;
-    float atk;
-    float agl;
     float hard;
     float dodgeCoolDown;
     bool canDodge;
@@ -54,17 +52,9 @@ public class ICharacterEditor : Editor{
             character.HP = hp;
         }
 
-        atk = EditorGUILayout.FloatField("Atk", character.BaseATK);
-        if (atk != character.BaseATK)
-        {
-            character.BaseATK = atk;
-        }
+        DrawAtk();
 
-        agl = EditorGUILayout.FloatField("Agl", character.TotalAGL);
-        if (agl != character.TotalAGL)
-        {
-            character.TotalAGL = agl;
-        }
+        DrawAgl();
 
         hard = EditorGUILayout.FloatField("Hard", character.Hard);
         if (hard != character.Hard)
@@ -78,8 +68,68 @@ public class ICharacterEditor : Editor{
             character.CanDodge = canDodge;
         }
 
-       
+    }
 
+
+    void DrawAtk()
+    {
+        EditorTools.DrawSpace(2);
+        EditorGUILayout.LabelField("====== Atk ======");
+        var atk = EditorGUILayout.FloatField("BaseAtk", character.BaseATK);
+        if (atk != character.BaseATK)
+        {
+            character.BaseATK = atk;
+        }
+
+        var addAtk = EditorGUILayout.FloatField("AddAtk", character.AddAtk);
+        if (addAtk != character.AddAtk)
+        {
+            character.AddAtk = addAtk;
+        }
+
+        var multipleAtk = EditorGUILayout.FloatField("multipleAtk", character.MultipleAtk);
+        if (multipleAtk != character.MultipleAtk)
+        {
+            character.MultipleAtk = multipleAtk;
+        }
+
+
+        EditorGUI.BeginDisabledGroup(true);
+
+        EditorGUILayout.FloatField("TotalAtk", character.TotalAtk);
+       
+        EditorGUI.EndDisabledGroup();
+    }
+
+
+    void DrawAgl()
+    {
+        EditorTools.DrawSpace(2);
+        EditorGUILayout.LabelField("====== Agl ======");
+        var agl = EditorGUILayout.FloatField("BaseAgl", character.BaseAgl);
+        if (agl != character.BaseAgl)
+        {
+            character.BaseAgl = agl;
+        }
+
+        var addAgl = EditorGUILayout.FloatField("AddAgl", character.AddAgl);
+        if (addAgl != character.AddAgl)
+        {
+            character.AddAgl = addAgl;
+        }
+
+        var multipleAgl = EditorGUILayout.FloatField("multipleAgl", character.MultipleAgl);
+        if (multipleAgl != character.MultipleAgl)
+        {
+            character.MultipleAgl = multipleAgl;
+        }
+
+
+        EditorGUI.BeginDisabledGroup(true);
+
+        EditorGUILayout.FloatField("TotalAgl", character.TotalAGL);
+
+        EditorGUI.EndDisabledGroup();
     }
 
 }

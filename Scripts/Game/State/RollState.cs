@@ -11,7 +11,7 @@ public class RollState : State
         base.OnStateEnter(animator, animatorStateInfo, layerIndex);
 
         rollDir = (input.Horizontal * owner.transform.right + input.Vertical * owner.transform.forward).normalized;
-        blendParam = BuildBlendParam(rollDir);
+        blendParam = BuildBlendParam();
 
         owner.attackCalculator.canGetHurt = false;
     }
@@ -21,7 +21,7 @@ public class RollState : State
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         Roll();
-        
+
     }
 
 
@@ -41,21 +41,21 @@ public class RollState : State
         ani.SetFloat("Vertical", blendParam.y);
     }
 
-    Vector2 BuildBlendParam(Vector3 rollDir)
+    Vector2 BuildBlendParam()
     {
-        if (rollDir == Vector3.zero)
+        Vector2 blendParam = new Vector2(input.horizontal,input.vertical).normalized;
+
+        if (blendParam == Vector2.zero)
         {
             return Vector2.zero;
         }
 
-        if (Mathf.Abs(rollDir.x) > Mathf.Abs(rollDir.z))
-        {
-            return new Vector2(Mathf.Sign(rollDir.x), rollDir.z/ rollDir.x);
-        }
-        else
-        {
-            return new Vector2(rollDir.x / rollDir.z, Mathf.Sign(rollDir.z));
-        }
+        float longerSide= Mathf.Abs(blendParam.x) > Mathf.Abs(blendParam.y) ? Mathf.Abs(blendParam.x) : Mathf.Abs(blendParam.y);
+
+        //blendParam = blendParam * (1 / longerSide);
+        blendParam = blendParam / longerSide;
+
+        return blendParam;
     }
-    
+
 }

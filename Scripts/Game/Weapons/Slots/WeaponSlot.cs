@@ -25,7 +25,7 @@ public class WeaponSlot : MonoBehaviour
 
         set
         {
-            if (value.Type==WeaponType.arm)
+            if (value.Type==WeaponType.Arm)
             {
                 currentWeapon = defaultWeapon;
             }

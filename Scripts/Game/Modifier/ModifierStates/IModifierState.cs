@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Xml.Linq;
-using System;
+
 
 public abstract class IModifierState
 {
-    private const float NotUpdate = -1f;
+    private const float NotUpdate = float.MaxValue;
 
     public abstract string Name { get; }
     /// <summary>
@@ -26,24 +25,21 @@ public abstract class IModifierState
     public float interval = NotUpdate;
 
 
+    private float lastWaitTime;
 
-
-    private float endTime;
-    private float lastWaitTime=0;
-
-    public  void Start()
+    public void Start()
     {
-        endTime = Time.time + duration;
+        lastWaitTime = interval;
         OnStart();
     }
-    
+
     public void Update()
     {
-        if (Time.time <= endTime)
-        {
-            ExecuteIfNeed();
-        }
-        else 
+        
+        ExecuteIfNeed();
+
+        duration -= Time.deltaTime;
+        if (duration<0)
         {
             Destroy();
         }
@@ -51,30 +47,60 @@ public abstract class IModifierState
 
     void ExecuteIfNeed()
     {
-        lastWaitTime -= Time.time;
-        if (lastWaitTime<=0)
+        if (interval == NotUpdate)
+        {
+            return;
+        }
+
+        lastWaitTime -= Time.deltaTime;
+        if (lastWaitTime <= 0)
         {
             OnExecute();
             lastWaitTime = interval;
         }
     }
-    
+
+
+    public virtual void InitDataWithXml(XElement element)
+    {
+        duration = element.Attribute("duration").Value.ParseToFloat();
+
+        XAttribute intervalAttribute = element.Attribute("interval");
+
+        if (intervalAttribute == null)
+        {
+            interval = NotUpdate;
+        }
+        else
+        {
+            interval = intervalAttribute.Value.ParseToFloat();
+        }
+
+    }
+
+
+    public virtual void InitWithModifier(Modifier modifier)
+    {
+        this.modifier = modifier;
+        owner = modifier.owner;
+        modifier.OnStart += Start;
+        modifier.OnUpdate += Update;
+    }
 
     public void Destroy()
     {
         OnDestroy();
-        modifier.RemoveThisState(this);
+
+        modifier.OnStart -= Start;
+        modifier.OnUpdate -= Update;
+        modifier.RemoveAndStoreState(this);
     }
+
 
     protected virtual void OnStart() { }
     protected virtual void OnExecute() { }
     protected virtual void OnDestroy() { }
 
-    
-    public virtual void Init(XElement element)
-    {
-        duration = element.Attribute("duration").Value.ParseToFloat();
-        interval = element.Attribute("duration").Value.ParseToFloat();
-    }
-    
+
+
 }

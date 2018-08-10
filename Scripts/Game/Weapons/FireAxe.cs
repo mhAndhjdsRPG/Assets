@@ -7,7 +7,7 @@ public class FireAxe : IWeapon {
     {
         get
         {
-            return WeaponType.axe;
+            return WeaponType.Axe;
         }
     }
 

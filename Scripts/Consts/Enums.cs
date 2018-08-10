@@ -66,8 +66,8 @@ public enum RangeCheckType
 
 public enum WeaponType
 {
-    axe,
-    arm,
+    Axe,
+    Arm,
 }
 
 public enum SlotPos

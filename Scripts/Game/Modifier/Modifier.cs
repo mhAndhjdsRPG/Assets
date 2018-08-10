@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Modifier
 {
@@ -16,17 +17,10 @@ public class Modifier
     private List<IModifierState> modifierStateList = new List<IModifierState>();
     #endregion
 
-
     #region 事件
-    public delegate void NoParamEvent();
-    public NoParamEvent OnCreated;
-    public NoParamEvent OnUpdate;
-    public NoParamEvent OnDestroy;
-    public NoParamEvent OnAttacked;
-    public NoParamEvent OnAttack;
+    public Action OnUpdate;
+    public Action OnStart;
     #endregion
-
-
 
     #region Tools
     /// <summary>
@@ -35,6 +29,8 @@ public class Modifier
     /// <param name="modifierState"></param>
     public void AddModifierState(IModifierState modifierState)
     {
+        modifierState.InitWithModifier(this);
+
         //更新总体duration
         duration = modifierState.duration > duration ? modifierState.duration : duration;
         modifierStateList.Add(modifierState);
@@ -43,11 +39,36 @@ public class Modifier
     /// State通知Modifier自己被移除
     /// </summary>
     /// <param name="state"></param>
-    public void RemoveThisState(IModifierState state)
+    public void RemoveAndStoreState(IModifierState state)
     {
         modifierStateList.RemoveIfContains(state);
+        ModifierManager.Instance.StoreModifierState(state);
+
+        if (modifierStateList.Count == 0)
+        {
+            owner.UpdateModifier -= Update;
+        }
     }
     #endregion
+
+
+    public Modifier(ICharacter affectedCharacter)
+    {
+        owner = affectedCharacter;
+    }
+
+
+    public void Start()
+    {
+        OnStart?.Invoke();
+        owner.UpdateModifier += Update;
+    }
+
+    public void Update()
+    {
+        OnUpdate?.Invoke();
+    }
+    
 }
 
 
