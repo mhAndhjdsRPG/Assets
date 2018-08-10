@@ -14,15 +14,27 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
-                Instance = new GameObject("MonoSingleton").AddComponent<T>();
+                GameObject instanceGameObj = GameObject.Find(typeof(T).ToString());
+                if (instanceGameObj == null)
+                {
+                    instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
+                }
+                else
+                {
+                    if (instanceGameObj.GetComponent<T>() != null)
+                    {
+                        instance = instanceGameObj.GetComponent<T>();
+                    }
+                    else
+                    {
+                        instance = instanceGameObj.AddComponent<T>();
+                    }
+                }
+                DontDestroyOnLoad(instanceGameObj);
             }
             return instance;
-        }
-        private set
-        {
-            instance = value;
         }
     }
 
@@ -34,7 +46,7 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected abstract void OnAwake();
 
-     
+
     private void Start()
     {
         OnStart();
@@ -62,6 +74,6 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     }
 
     protected abstract void OnLateUpdate();
-    
-    
+
+
 }

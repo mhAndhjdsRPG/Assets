@@ -30,7 +30,6 @@ public abstract class ICharacter : MonoBehaviour
 
     protected List<Modifier> modifierList = new List<Modifier>();
 
-
     #region 角色属性
 
     #region Hp
@@ -301,9 +300,7 @@ public abstract class ICharacter : MonoBehaviour
     {
         //需要在start中调用GetBehavior保证动画对象正确初始化
         InitAttackInfoDic();
-
     }
-
 
     protected virtual void Update()
     {

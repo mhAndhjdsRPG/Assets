@@ -61,16 +61,10 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         {
             gameObject.SetActive(false);
             StringBuilder realNameStringBuilder = new StringBuilder();
-            StringBuilder last7Str = new StringBuilder();
-            last7Str.Append(gameObject.name);
             realNameStringBuilder.Append(gameObject.name);
-            if (gameObject.name.Length > 7)
+            if (gameObject.name.EndsWith("(Clone)"))
             {
-                last7Str.Remove(0, gameObject.name.Length - 7);
-                if(last7Str.ToString() == "(Clone)")
-                {
-                    realNameStringBuilder.Remove(gameObject.name.Length - 7, 7);
-                }
+                realNameStringBuilder.Remove(gameObject.name.Length - 7, 7);
             }
             string realName = realNameStringBuilder.ToString();
 

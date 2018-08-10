@@ -20,10 +20,17 @@ public class CombatWindow : FixedWindow
         base.OnAwake();
         hero.OnHPChange += ShowHp;
         monster.OnHPChange += ShowMonsterHp;
+    }
+
+    private void OnEnable()
+    {
+        
+    }
+    private void OnDisable()
+    {
         
     }
 
-   
     private void ShowHp(float curhp, float maxhp)
     {
         imageDic["Image_HpBar"].fillAmount = curhp / maxhp;

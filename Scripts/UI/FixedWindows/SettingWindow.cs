@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingWindow : FreeWindow
+public class SettingWindow : FixedWindow
 {
     public override string Name
     {
@@ -12,6 +12,7 @@ public class SettingWindow : FreeWindow
             return "SettingWindow";
         }
     }
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -28,4 +29,5 @@ public class SettingWindow : FreeWindow
     {
         UIManager.Instance.HideWindow(Name);
     }
+
 }

@@ -7,7 +7,7 @@ public class UIManager : Singleton<UIManager>
     /// <summary>
     /// 当前操作窗体
     /// </summary>
-    public WindowBase currentWindow;
+    private WindowBase currentWindow;
     /// <summary>
     /// 画布组件
     /// </summary>
@@ -34,11 +34,31 @@ public class UIManager : Singleton<UIManager>
             return canvas;
         }
     }
+    public WindowBase CurrentWindow
+    {
+        get
+        {
+            return currentWindow;
+        }
+        set
+        {
+            //冻结上一个窗口
+            if (currentWindow != null)
+            {
+                FreezeWindow(currentWindow.Name);
+            }
+            //置顶新当前
+            BumpCurrentWindowToTop(value);
+            ThawWindow(value.Name);
+            currentWindow = value;
+        }
+    }
 
     /// <summary>
     /// 窗口字典
     /// </summary>
     private Dictionary<string, WindowBase> windowsDic = new Dictionary<string, WindowBase>();
+
 
 
 
@@ -62,7 +82,8 @@ public class UIManager : Singleton<UIManager>
             GameObject windowGameObjectRes = ResourcesManager.Instance.Load<GameObject>(FolderPaths.Windows, windowName);
             if (windowGameObjectRes != null)
             {
-                WindowBase windowBase = GameObject.Instantiate(windowGameObjectRes, parent).GetComponent<WindowBase>();
+                GameObject windowObj = GameObject.Instantiate(windowGameObjectRes, parent);
+                WindowBase windowBase = windowObj.GetComponent<WindowBase>();
                 if (windowBase != null)
                 {
                     windowsDic.Add(windowName, windowBase);
@@ -78,8 +99,13 @@ public class UIManager : Singleton<UIManager>
                 Debug.Log("Cant Find Window Resources :" + windowName);
             }
         }
+        if (retWindowBase != null)
+        {
+            CurrentWindow = retWindowBase;
+        }
         return retWindowBase;
     }
+
     /// <summary>
     /// 隐藏窗体
     /// </summary>
@@ -91,6 +117,11 @@ public class UIManager : Singleton<UIManager>
             if (windowsDic[windowName].gameObject.activeSelf)
             {
                 windowsDic[windowName].gameObject.SetActive(false);
+                //若隐藏的是当前窗口，则激活最顶端的窗口
+                if (windowsDic[windowName] == CurrentWindow)
+                {
+                    CurrentWindow = GetLastIndexWindow(Canvas);
+                }
             }
         }
         else
@@ -98,6 +129,7 @@ public class UIManager : Singleton<UIManager>
             Debug.Log("Not Found This Window :" + windowName);
         }
     }
+
     /// <summary>
     /// 关闭窗体
     /// </summary>
@@ -114,6 +146,7 @@ public class UIManager : Singleton<UIManager>
                 WindowBase deleteWindow = windowsDic[windowName];
                 windowsDic.Remove(windowName);
                 GameObject.Destroy(deleteWindow.gameObject);
+                CurrentWindow = Canvas.GetChild(Canvas.childCount - 1).GetComponent<WindowBase>();
             }
         }
         else
@@ -121,4 +154,113 @@ public class UIManager : Singleton<UIManager>
             Debug.Log("Not Found This Window :" + windowName);
         }
     }
+
+
+
+
+    /// <summary>
+    /// 冻结窗口
+    /// </summary>
+    /// <param name="windowName"></param>
+    private void FreezeWindow(string windowName)
+    {
+        if (windowsDic.ContainsKey(windowName))
+        {
+            List<Selectable> selectableList = windowsDic[windowName].selectableList;
+            for (int i = 0; i < selectableList.Count; i++)
+            {
+                selectableList[i].interactable = false;
+            }
+        }
+        else
+        {
+            Debug.Log("Not Found This Window :" + windowName);
+        }
+    }
+
+    /// <summary>
+    /// 解冻窗口
+    /// </summary>
+    /// <param name="windowName"></param>
+    private void ThawWindow(string windowName)
+    {
+        if (windowsDic.ContainsKey(windowName))
+        {
+            List<Selectable> selectableList = windowsDic[windowName].selectableList;
+            for (int i = 0; i < selectableList.Count; i++)
+            {
+                selectableList[i].interactable = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Not Found This Window :" + windowName);
+        }
+    }
+
+    /// <summary>
+    /// 置顶Window
+    /// </summary>
+    /// <param name="window"></param>
+    private void BumpCurrentWindowToTop(WindowBase window)
+    {
+        window.transform.SetAsLastSibling();
+        if (window.transform.parent.name != "Canvas")
+        {
+            if (window.transform.parent.GetSiblingIndex() != window.transform.parent.parent.childCount - 1)
+            {
+                WindowBase parentWindow = window.transform.GetComponentInParent<WindowBase>();
+                if (parentWindow != null)
+                {
+                    BumpCurrentWindowToTop(parentWindow);
+                }
+                else
+                {
+                    throw new System.Exception("Not Found WindowBase On " + window.Name + " Parent");
+                }
+            }
+        }
+
+    }
+
+
+
+    #region Tools
+    /// <summary>
+    /// 获得顶端的窗体
+    /// </summary>
+    /// <param name="startTr"></param>
+    /// <returns></returns>
+    private WindowBase GetTopWindow(Transform startTr)
+    {
+        if (startTr.childCount > 0)
+        {
+            WindowBase lastWindow = GetLastIndexWindow(startTr);
+            if (lastWindow != null)
+            {
+                return GetTopWindow(startTr);
+            }
+        }
+        return startTr.GetComponent<WindowBase>();
+    }
+    /// <summary>
+    /// GetTopWindow使用的小方法
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <returns></returns>
+    private WindowBase GetLastIndexWindow(Transform parent)
+    {
+        WindowBase window = null;
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            window = parent.GetChild(i).GetComponent<WindowBase>();
+            if (window != null)
+            {
+                return window;
+            }
+        }
+        return window;
+    }
+    #endregion
+
 }
