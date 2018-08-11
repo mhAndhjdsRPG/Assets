@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// 不完善，应该接入对象池，部位的获取方式也有待确定
 /// </summary>
 public class CreatePrefabStateNow : IModifierState
 {
-    public string preFabPath;
+    public string prefabPath;
 
     public EffectAttachType attachType;
 
-    private GameObject createGo;
+    private GameObject createdGo;
+
+    private Func<string, EffectAttachType, GameObject> CreateGo;
+
+    private Action<GameObject> DestroyGo;
 
     public override string Name
     {
@@ -27,52 +32,32 @@ public class CreatePrefabStateNow : IModifierState
     {
         base.InitDataWithXml(element);
 
-        preFabPath = element.Attribute("preFabPath").Value;
+        prefabPath = element.Attribute("preFabPath").Value;
 
         attachType = element.Attribute("attachType").Value.ParseToEnum<EffectAttachType>();
     }
 
-    protected override void OnStart()
+    public override void InitWithModifier(Modifier modifier)
     {
-        base.OnStart();
+        base.InitWithModifier(modifier);
 
-        createGo = (GameObject)GameObject.Instantiate(Resources.Load(preFabPath));
-
-        Transform parent = null;
-
-        Vector3 localPos = Vector3.zero;
-
-        switch (attachType)
-        {
-            case EffectAttachType.Follow_Origin:
-                parent = owner.origin;
-                localPos = Vector3.zero + Vector3.up * 5;
-                break;
-            case EffectAttachType.Follow_Overhead:
-                parent = owner.head;
-                localPos = Vector3.zero + Vector3.up * 60;
-                break;
-            case EffectAttachType.World_Origin:
-                parent = null;
-                localPos = Vector3.zero;
-                break;
-            case EffectAttachType.Follow_Chest:
-                parent = owner.chest;
-                localPos = Vector3.zero;
-                break;
-            default:
-                throw new System.NotImplementedException("没有实现该功能");
-        }
-
-        createGo.transform.SetParent(parent);
-        createGo.transform.localPosition = localPos;
+        CreateGo = owner.stateImplemention.CreateGo;
+        DestroyGo = owner.stateImplemention.DestroyGo;
     }
 
-    protected override void OnDestroy()
+
+    protected override void ManageSelfStart()
     {
-        base.OnDestroy();
-        GameObject.Destroy(createGo);
-        createGo = null;
+        base.ManageSelfStart();
+
+        createdGo = CreateGo(prefabPath, attachType);
+    }
+
+    protected override void ManageSelfDestroy()
+    {
+        base.ManageSelfDestroy();
+        DestroyGo(createdGo);
+        createdGo = null;
     }
 
 }

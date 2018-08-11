@@ -30,7 +30,7 @@ public abstract class IModifierState
     public void Start()
     {
         lastWaitTime = interval;
-        OnStart();
+        ManageSelfStart();
     }
 
     public void Update()
@@ -55,7 +55,7 @@ public abstract class IModifierState
         lastWaitTime -= Time.deltaTime;
         if (lastWaitTime <= 0)
         {
-            OnExecute();
+            Execute();
             lastWaitTime = interval;
         }
     }
@@ -89,7 +89,7 @@ public abstract class IModifierState
 
     public void Destroy()
     {
-        OnDestroy();
+        ManageSelfDestroy();
 
         modifier.OnStart -= Start;
         modifier.OnUpdate -= Update;
@@ -97,9 +97,9 @@ public abstract class IModifierState
     }
 
 
-    protected virtual void OnStart() { }
-    protected virtual void OnExecute() { }
-    protected virtual void OnDestroy() { }
+    protected virtual void ManageSelfStart() { }
+    protected virtual void Execute() { }
+    protected virtual void ManageSelfDestroy() { }
 
 
 

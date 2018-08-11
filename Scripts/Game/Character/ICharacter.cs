@@ -33,15 +33,15 @@ public abstract class ICharacter : MonoBehaviour
 
     [HideInInspector]
     public Animator ani;
-
-
-    public bool CreateGo;
-
+    
     #region 角色属性
 
     #region Hp
 
-    public bool NotGetHurt;
+    public bool notGetHurt;
+
+
+    public StateImplementionProvider stateImplemention;
 
     public OnFloatChange OnMaxHPChange;
     [SerializeField, HideInInspector]
@@ -55,8 +55,8 @@ public abstract class ICharacter : MonoBehaviour
 
         set
         {
-            maxHP = value;
             OnMaxHPChange?.Invoke(HP, maxHP);
+            maxHP = value;
         }
     }
 
@@ -73,14 +73,14 @@ public abstract class ICharacter : MonoBehaviour
         }
         set
         {
-            if (NotGetHurt && value < hp)
+            if (notGetHurt && value < hp)
             {
                 return;
             }
             else
             {
+                OnHPChange?.Invoke(hp, value);
                 hp = value;
-                OnHPChange?.Invoke(hp, MaxHP);
             }
         }
     }
@@ -211,12 +211,24 @@ public abstract class ICharacter : MonoBehaviour
     #endregion
 
     #region Hard
+
+    [HideInInspector]
+    public float recoverHardPerTime;
+
+    [HideInInspector]
+    public float waitSeoncondForRecoverHard;
+
     [SerializeField, HideInInspector]
     private float maxHard;
     public float MaxHard
     {
         get { return maxHard; }
-        set { maxHard = value;  }
+        set
+        {
+            float currenHardPercent =maxHard==0?0:hard / maxHard;
+            maxHard = value;
+            Hard = currenHardPercent * maxHard;
+        }
     }
 
     public OnFloatChange OnHardChange;
@@ -231,10 +243,17 @@ public abstract class ICharacter : MonoBehaviour
 
         set
         {
+            value = value > MaxHard ? MaxHard : value;
             OnHardChange?.Invoke(hard, value);
             hard = value;
+            if (hard <= 0&&maxHard>0)
+            {
+                ani.SetTrigger("Injured");
+                hard = MaxHard;
+            }
         }
     }
+   
     #endregion
 
 
@@ -302,37 +321,26 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
-    #region Modifier事件
-
-    public Action UpdateModifier;
-
-    #endregion
+    
 
     public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
     protected virtual void Awake()
     {
         ani = GetComponent<Animator>();
+        stateImplemention = new SampleImplementProvider(this);
     }
 
     protected virtual void Start()
     {
         InitAttackInfoDic();
+        StartCoroutine(RecoverHardIfNeed());
     }
 
 
     protected virtual void Update()
     {
-
-        if (CreateGo)
-        {
-            CreateGo = false;
-            ReceiveModifier("生成物测试");
-            print("生成");
-        }
-
         UpdateModifier?.Invoke();
-
     }
 
     /// <summary>
@@ -347,6 +355,10 @@ public abstract class ICharacter : MonoBehaviour
         }
     }
 
+
+    #region modifier相关
+
+    #region 接受modifier
 
     public void ReceiveModifier(string modifierNameInXml, float waitSecondStart = 0)
     {
@@ -366,8 +378,30 @@ public abstract class ICharacter : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSecond);
         modifier.Start();
-
     }
+    #endregion
+
+    #region Modifier事件
+
+    public Action UpdateModifier;
+
+    #endregion
+
+    #endregion
+
+
+    IEnumerator RecoverHardIfNeed()
+    {
+        while (true)
+        {
+            if (Hard <= MaxHard)
+            {
+                Hard += recoverHardPerTime;
+                yield return new WaitForSeconds(waitSeoncondForRecoverHard);
+            }
+        }
+    }
+
 }
 
 
