@@ -20,6 +20,12 @@ public enum WindowType
     /// </summary>
     MessageBox,
 }
+public enum WindowState
+{
+    Active,
+    Frozen,
+    Hiden,
+}
 
 /// <summary>
 /// UI位置类型

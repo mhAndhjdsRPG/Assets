@@ -79,8 +79,6 @@ public class LoadingWindow : FixedWindow
         {
             SlowProgress += Time.deltaTime * 30;
             imageDic["Image_Bar"].fillAmount = slowProgress * 0.01f;
-            //Bar.fillAmount = slowProgress * 0.01f;
-            //LoadingText.text = slowProgress.ToString() + "%";
         }
         //如果进度条大与等于100时候则开放跳转
         if (SlowProgress >= 100)
@@ -100,21 +98,7 @@ public class LoadingWindow : FixedWindow
         async = SceneManager.LoadSceneAsync(sceneName);
         //读取完毕后禁止跳转场景
         async.allowSceneActivation = false;
-
-        yield return null;
-
-    }
-
-    private IEnumerator loadSceneEnumerator1(string sceneName)
-    {
-        //异步读取场景，并将此操作赋值给异步对象。
-        async = SceneManager.LoadSceneAsync(sceneName);
-        //读取完毕后返回， 系统会自动进入C场景
-        if (OnLoadCompletion != null)
-        {
-            OnLoadCompletion();
-            Debug.Log("On Load Completion");
-        }
         yield return null;
     }
+
 }

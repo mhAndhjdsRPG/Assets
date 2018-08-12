@@ -15,21 +15,20 @@ public class BattleScene : IScene
 
     public override void OnSceneEnter()
     {
-        roomController = InitRoomController();
+        
     }
-
 
     public override void OnSceneExit()
     {
 
     }
 
-    public override void Update()
+    public override void OnSceneStartLoad()
     {
-
+        roomController = InitRoomController();
+        roomController.CreateRoomEnvironment(7, 11);
+        roomController.PutBuildingInRoom();
     }
-
-
 
     private RoomController InitRoomController()
     {

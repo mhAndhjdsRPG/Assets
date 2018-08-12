@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class INoLockMagic : IMagic
+public class NoLockMagic : IMagic
 {
     
     [HideInInspector]
@@ -20,7 +20,11 @@ public class INoLockMagic : IMagic
     
 
     public Action OnArrive;
-    
+
+
+    public AnimationCurve xOffset;
+    public AnimationCurve yoffset;
+    public AnimationCurve speedCurve;
 
 
     protected override void Start()
@@ -30,6 +34,7 @@ public class INoLockMagic : IMagic
         targetPos = transform.forward * distance + transform.position;
         rig.velocity = (targetPos - transform.position).normalized * speed;
         CustomDefine();
+        
     }
 
     protected override void Update()

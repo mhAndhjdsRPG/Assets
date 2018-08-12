@@ -109,12 +109,4 @@ public class RoomController : MonoBehaviour
 
 
 
-
-    private void Awake()
-    {
-        CreateRoomEnvironment(7, 11);
-        PutBuildingInRoom();
-    }
-
-
 }

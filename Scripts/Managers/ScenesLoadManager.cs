@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ScenesManager : Singleton<ScenesManager>
+public class ScenesLoadManager : Singleton<ScenesLoadManager>
 {
     private Dictionary<Type, IScene> sceneDic = new Dictionary<Type, IScene>();
 
@@ -23,6 +23,7 @@ public class ScenesManager : Singleton<ScenesManager>
     {
         curScene.OnSceneExit();
         curScene = nextScene;
+        nextScene.OnSceneStartLoad();
         SceneManager.LoadScene(nextScene.Name);
         nextScene.OnSceneEnter();
     }
@@ -34,6 +35,6 @@ public class ScenesManager : Singleton<ScenesManager>
         LoadingWindow.nextSceneName = nextScene.Name;
         LoadingWindow.OnLoadCompletion = nextScene.OnSceneEnter;
         UIManager.Instance.CreateOrShowWindow(WindowName.LoadingWindow, null);
-        
+        nextScene.OnSceneStartLoad();
     }
 }
