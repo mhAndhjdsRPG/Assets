@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 114417400591109672}
   - component: {fileID: 136360213516579518}
   - component: {fileID: 114407252459065358}
-  m_Layer: 14
+  m_Layer: 9
   m_Name: Character_Hero_Knight_Female
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1936,7 +1936,7 @@ GameObject:
   - component: {fileID: 114740471858329708}
   - component: {fileID: 54170475436899212}
   - component: {fileID: 65278124558571088}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1954,7 +1954,7 @@ GameObject:
   - component: {fileID: 114182810361493514}
   - component: {fileID: 135112784252033938}
   - component: {fileID: 54397438287096410}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: DefaultWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1972,7 +1972,7 @@ GameObject:
   - component: {fileID: 114456906852661714}
   - component: {fileID: 135416041267421656}
   - component: {fileID: 54186162610144300}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: DefaultWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1990,7 +1990,7 @@ GameObject:
   - component: {fileID: 114579113116469498}
   - component: {fileID: 135177243037648372}
   - component: {fileID: 54807258741080758}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: DefaultWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2025,7 +2025,7 @@ GameObject:
   - component: {fileID: 114479637476437784}
   - component: {fileID: 135942321111197174}
   - component: {fileID: 54565859625490252}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: DefaultWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2043,7 +2043,7 @@ GameObject:
   - component: {fileID: 114405710876111414}
   - component: {fileID: 135293624324303304}
   - component: {fileID: 54334343146357400}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: DefaultWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2842,8 +2842,7 @@ MonoBehaviour:
   origin: {fileID: 439852}
   chest: {fileID: 463992}
   ani: {fileID: 9547916}
-  CreateGo: 0
-  NotGetHurt: 0
+  notGetHurt: 0
   maxHP: 100
   hp: 100
   baseAtk: 1
@@ -2854,7 +2853,10 @@ MonoBehaviour:
   addAgl: 0
   multipleAgl: 1
   totalAgl: 5
-  hard: 0
+  recoverHardPerTime: 5
+  waitSeoncondForRecoverHard: 5
+  maxHard: 100
+  hard: 100
   dodgeCoolDown: 0
 --- !u!114 &114979534823793012
 MonoBehaviour:

@@ -33,14 +33,21 @@ public abstract class ICharacter : MonoBehaviour
 
     [HideInInspector]
     public Animator ani;
+<<<<<<< HEAD
+    
+=======
 
     public bool CreateGo;
 
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
     #region 角色属性
 
     #region Hp
 
-    public bool NotGetHurt;
+    public bool notGetHurt;
+
+
+    public StateImplementionProvider stateImplemention;
 
     public OnFloatChange OnMaxHPChange;
     [SerializeField, HideInInspector]
@@ -54,8 +61,8 @@ public abstract class ICharacter : MonoBehaviour
 
         set
         {
-            maxHP = value;
             OnMaxHPChange?.Invoke(HP, maxHP);
+            maxHP = value;
         }
     }
 
@@ -72,14 +79,22 @@ public abstract class ICharacter : MonoBehaviour
         }
         set
         {
+<<<<<<< HEAD
             if (NotGetHurt && value < hp)
+=======
+<<<<<<< HEAD
+            if (notGetHurt && value < hp)
+=======
+            if (NotGetHurt)
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
             {
                 return;
             }
             else
             {
+                OnHPChange?.Invoke(hp, value);
                 hp = value;
-                OnHPChange?.Invoke(hp, MaxHP);
             }
         }
     }
@@ -209,14 +224,40 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
+<<<<<<< HEAD
     #region Hard
+=======
+<<<<<<< HEAD
+    #region Hard
+
+    [HideInInspector]
+    public float recoverHardPerTime;
+
+    [HideInInspector]
+    public float waitSeoncondForRecoverHard;
+
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
     [SerializeField, HideInInspector]
     private float maxHard;
     public float MaxHard
     {
         get { return maxHard; }
+<<<<<<< HEAD
         set { maxHard = value;  }
     }
+=======
+        set
+        {
+            float currenHardPercent =maxHard==0?0:hard / maxHard;
+            maxHard = value;
+            Hard = currenHardPercent * maxHard;
+        }
+    }
+=======
+
+    #region Dodge
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
 
     public OnFloatChange OnHardChange;
     [SerializeField, HideInInspector]
@@ -230,14 +271,30 @@ public abstract class ICharacter : MonoBehaviour
 
         set
         {
+            value = value > MaxHard ? MaxHard : value;
             OnHardChange?.Invoke(hard, value);
             hard = value;
+            if (hard <= 0&&maxHard>0)
+            {
+                ani.SetTrigger("Injured");
+                hard = MaxHard;
+            }
         }
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+   
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
     #endregion
 
 
     #region Dodge
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
 
 
 
@@ -301,27 +358,43 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
+<<<<<<< HEAD
     #region Modifier事件
+=======
+<<<<<<< HEAD
+    
+=======
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
 
     public Action UpdateModifier;
 
+<<<<<<< HEAD
     #endregion
+=======
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
 
     public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
     protected virtual void Awake()
     {
         ani = GetComponent<Animator>();
+        stateImplemention = new SampleImplementProvider(this);
     }
 
     protected virtual void Start()
     {
         InitAttackInfoDic();
+        StartCoroutine(RecoverHardIfNeed());
     }
 
     protected virtual void Update()
     {
+<<<<<<< HEAD
+        UpdateModifier?.Invoke();
+=======
 
+<<<<<<< HEAD
         if (CreateGo)
         {
             CreateGo = false;
@@ -331,6 +404,9 @@ public abstract class ICharacter : MonoBehaviour
 
         UpdateModifier?.Invoke();
 
+=======
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
     }
 
     /// <summary>
@@ -344,8 +420,18 @@ public abstract class ICharacter : MonoBehaviour
             attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
         }
     }
+<<<<<<< HEAD
 
 
+=======
+<<<<<<< HEAD
+
+
+    #region modifier相关
+
+    #region 接受modifier
+
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
     public void ReceiveModifier(string modifierNameInXml, float waitSecondStart = 0)
     {
         Modifier modifier = ModifierManager.Instance.GetModifier(modifierNameInXml, this);
@@ -364,8 +450,37 @@ public abstract class ICharacter : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSecond);
         modifier.Start();
+<<<<<<< HEAD
 
     }
+=======
+    }
+    #endregion
+
+    #region Modifier事件
+
+    public Action UpdateModifier;
+
+    #endregion
+
+    #endregion
+
+
+    IEnumerator RecoverHardIfNeed()
+    {
+        while (true)
+        {
+            if (Hard <= MaxHard)
+            {
+                Hard += recoverHardPerTime;
+                yield return new WaitForSeconds(waitSeoncondForRecoverHard);
+            }
+        }
+    }
+
+=======
+>>>>>>> ff278414914c336b52561801baefad126b1f06a4
+>>>>>>> c86c06dcf6031b2cfdc9c41c08c9d4db0ecdcabb
 }
 
 

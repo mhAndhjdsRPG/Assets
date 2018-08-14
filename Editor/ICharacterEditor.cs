@@ -40,6 +40,28 @@ public class ICharacterEditor : Editor{
         
         EditorGUILayout.LabelField("Name",character.Name);
 
+        DrawHp();
+
+        DrawAtk();
+
+        DrawAgl();
+
+        DrawHard();
+
+
+        canDodge=EditorGUILayout.Toggle("CanDodge", character.CanDodge);
+        if (canDodge != character.CanDodge)
+        {
+            character.CanDodge = canDodge;
+        }
+
+    }
+
+    void DrawHp()
+    {
+        EditorTools.DrawSpace(2);
+        EditorGUILayout.LabelField("====== Hp ======");
+
         maxHp = EditorGUILayout.FloatField("maxHp", character.MaxHP);
         if (maxHp != character.MaxHP)
         {
@@ -51,23 +73,6 @@ public class ICharacterEditor : Editor{
         {
             character.HP = hp;
         }
-
-        DrawAtk();
-
-        DrawAgl();
-
-        hard = EditorGUILayout.FloatField("Hard", character.Hard);
-        if (hard != character.Hard)
-        {
-            character.Hard = hard;
-        }
-
-        canDodge=EditorGUILayout.Toggle("CanDodge", character.CanDodge);
-        if (canDodge != character.CanDodge)
-        {
-            character.CanDodge = canDodge;
-        }
-
     }
 
 
@@ -131,5 +136,30 @@ public class ICharacterEditor : Editor{
 
         EditorGUI.EndDisabledGroup();
     }
+
+    void DrawHard()
+    {
+        EditorTools.DrawSpace(2);
+        EditorGUILayout.LabelField("====== Hard ======");
+
+        character.waitSeoncondForRecoverHard = EditorGUILayout.FloatField("WaitSecond", character.waitSeoncondForRecoverHard);
+
+        character.recoverHardPerTime = EditorGUILayout.FloatField("recoverValue", character.recoverHardPerTime);
+
+        var maxHard = EditorGUILayout.FloatField("MaxHard", character.MaxHard);
+        if (maxHard != character.MaxHard)
+        {
+            character.MaxHard = maxHard;
+        }
+
+
+        hard = EditorGUILayout.FloatField("Hard", character.Hard);
+        if (hard != character.Hard)
+        {
+            character.Hard = hard;
+        }
+
+    }
+
 
 }

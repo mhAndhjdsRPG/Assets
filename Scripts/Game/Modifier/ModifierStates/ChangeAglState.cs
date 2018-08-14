@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.Xml.Linq;
 using UnityEngine;
 
@@ -7,6 +7,8 @@ public class ChangeAglState : IModifierState
 {
 
     public float addAgl;
+
+    private Action<float> ChangeAgl;
 
     public override string Name
     {
@@ -16,16 +18,16 @@ public class ChangeAglState : IModifierState
         }
     }
 
-    protected override void OnStart()
+    protected override void ManageSelfStart()
     {
-        base.OnStart();
-        owner.AddAgl += addAgl;
+        base.ManageSelfStart();
+        ChangeAgl(addAgl);
     }
 
-    protected override void OnDestroy()
+    protected override void ManageSelfDestroy()
     {
-        base.OnDestroy();
-        owner.AddAgl -= addAgl;
+        base.ManageSelfDestroy();
+        ChangeAgl(-addAgl);
     }
 
     public override void InitDataWithXml(XElement element)
@@ -34,5 +36,11 @@ public class ChangeAglState : IModifierState
         addAgl = element.Attribute("addAgl").Value.ParseToFloat();
     }
 
+
+    public override void InitWithModifier(Modifier modifier)
+    {
+        base.InitWithModifier(modifier);
+        ChangeAgl = owner.stateImplemention.ChangeAglAddValue;
+    }
 
 }

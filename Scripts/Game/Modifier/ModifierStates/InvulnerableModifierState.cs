@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using UnityEngine;
+﻿using System;
 
 public sealed class InvulnerableModifierState : IModifierState
 {
+
+    Action<bool> SetInvulnerableActive;
+
+
     public override string Name
     {
         get
@@ -13,13 +14,21 @@ public sealed class InvulnerableModifierState : IModifierState
         }
     }
 
-    protected override void OnStart()
+    protected override void ManageSelfStart()
     {
-        owner.NotGetHurt = true;
+        SetInvulnerableActive(true);
     }
 
-    protected override void OnDestroy()
+    protected override void ManageSelfDestroy()
     {
-        owner.NotGetHurt = false;
+        SetInvulnerableActive(false);
     }
+    
+    public override void InitWithModifier(Modifier modifier)
+    {
+        base.InitWithModifier(modifier);
+        SetInvulnerableActive = owner.stateImplemention.SetInvulnerableActive;
+    }
+
+
 }

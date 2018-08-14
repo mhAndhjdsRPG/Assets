@@ -38,13 +38,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Fire3
+  - m_Name: Fire4
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Fire4
+  - m_Name: Fire3
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -62,13 +62,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Switch
+  - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Die
+  - m_Name: Switch
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -182,6 +182,7 @@ MonoBehaviour:
     coolDown: 0
     inputStr: 
     damageRate: 0
+    decreaseHard: 0
 --- !u!114 &114475350369224906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -216,6 +217,7 @@ MonoBehaviour:
     coolDown: 0
     inputStr: 
     damageRate: 10
+    decreaseHard: 20
 --- !u!114 &114573960003756102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,6 +241,7 @@ MonoBehaviour:
     coolDown: 0
     inputStr: 
     damageRate: 0
+    decreaseHard: 25
 --- !u!114 &114933484342830298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1308,7 +1311,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102130790470115070}
-    m_Position: {x: 396, y: 96, z: 0}
+    m_Position: {x: 384, y: 84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102948751129146636}
     m_Position: {x: 384, y: 240, z: 0}

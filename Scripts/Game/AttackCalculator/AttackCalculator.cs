@@ -59,7 +59,7 @@ public class AttackCalculator : MonoBehaviour
         }
 
         CalculateNearAttack(weapon.owner, weapon,state.AttackInfo);
-        SetGetHitAniParm();
+        
     }
 
 
@@ -68,7 +68,6 @@ public class AttackCalculator : MonoBehaviour
     {
         IMagic magic = magicCol.GetComponent<IMagic>();
         CalculateMagicAttack(magic, magic.owner, magic.info, magic.weapon);
-        SetGetHitAniParm();
     }
 
    
@@ -96,6 +95,7 @@ public class AttackCalculator : MonoBehaviour
     private void CalculateNearAttack(ICharacter attacker, IWeapon weapon, AttackInfo skillInfo)
     {
         owner.HP -= (attacker.BaseATK + weapon.ATK) * skillInfo.DamageRate;
+        owner.Hard -= skillInfo.DecreaseHard;
     }
 
     private void CalculateMagicAttack(IMagic magic, ICharacter attacker, AttackInfo skillInfo, IWeapon weapon)
