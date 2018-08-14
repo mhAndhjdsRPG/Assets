@@ -24,12 +24,16 @@ public class MainMenuWindow : FixedWindow
         imageDic["Image_Shade"].raycastTarget = false;
     }
 
+    public void LargenText()
+    {
+
+    }
+
     private enum DivideType
     {
         Horizontal,
         Vertical,
     }
-
 
     private void Btn_SettingClick()
     {
