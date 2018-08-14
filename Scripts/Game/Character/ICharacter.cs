@@ -25,10 +25,16 @@ public abstract class ICharacter : MonoBehaviour
 
     public AttackCalculator attackCalculator;
 
+    [Header("===== 部位 =====")]
+    public Transform head;
+    public Transform origin;
+    public Transform chest;
+
+
     [HideInInspector]
     public Animator ani;
 
-    protected List<Modifier> modifierList = new List<Modifier>();
+    public bool CreateGo;
 
     #region 角色属性
 
@@ -53,7 +59,7 @@ public abstract class ICharacter : MonoBehaviour
         }
     }
 
-    
+
 
     public OnFloatChange OnHPChange;
     [SerializeField, HideInInspector]
@@ -66,10 +72,9 @@ public abstract class ICharacter : MonoBehaviour
         }
         set
         {
-            if (NotGetHurt)
+            if (NotGetHurt && value < hp)
             {
-                if (value < hp)
-                    return;
+                return;
             }
             else
             {
@@ -93,34 +98,34 @@ public abstract class ICharacter : MonoBehaviour
         set
         {
             baseAtk = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
 
     [SerializeField, HideInInspector]
-    private float addAtkValue;
-    public float AddAtkValue
+    private float addAtk;
+    public float AddAtk
     {
-        get { return addAtkValue; }
+        get { return addAtk; }
 
         set
         {
-            addAtkValue = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            addAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
     [SerializeField, HideInInspector]
-    private float multipleAtkValue;
-    public float MultipleAtkValue
+    private float multipleAtk;
+    public float MultipleAtk
     {
-        get { return multipleAtkValue; }
+        get { return multipleAtk; }
 
         set
         {
-            multipleAtkValue = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            multipleAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
@@ -134,7 +139,7 @@ public abstract class ICharacter : MonoBehaviour
 
         private set
         {
-            OnAGLChange(totalAtk, value);
+            OnAGLChange?.Invoke(totalAtk, value);
             totalAtk = value;
         }
     }
@@ -195,7 +200,7 @@ public abstract class ICharacter : MonoBehaviour
         {
             return totalAgl;
         }
-        set
+        private set
         {
             OnAGLChange?.Invoke(totalAgl, value);
             totalAgl = value;
@@ -204,8 +209,14 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
-
-    #region Dodge
+    #region Hard
+    [SerializeField, HideInInspector]
+    private float maxHard;
+    public float MaxHard
+    {
+        get { return maxHard; }
+        set { maxHard = value;  }
+    }
 
     public OnFloatChange OnHardChange;
     [SerializeField, HideInInspector]
@@ -223,6 +234,10 @@ public abstract class ICharacter : MonoBehaviour
             hard = value;
         }
     }
+    #endregion
+
+
+    #region Dodge
 
 
 
@@ -286,10 +301,13 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
+    #region Modifier事件
+
+    public Action UpdateModifier;
+
+    #endregion
 
     public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
-
-
 
     protected virtual void Awake()
     {
@@ -298,21 +316,55 @@ public abstract class ICharacter : MonoBehaviour
 
     protected virtual void Start()
     {
-        //需要在start中调用GetBehavior保证动画对象正确初始化
         InitAttackInfoDic();
     }
 
     protected virtual void Update()
     {
 
+        if (CreateGo)
+        {
+            CreateGo = false;
+            ReceiveModifier("生成物测试");
+            print("生成");
+        }
+
+        UpdateModifier?.Invoke();
+
     }
 
+    /// <summary>
+    /// init the AttackInfoDic,remember that calling this in Start not Awake
+    /// cause the animator's GetBehaviours need init in Awake
+    /// </summary>
     private void InitAttackInfoDic()
     {
         foreach (var state in ani.GetBehaviours<AttackState>())
         {
             attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
         }
+    }
+
+
+    public void ReceiveModifier(string modifierNameInXml, float waitSecondStart = 0)
+    {
+        Modifier modifier = ModifierManager.Instance.GetModifier(modifierNameInXml, this);
+        StartCoroutine(WaitForStartModifier(modifier, waitSecondStart));
+
+    }
+
+
+    public void ReceiveModifier(Modifier modifier, float waitSecondStart = 0)
+    {
+        StartCoroutine(WaitForStartModifier(modifier, waitSecondStart));
+    }
+
+
+    IEnumerator WaitForStartModifier(Modifier modifier, float waitSecond)
+    {
+        yield return new WaitForSeconds(waitSecond);
+        modifier.Start();
+
     }
 }
 
