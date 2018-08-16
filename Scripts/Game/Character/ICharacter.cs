@@ -27,13 +27,16 @@ public abstract class ICharacter : MonoBehaviour
 
     [HideInInspector]
     public Animator ani;
-<<<<<<< HEAD
-    
-=======
 
     protected List<Modifier> modifierList = new List<Modifier>();
 
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
+    [Header("===== 部位 =====")]
+    public Transform head;
+    public Transform origin;
+    public Transform chest;
+
+
+
     #region 角色属性
 
     #region Hp
@@ -73,11 +76,7 @@ public abstract class ICharacter : MonoBehaviour
         }
         set
         {
-<<<<<<< HEAD
             if (notGetHurt && value < hp)
-=======
-            if (NotGetHurt)
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
             {
                 if (value < hp)
                     return;
@@ -104,34 +103,34 @@ public abstract class ICharacter : MonoBehaviour
         set
         {
             baseAtk = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
 
     [SerializeField, HideInInspector]
-    private float addAtkValue;
-    public float AddAtkValue
+    private float addAtk;
+    public float AddAtk
     {
-        get { return addAtkValue; }
+        get { return addAtk; }
 
         set
         {
-            addAtkValue = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            addAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
     [SerializeField, HideInInspector]
-    private float multipleAtkValue;
-    public float MultipleAtkValue
+    private float multipleAtk;
+    public float MultipleAtk
     {
-        get { return multipleAtkValue; }
+        get { return multipleAtk; }
 
         set
         {
-            multipleAtkValue = value;
-            TotalAtk = CalculateTotalValue(BaseATK, AddAtkValue, MultipleAtkValue);
+            multipleAtk = value;
+            TotalAtk = CalculateTotalValue(BaseATK, AddAtk, MultipleAtk);
         }
     }
 
@@ -215,7 +214,6 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
-<<<<<<< HEAD
     #region Hard
 
     [HideInInspector]
@@ -236,10 +234,6 @@ public abstract class ICharacter : MonoBehaviour
             Hard = currenHardPercent * maxHard;
         }
     }
-=======
-
-    #region Dodge
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
 
     public OnFloatChange OnHardChange;
     [SerializeField, HideInInspector]
@@ -263,14 +257,11 @@ public abstract class ICharacter : MonoBehaviour
             }
         }
     }
-<<<<<<< HEAD
    
     #endregion
 
 
     #region Dodge
-=======
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
 
 
 
@@ -334,13 +325,9 @@ public abstract class ICharacter : MonoBehaviour
 
     #endregion
 
-<<<<<<< HEAD
-    
-=======
 
     public Dictionary<string, AttackInfo> attackInfoDic = new Dictionary<string, AttackInfo>();
 
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
 
 
     protected virtual void Awake()
@@ -358,11 +345,7 @@ public abstract class ICharacter : MonoBehaviour
 
     protected virtual void Update()
     {
-<<<<<<< HEAD
         UpdateModifier?.Invoke();
-=======
-
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
     }
 
     private void InitAttackInfoDic()
@@ -372,7 +355,6 @@ public abstract class ICharacter : MonoBehaviour
             attackInfoDic.Add(state.attackInfo.Name, state.attackInfo);
         }
     }
-<<<<<<< HEAD
 
 
     #region modifier相关
@@ -421,8 +403,6 @@ public abstract class ICharacter : MonoBehaviour
         }
     }
 
-=======
->>>>>>> ff278414914c336b52561801baefad126b1f06a4
 }
 
 

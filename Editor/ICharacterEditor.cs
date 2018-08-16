@@ -135,6 +135,7 @@ public class ICharacterEditor : Editor{
         EditorGUILayout.FloatField("TotalAgl", character.TotalAGL);
 
         EditorGUI.EndDisabledGroup();
+        
     }
 
     void DrawHard()

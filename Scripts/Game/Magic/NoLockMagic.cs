@@ -34,11 +34,12 @@ public class NoLockMagic : IMagic
         targetPos = transform.forward * distance + transform.position;
         rig.velocity = (targetPos - transform.position).normalized * speed;
         CustomDefine();
-        
+       
     }
 
     protected override void Update()
     {
+
         base.Update();
 
         if (Vector3.Dot(targetPos-transform.position,transform.forward)<0)
