@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(Magic)),ExecuteInEditMode]
+[CustomEditor(typeof(Magic)), ExecuteInEditMode]
 public class MagicEditor : Editor
 {
     Magic magic;
-    SerializedProperty speedCurve;
-    SerializedProperty distanceFromTargetCurve;
-    SerializedProperty lockTrans;
 
     private void OnEnable()
     {
@@ -20,21 +17,19 @@ public class MagicEditor : Editor
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        
-        switch (magic.magicType)
+
+        if (magic.magicType == MagicType.lockPos)
         {
-            case MagicType.stayTime:
-                DrawStayTime();
-                break;
-            case MagicType.lockPos:
-                DrawLockPos();
-                break;
-            case MagicType.lockTrans:
-                DrawLockTrans();
-                break;
-            default:
-                break;
+            magic.targetPos = EditorGUILayout.Vector3Field("targetPos", magic.targetPos);
         }
+
+        if (magic.magicType == MagicType.lockTrans)
+        {
+            magic.targetPos = EditorGUILayout.Vector3Field("targetPos", magic.targetPos);
+
+            magic.targetTrans = EditorGUILayout.ObjectField("targetTrans", magic.targetTrans, typeof(UnityEngine.Transform), true) as Transform;
+        }
+
 
         EditorTools.DrawSpace(2);
         EditorGUILayout.LabelField("=====运行时信息=====");
@@ -44,48 +39,17 @@ public class MagicEditor : Editor
 
         EditorGUILayout.FloatField("TimePercent", magic.TimePercent);
 
+        EditorGUILayout.IntField("InverseSpeedSign", magic.InverseSpeedSign);
+
         EditorGUI.EndDisabledGroup();
 
-    }
 
 
-    void DrawStayTime()
-    {
-        serializedObject.Update();
-
-        speedCurve = serializedObject.FindProperty("speedCurve");
-
-        EditorGUILayout.PropertyField(speedCurve);
-
-        serializedObject.ApplyModifiedProperties();
-
-        magic.speedScale=EditorGUILayout.FloatField("SpeedScale",magic.speedScale);
-    }
-
-    void DrawLockPos()
-    {
-        serializedObject.Update();
-
-        distanceFromTargetCurve = serializedObject.FindProperty("distanceFromTargetCurve");
-
-        EditorGUILayout.PropertyField(distanceFromTargetCurve);
-
-        serializedObject.ApplyModifiedProperties();
-    }
-
-    void DrawLockTrans()
-    {
-        serializedObject.Update();
-
-        lockTrans = serializedObject.FindProperty("targetTrans");
-
-        EditorGUILayout.PropertyField(lockTrans);
-
-        serializedObject.ApplyModifiedProperties();
-
-        DrawLockPos();
+      
 
     }
+
+
 
 
 }
