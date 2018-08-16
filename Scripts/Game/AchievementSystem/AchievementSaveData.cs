@@ -23,8 +23,6 @@ public class AchievementSaveData : MonoBehaviour
         EnemyKilledCount = PlayerPrefs.GetInt("EnemyKilledCount ", 0);
         WeaponCollection = PlayerPrefs.GetInt("WeaponCollection ", 0);
         TrapTriggeringCount = PlayerPrefs.GetInt("TrapTriggeringCount ", 0);
-
-
     }
 
 }

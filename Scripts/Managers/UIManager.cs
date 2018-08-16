@@ -121,6 +121,8 @@ public class UIManager : Singleton<UIManager>
                 if (windowsDic[windowName] == CurrentWindow)
                 {
                     CurrentWindow = GetLastIndexWindow(Canvas);
+                    //Debug.Log("Current Window : " + windowName + " Is HidenWindow");
+                    //Debug.Log(CurrentWindow + "||" + CurrentWindow.gameObject.activeInHierarchy);
                 }
             }
         }
@@ -220,7 +222,6 @@ public class UIManager : Singleton<UIManager>
                 }
             }
         }
-
     }
 
 
@@ -254,7 +255,7 @@ public class UIManager : Singleton<UIManager>
         for (int i = parent.childCount - 1; i >= 0; i--)
         {
             window = parent.GetChild(i).GetComponent<WindowBase>();
-            if (window != null)
+            if (window != null && window.gameObject.activeInHierarchy)
             {
                 return window;
             }
