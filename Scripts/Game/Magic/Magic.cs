@@ -47,6 +47,10 @@ public sealed class Magic : MonoBehaviour
     public float speedScale;
 
     [Space(5)]
+    public AnimationCurve scaleCurve;
+    public float scaleCurveScale;
+
+    [Space(5)]
     public MagicType magicType;
 
 
@@ -59,7 +63,7 @@ public sealed class Magic : MonoBehaviour
     public Transform targetTrans;
     [HideInInspector]
     public Vector3 targetPos;
-
+    [HideInInspector]
     public float zDistanceToInverse;
 
 
@@ -71,7 +75,7 @@ public sealed class Magic : MonoBehaviour
 
     Transform originTrans;
     Vector3 oldPos;
-
+    
     public float TotalLenth
     {
         get
@@ -117,19 +121,12 @@ public sealed class Magic : MonoBehaviour
                 return;
             }
         }
-
-        oldPos = transform.position;
-
+       
         TimePercent = CurrentTime / stayTime;
 
         float xOffset = xoffsetCurve.Evaluate(TimePercent) * xScale;
         float yOffset = yoffsetCureve.Evaluate(TimePercent) * yScale;
-
-        if (magicType == MagicType.lockTrans)
-        {
-            targetPos = targetTrans.position;
-            originTrans.LookAt(targetPos);
-        }
+        float currentScale = scaleCurve.Evaluate(TimePercent) * scaleCurveScale;
 
         if (magicType != MagicType.stayTime)
         {
@@ -144,32 +141,66 @@ public sealed class Magic : MonoBehaviour
             }
         }
         
-
         float speed = speedCurve.Evaluate(TimePercent) * speedScale*InverseSpeedSign;
 
-        transform.position = GetPos(xOffset, yOffset, speed);
+        float zOffset = GetZOffset(speed);
 
-        transform.forward = Vector3.Lerp(transform.forward, transform.position - oldPos,rotationLerpSpeed);
+        if (magicType == MagicType.lockTrans)
+        {
+            targetPos = targetTrans.position;
+            originTrans.LookAt(targetPos);
+        }
+
+        transform.position = GetPos(xOffset, yOffset, zOffset);
+
+        ManageRotation(xOffset, yOffset, zOffset);
+
+        transform.localScale = new Vector3(currentScale, currentScale, currentScale);
 
         behavior?.OnMagicUpdate();
     }
 
-
-    Vector3 GetPos(float xOffset,float yOffset,float speed)
+    void ManageRotation(float xOffset, float yOffset, float zOffset)
     {
-        float zOffset =Vector3.Dot(transform.position-originTrans.position,originTrans.forward) + speed * Time.deltaTime;
+        Vector3 currentPos = new Vector3(xOffset, yOffset, zOffset);
+        Vector3 normalizedForward = currentPos - oldPos;
+        Vector3 targetForward = normalizedForward.x * originTrans.right + normalizedForward.y * originTrans.up + normalizedForward.z * originTrans.forward;
+        transform.forward = Vector3.Lerp(transform.forward, targetForward, rotationLerpSpeed);
 
+        oldPos = currentPos;
+    }
+
+
+    float GetZOffset(float speed)
+    {
+        return  Vector3.Dot(transform.position - originTrans.position, originTrans.forward) + speed * Time.deltaTime;
+    }
+
+
+    Vector3 GetPos(float xOffset,float yOffset,float zOffset)
+    {
         return originTrans.position + xOffset * originTrans.right + yOffset * originTrans.up + zOffset * originTrans.forward;
     }
 
     public void Begin()
     {
         run = true;
-        originTrans = new GameObject(transform.name + "Origin").transform;
-        originTrans.position = transform.position;
-        behavior?.OnStart();
-        InverseSpeedSign = 1;
+        if (originTrans == null)
+        {
+            originTrans = new GameObject(transform.name + "Origin").transform;
+            originTrans.position = transform.position;
+            behavior?.OnStart();
+            InverseSpeedSign = 1;
+        }
     }
+
+
+    public void Stop()
+    {
+        run = false;
+    }
+    
+
 
     private void OnTriggerEnter(Collider collider)
     {

@@ -223,7 +223,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7.9
       objectReference: {fileID: 0}
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_LocalPosition.y
@@ -231,7 +231,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2.3
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_LocalRotation.x
@@ -303,7 +303,6 @@ GameObject:
   - component: {fileID: 1264830984}
   - component: {fileID: 1264830987}
   - component: {fileID: 1264830986}
-  - component: {fileID: 1264830985}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -318,25 +317,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1264830983}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.15107214, z: 0.8806281}
+  m_LocalPosition: {x: 0, y: 0.15107203, z: -0.9693718}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1530697022}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!136 &1264830985
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1264830983}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1264830986
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -515,6 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1530697022}
   - component: {fileID: 1530697021}
+  - component: {fileID: 1530697023}
   m_Layer: 0
   m_Name: Shoot
   m_TagString: Untagged
@@ -537,15 +524,16 @@ MonoBehaviour:
   loseHard: 0
   startGo: {fileID: 0}
   arriveGo: {fileID: 0}
-  destroyGo: {fileID: 0}
+  destroyGo: {fileID: 1000012903210382, guid: 801c56597287a4a49b09aee4555278d6, type: 2}
   colliderGo: {fileID: 0}
   run: 0
   destroyInTheEnd: 1
-  stayTime: 15
-  throughCount: 0
+  stayTime: 20
+  throughCount: 1
   collideLayer:
     serializedVersion: 2
     m_Bits: 512
+  rotationLerpSpeed: 0.7
   xoffsetCurve:
     serializedVersion: 2
     m_Curve:
@@ -558,25 +546,9 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  xScale: 0
-  yoffsetCureve:
-    serializedVersion: 2
-    m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.15143433
-      value: 2.0048904
+      time: 0.07141724
+      value: 2.009781
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -584,14 +556,23 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.338562
-      value: 2.004921
-      inSlope: -0.2872638
-      outSlope: -0.2872638
+      time: 0.16713622
+      value: 1.946237
+      inSlope: -1.4112889
+      outSlope: -1.4112889
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.3629465
+      outWeight: 1
+    - serializedVersion: 3
+      time: 0.1994329
+      value: 0.049536824
+      inSlope: -0.26340646
+      outSlope: -0.26340646
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.06375891
     - serializedVersion: 3
       time: 1
       value: 0
@@ -604,7 +585,23 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  yScale: 1
+  xScale: 2
+  yoffsetCureve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.00064086914
+      value: 0.507782
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  yScale: 2
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -629,11 +626,36 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  speedScale: 20
+  speedScale: 4
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scaleCurveScale: 0
   magicType: 2
   targetTrans: {fileID: 111814266}
   targetPos: {x: 0, y: 0, z: 0}
-  zDistanceToInverse: 5
+  zDistanceToInverse: 10
 --- !u!4 &1530697022
 Transform:
   m_ObjectHideFlags: 0
@@ -641,13 +663,26 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1530697020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11767197, y: 8.55, z: -14.7}
+  m_LocalPosition: {x: 0.11767197, y: 2.04, z: -12.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1264830984}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1530697023
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1530697020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1595229371
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,7 +851,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2.3
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_LocalRotation.x
@@ -837,6 +872,11 @@ Prefab:
     - target: {fileID: 422474, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114382670776526228, guid: 11ffba29df14c054aa5a2695b18e9f59,
+        type: 2}
+      propertyPath: minAngle
+      value: -40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11ffba29df14c054aa5a2695b18e9f59, type: 2}

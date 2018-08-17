@@ -20,14 +20,18 @@ public class MagicEditor : Editor
 
         if (magic.magicType == MagicType.lockPos)
         {
+            magic.zDistanceToInverse = EditorGUILayout.FloatField("zDistanceToInverse", magic.zDistanceToInverse);
+
             magic.targetPos = EditorGUILayout.Vector3Field("targetPos", magic.targetPos);
         }
 
         if (magic.magicType == MagicType.lockTrans)
         {
-            magic.targetPos = EditorGUILayout.Vector3Field("targetPos", magic.targetPos);
+            magic.zDistanceToInverse = EditorGUILayout.FloatField("zDistanceToInverse", magic.zDistanceToInverse);
 
-            magic.targetTrans = EditorGUILayout.ObjectField("targetTrans", magic.targetTrans, typeof(UnityEngine.Transform), true) as Transform;
+            magic.targetPos = EditorGUILayout.Vector3Field("TargetPos", magic.targetPos);
+
+            magic.targetTrans = EditorGUILayout.ObjectField("TargetTrans", magic.targetTrans, typeof(UnityEngine.Transform), true) as Transform;
         }
 
 
