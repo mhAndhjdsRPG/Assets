@@ -19,7 +19,8 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 GameObject instanceGameObj = GameObject.Find(typeof(T).ToString());
                 if (instanceGameObj == null)
                 {
-                    instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
+                    instanceGameObj = new GameObject(typeof(T).ToString());
+                    instance = instanceGameObj.AddComponent<T>();
                 }
                 else
                 {
@@ -32,7 +33,6 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                         instance = instanceGameObj.AddComponent<T>();
                     }
                 }
-                DontDestroyOnLoad(instanceGameObj);
             }
             return instance;
         }

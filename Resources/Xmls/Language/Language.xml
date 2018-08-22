@@ -1,11 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Language>
-  <English>
-    <string name="game_name">RPG</string>
-    <string name="action_settings">Settings</string>
+  
+  <English font ="English_Fat">
+    <string name="game_name">The Determination Of Fools</string>
+    <string name="settings">Settings</string>
+    <string name="startgame">Start Game</string>
+    <string name="achievement">Achievement</string>
+    <string name="quit">Quit</string>
+
+    <string name="inputsetting">Input Setting</string>
+    <string name="inputsetting_horzontal">Horizontal</string>
+    <string name="inputsetting_vertical">Vertical</string>
+    <string name="inputsetting_attack">Attack</string>
+    <string name="inputsetting_dodge">Dodge</string>
+    <string name="inputsetting_switch">Switch</string>
+    <string name="inputsetting_takeordrop">TakeOrDrop</string>
+    <string name="inputsetting_mousereversal">MouseReversal</string>
+    <string name="inputsetting_mousesensitivity">MouseSensitivity</string>
+    <string name="inputsetting_readinput">Please Input..</string>
+
+    <string name="setting_backtip">Are you sure you want to discard all settings and exit?</string>
+    <string name="setting_savetip">Do you want to save all settings?</string>
+    
+    <string name="enter">Enter</string>
+    <string name="cancel">Cancel</string>
   </English>
-  <Chinese>
-    <string name="game_name">角色扮演</string>
-    <string name="action_settings">设置</string>
+  
+  <Chinese font ="Chinese_Fat">
+    <string name="game_name">愚  者  的  决  心</string>
+    <string name="settings">设置</string>
+    <string name="startgame">开始游戏</string>
+    <string name="achievement">成就</string>
+    <string name="quit">退出游戏</string>
+
+    <string name="inputsetting">输入设置</string>
+    <string name="inputsetting_horzontal">水平轴</string>
+    <string name="inputsetting_vertical">竖直轴</string>
+    <string name="inputsetting_attack">攻击</string>
+    <string name="inputsetting_dodge">闪避</string>
+    <string name="inputsetting_switch">切换</string>
+    <string name="inputsetting_takeordrop">拾取或丢弃</string>
+    <string name="inputsetting_mousereversal">鼠标反转</string>
+    <string name="inputsetting_mousesensitivity">鼠标灵敏度</string>
+    <string name="inputsetting_readinput">请输入..</string>
+    
+    <string name="setting_backtip">确定放弃所有设置并退出吗?</string>
+    <string name="setting_savetip">是否保存所有设置?</string>
+
+    <string name="enter">确定</string>
+    <string name="cancel">取消</string>
   </Chinese>
+  
 </Language>
