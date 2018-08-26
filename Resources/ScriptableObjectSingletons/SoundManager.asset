@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe00bb763589bf4083dfb3bd62b6f6d, type: 3}
   m_Name: SoundManager
   m_EditorClassIdentifier: 
-  musicVolume: 0.89
+  musicVolume: 0.51428574
   sFXVolume: 1
   soundCollectUpdateTime: 11

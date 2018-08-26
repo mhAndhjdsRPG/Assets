@@ -9,14 +9,15 @@ using System.Reflection;
 [CustomPropertyDrawer(typeof(SetPropertyAttribute))]
 public class SetPropertyDrawer : PropertyDrawer
 {
+    float sliderValue = 0;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         // Rely on the default inspector GUI
         EditorGUI.BeginChangeCheck();
         EditorGUI.PropertyField(position, property, label);
-
         // Update only when necessary
         SetPropertyAttribute setProperty = attribute as SetPropertyAttribute;
+
         if (EditorGUI.EndChangeCheck())
         {
             // When a SerializedProperty is modified the actual field does not have the current value set (i.e.  
@@ -31,7 +32,6 @@ public class SetPropertyDrawer : PropertyDrawer
             // to find which object is the actual parent before attempting to set the property with the current value.
             object parent = GetParentObjectOfProperty(property.propertyPath, property.serializedObject.targetObject);
             Type type = parent.GetType();
-
             PropertyInfo pi = type.GetProperty(setProperty.Name);
             if (pi == null)
             {
