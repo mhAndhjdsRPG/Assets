@@ -14,5 +14,6 @@ public class MagicBehavior : MonoBehaviour
 
     public virtual void OnMagicUpdate() { }
 
+   
 
 }

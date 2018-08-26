@@ -10,9 +10,9 @@ public enum MagicType
     lockTrans
 }
 
-//[RequireComponent(typeof(Rigidbody))]
 public sealed class Magic : MonoBehaviour
 {
+
     [Header("=====伤害信息=====")]
     public float loseHp;
     public float loseHard;

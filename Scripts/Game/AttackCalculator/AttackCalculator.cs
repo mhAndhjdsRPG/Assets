@@ -38,6 +38,9 @@ public class AttackCalculator : MonoBehaviour
         {
             AttackedByMagic(col);
         }
+
+       
+
     }
 
 
