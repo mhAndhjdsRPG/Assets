@@ -79,6 +79,7 @@ public class AttackState : State
         if (!string.IsNullOrEmpty(needTriggerNameAfterCanJump))
         {
             ani.SetTrigger(needTriggerNameAfterCanJump);
+            needTriggerNameAfterCanJump = string.Empty;
         }
 
     }

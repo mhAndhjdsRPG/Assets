@@ -20,6 +20,6 @@ public class Hero : ICharacter
             return "";
         }
     }
-
+    
    
 }

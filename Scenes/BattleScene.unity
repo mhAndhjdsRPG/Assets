@@ -7695,6 +7695,7 @@ MonoBehaviour:
   fire3: 0
   fire4: 0
   _switch: 0
+  roll: 0
   horizontal: 0
   vertical: 0
 --- !u!143 &1355149319
@@ -8105,17 +8106,23 @@ MonoBehaviour:
   state: {fileID: 0}
   attackCalculator: {fileID: 0}
   ani: {fileID: 0}
-  NotGetHurt: 0
+  head: {fileID: 0}
+  origin: {fileID: 0}
+  chest: {fileID: 0}
+  notGetHurt: 0
   maxHP: 0
   hp: 0
   baseAtk: 0
-  addAtkValue: 0
-  multipleAtkValue: 0
+  addAtk: 0
+  multipleAtk: 0
   totalAtk: 0
   baseAgl: 0
   addAgl: 0
   multipleAgl: 0
   totalAgl: 0
+  recoverHardPerTime: 0
+  waitSeoncondForRecoverHard: 0
+  maxHard: 0
   hard: 0
   dodgeCoolDown: 0
   rage: 0
@@ -8141,6 +8148,7 @@ MonoBehaviour:
   fire3: 0
   fire4: 0
   _switch: 0
+  roll: 0
   horizontal: 0
   vertical: 0
 --- !u!143 &1540526349
@@ -13788,6 +13796,9 @@ MonoBehaviour:
   minDistance: 6
   midleDistance: 4
   maxDistance: 3
+  cullingMask:
+    serializedVersion: 2
+    m_Bits: 0
   lockedCameraDistance: 5
   lockedCameraHeight: 1
   maxLoseLockDistance: 1000
@@ -14006,22 +14017,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8695ad8368e8d7b489f907db9c7a8cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 0}
+  input: {fileID: 1355149318}
   weaponManager: {fileID: 0}
   state: {fileID: 0}
   attackCalculator: {fileID: 0}
   ani: {fileID: 0}
-  NotGetHurt: 0
+  head: {fileID: 0}
+  origin: {fileID: 0}
+  chest: {fileID: 0}
+  notGetHurt: 0
   maxHP: 0
   hp: 10
   baseAtk: 0
-  addAtkValue: 0
-  multipleAtkValue: 0
+  addAtk: 0
+  multipleAtk: 0
   totalAtk: 0
   baseAgl: 0
   addAgl: 0
   multipleAgl: 0
   totalAgl: 0
+  recoverHardPerTime: 0
+  waitSeoncondForRecoverHard: 0
+  maxHard: 0
   hard: 0
   dodgeCoolDown: 0
 --- !u!1 &1931710352

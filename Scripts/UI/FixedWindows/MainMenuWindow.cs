@@ -53,12 +53,12 @@ public class MainMenuWindow : FixedWindow
     public void Btn_AchievementClick()
     {
         Debug.Log("Btn_ShopClick");
-        SoundManager.Instance.PlaySound2D(null);
     }
 
     public void Btn_StartGameClick()
     {
         Debug.Log("Btn_StartGameClick");
+        ScenesLoadManager.Instance.LoadSceneSync(new BattleScene());
     }
 
     public void Btn_QuitClick()
