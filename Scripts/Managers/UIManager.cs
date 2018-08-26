@@ -49,6 +49,7 @@ public class UIManager : Singleton<UIManager>
             }
             //置顶新当前
             BumpCurrentWindowToTop(value);
+            //解冻当前窗口
             ThawWindow(value.Name);
             currentWindow = value;
         }
@@ -146,9 +147,9 @@ public class UIManager : Singleton<UIManager>
             else
             {
                 WindowBase deleteWindow = windowsDic[windowName];
+                CurrentWindow = Canvas.GetChild(Canvas.childCount - 1).GetComponent<WindowBase>();
                 windowsDic.Remove(windowName);
                 GameObject.Destroy(deleteWindow.gameObject);
-                CurrentWindow = Canvas.GetChild(Canvas.childCount - 1).GetComponent<WindowBase>();
             }
         }
         else

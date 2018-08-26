@@ -22,11 +22,20 @@ public class MainMenuWindow : FixedWindow
         buttonsDic["Btn_Setting"].onClick.AddListener(Btn_SettingClick);
         buttonsDic["Btn_Achievement"].onClick.AddListener(Btn_AchievementClick);
         imageDic["Image_Shade"].raycastTarget = false;
+
+        LanguageManager.Instance.BindKeyToText(textDic["Text_Tittle"], "game_name");
+        LanguageManager.Instance.BindKeyToText(textDic["Text_StartGame"], "startgame");
+        LanguageManager.Instance.BindKeyToText(textDic["Text_Achievement"], "achievement");
+        LanguageManager.Instance.BindKeyToText(textDic["Text_Quit"], "quit");
+
     }
 
-    public void LargenText()
+    private void OnDestroy()
     {
-
+        LanguageManager.Instance.UnbindText(textDic["Text_Tittle"]);
+        LanguageManager.Instance.UnbindText(textDic["Text_StartGame"]);
+        LanguageManager.Instance.UnbindText(textDic["Text_Achievement"]);
+        LanguageManager.Instance.UnbindText(textDic["Text_Quit"]);
     }
 
     private enum DivideType
@@ -44,6 +53,7 @@ public class MainMenuWindow : FixedWindow
     public void Btn_AchievementClick()
     {
         Debug.Log("Btn_ShopClick");
+        SoundManager.Instance.PlaySound2D(null);
     }
 
     public void Btn_StartGameClick()

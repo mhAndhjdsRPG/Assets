@@ -1,4 +1,10 @@
-﻿/// <summary>
+﻿public enum LanguageType
+{
+    English,
+    Chinese,
+}
+
+/// <summary>
 /// UIPanel类型
 /// </summary>
 public enum WindowType
@@ -19,28 +25,6 @@ public enum WindowType
     /// 弹窗
     /// </summary>
     MessageBox,
-}
-public enum WindowState
-{
-    Active,
-    Frozen,
-    Hiden,
-}
-
-/// <summary>
-/// UI位置类型
-/// </summary>
-public enum UIPositionType
-{
-    LeftUp,
-    LeftCenter,
-    LeftDown,
-    Up,
-    Center,
-    Down,
-    RightUp,
-    RightCenter,
-    RightDown,
 }
 
 public enum CharacterType

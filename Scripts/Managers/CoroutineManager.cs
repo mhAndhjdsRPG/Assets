@@ -16,21 +16,21 @@ public class CoroutineManager : MonoSingleton<CoroutineManager>
 
     protected override void OnFixedUpdate()
     {
-
+        
     }
 
     protected override void OnLateUpdate()
     {
-
+        
     }
 
     protected override void OnStart()
     {
-
+        
     }
 
     protected override void OnUpdate()
     {
-
+        
     }
 }
