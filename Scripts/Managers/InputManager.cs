@@ -2,8 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 public class InputManager : MonoBehaviour
 {
+    
+    [Header("====== KeyName ======")]
+    public string attack1KeyName;
+    public string attack2KeyName;
+
+    public bool attack1;
+    public bool attack2;
+         
+
+
+
     public bool onlyHasInput = false;
     public bool readInput = false;
 
@@ -45,6 +57,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+       
         inputBoolDic.Add("Fire1", fire1);
         inputBoolDic.Add("Fire2", fire2);
         inputBoolDic.Add("Fire3", fire3);
@@ -55,16 +68,19 @@ public class InputManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        inputBoolDic["Fire1"] = false;
-        inputBoolDic["Fire2"] = false;
-        inputBoolDic["Fire3"] = false;
-        inputBoolDic["Fire4"] = false;
-        inputBoolDic["Switch"] = false;
-        inputBoolDic["Roll"] = false;
+        fire1=inputBoolDic["Fire1"] = false;
+        fire2=inputBoolDic["Fire2"] = false;
+        fire3=inputBoolDic["Fire3"] = false;
+        fire4=inputBoolDic["Fire4"] = false;
+        _switch=inputBoolDic["Switch"] = false;
+        roll=inputBoolDic["Roll"] = false;
     }
 
+  
     private void Update()
     {
+
+       
         if (readInput)
         {
             if (Input.GetButtonDown("Fire1"))
