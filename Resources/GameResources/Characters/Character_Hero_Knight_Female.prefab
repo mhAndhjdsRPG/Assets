@@ -944,7 +944,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131680}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.65, z: -2.3}
+  m_LocalPosition: {x: 0, y: 1.65, z: -1.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 444994}
@@ -2631,7 +2631,7 @@ MonoBehaviour:
   ySensitive: 1
   followSpeed: 0.4
   maxAngle: 80
-  minAngle: -10
+  minAngle: -40
   currentLocalAngle: 0
   minDistance: 5
   midleDistance: 5
@@ -2813,6 +2813,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1fe7d3b4cfc5d4da6daef9f5179cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack1KeyName: a
+  attack2KeyName: b
+  attack1: 0
+  attack2: 0
   onlyHasInput: 0
   readInput: 1
   fire1: 0
@@ -2838,10 +2842,10 @@ MonoBehaviour:
   weaponManager: {fileID: 114417400591109672}
   state: {fileID: 0}
   attackCalculator: {fileID: 114407252459065358}
+  ani: {fileID: 9547916}
   head: {fileID: 465894}
   origin: {fileID: 439852}
   chest: {fileID: 463992}
-  ani: {fileID: 9547916}
   notGetHurt: 0
   maxHP: 100
   hp: 100

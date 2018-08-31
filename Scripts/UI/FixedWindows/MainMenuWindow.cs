@@ -58,7 +58,7 @@ public class MainMenuWindow : FixedWindow
     public void Btn_StartGameClick()
     {
         Debug.Log("Btn_StartGameClick");
-        ScenesLoadManager.Instance.LoadSceneSync(new BattleScene());
+        ScenesLoadManager.Instance.LoadSceneSync(BattleScene.Instance);
     }
 
     public void Btn_QuitClick()

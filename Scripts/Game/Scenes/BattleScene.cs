@@ -4,7 +4,6 @@ using System.Collections;
 public class BattleScene : IScene
 {
     public RoomController roomController;
-
     public override string Name
     {
         get
@@ -13,9 +12,22 @@ public class BattleScene : IScene
         }
     }
 
+    public static BattleScene instance;
+    public static BattleScene Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new BattleScene();
+            }
+            return instance;
+        }
+    }
+
     public override void OnSceneEnter()
     {
-        
+
     }
 
     public override void OnSceneExit()
@@ -25,22 +37,8 @@ public class BattleScene : IScene
 
     public override void OnSceneStartLoad()
     {
-        roomController = InitRoomController();
-        roomController.CreateRoomEnvironment(7, 11);
-        roomController.PutBuildingInRoom();
+        
     }
 
-    private RoomController InitRoomController()
-    {
-        GameObject room = GameObject.Find("Room");
-        if (room == null)
-        {
-            room = new GameObject("Room");
-        }
-        if (room.GetComponent<RoomController>() == null)
-        {
-            room.AddComponent<RoomController>();
-        }
-        return room.GetComponent<RoomController>();
-    }
+    
 }

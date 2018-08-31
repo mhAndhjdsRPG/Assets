@@ -83,6 +83,7 @@ public class RoomController : MonoBehaviour
 
     public void PutBuildingInRoom()
     {
+        Debug.Log("PutBuildingInRoom" + MapChunk.GetLength(0) + mapChunk.GetLength(1));
         for (int i = 0; i < MapChunk.GetLength(0); i++)
         {
             for (int j = 0; j < MapChunk.GetLength(1); j++)
@@ -90,7 +91,8 @@ public class RoomController : MonoBehaviour
                 MapChunk curMapVec = MapChunk[i, j];
                 float ranValue = Random.Range(0, allWeight);
                 int ranInt = Random.Range(0, 100);
-                if (ranInt < mapDensity)
+                Debug.Log(ranInt);
+                if (ranInt <= mapDensity)
                 {
                     if (ranValue < pillarWeight)
                     {

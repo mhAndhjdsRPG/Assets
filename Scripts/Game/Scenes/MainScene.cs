@@ -3,11 +3,25 @@ using System.Collections;
 
 public class MainScene : IScene
 {
+
     public override string Name
     {
         get
         {
             return "MainScene";
+        }
+    }
+
+    private static MainScene instance;
+    public static MainScene Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new MainScene();
+            }
+            return instance;
         }
     }
 

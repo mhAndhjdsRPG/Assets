@@ -8,7 +8,7 @@ public class ScenesLoadManager : Singleton<ScenesLoadManager>
 {
     private Dictionary<Type, IScene> sceneDic = new Dictionary<Type, IScene>();
 
-    public IScene curScene = null;
+    public IScene curScene = MainScene.Instance;
 
     public IScene GetScene<T>() where T : IScene, new()
     {
@@ -34,7 +34,7 @@ public class ScenesLoadManager : Singleton<ScenesLoadManager>
         curScene = nextScene;
         LoadingWindow.nextSceneName = nextScene.Name;
         LoadingWindow.OnLoadCompletion = nextScene.OnSceneEnter;
-        UIManager.Instance.CreateOrShowWindow(WindowName.LoadingWindow, null);
+        UIManager.Instance.CreateOrShowWindow(WindowName.LoadingWindow, UIManager.Instance.Canvas);
         nextScene.OnSceneStartLoad();
     }
 }

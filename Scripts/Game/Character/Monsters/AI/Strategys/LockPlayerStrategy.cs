@@ -85,8 +85,8 @@ public class LockPlayerStrategy : IStrategy
         Vector3 runForward = aI.curDestination - aI.Owner.transform.position;
         Vector3 inputVec = aI.Owner.transform.InverseTransformDirection(runForward);
         inputVec = (inputVec - Vector3.up * inputVec.y).normalized;
-        aI.Owner.input.Horizontal = inputVec.x;
-        aI.Owner.input.Vertical = inputVec.z;
+        //aI.Owner.input.Horizontal = inputVec.x;
+        //aI.Owner.input.Vertical = inputVec.z;
     }
 
     //private void RunStraightToPlayerTarget()
